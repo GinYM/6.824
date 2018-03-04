@@ -104,7 +104,9 @@ func (mr *Master) forwardRegistrations(ch chan string) {
 // master over RPC.
 func Distributed(jobName string, files []string, nreduce int, master string) (mr *Master) {
 	mr = newMaster(master)
+	//debug("Before startRPCServer\n")
 	mr.startRPCServer()
+	//debug("after startRPCServer\n")
 	go mr.run(jobName, files, nreduce,
 		func(phase jobPhase) {
 			ch := make(chan string)

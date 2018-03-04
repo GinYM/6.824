@@ -72,12 +72,16 @@ func (wk *Worker) DoTask(arg *DoTaskArgs, _ *struct{}) error {
 		time.Sleep(time.Second)
 	}
 
+	
+
 	switch arg.Phase {
 	case mapPhase:
 		doMap(arg.JobName, arg.TaskNumber, arg.File, arg.NumOtherPhase, wk.Map)
 	case reducePhase:
 		doReduce(arg.JobName, arg.TaskNumber, mergeName(arg.JobName, arg.TaskNumber), arg.NumOtherPhase, wk.Reduce)
 	}
+
+
 
 	wk.Lock()
 	wk.concurrent -= 1

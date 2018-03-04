@@ -24,7 +24,7 @@ const (
 
 // Split in words
 func MapFunc(file string, value string) (res []KeyValue) {
-	debug("Map %v\n", value)
+	//debug("Map %s\n", value)
 	words := strings.Fields(value)
 	for _, w := range words {
 		kv := KeyValue{w, ""}
@@ -132,6 +132,7 @@ func port(suffix string) string {
 func setup() *Master {
 	files := makeInputs(nMap)
 	master := port("master")
+	//debug("Has error?\n")
 	mr := Distributed("test", files, nReduce, master)
 	return mr
 }
@@ -144,7 +145,6 @@ func cleanup(mr *Master) {
 }
 
 func TestSequentialSingle(t *testing.T) {
-	t.Log("Here!")
 	mr := Sequential("test", makeInputs(1), 1, MapFunc, ReduceFunc)
 	mr.Wait()
 	check(t, mr.files)
@@ -161,7 +161,9 @@ func TestSequentialMany(t *testing.T) {
 }
 
 func TestParallelBasic(t *testing.T) {
+	//debug("Start!\n")
 	mr := setup()
+	//debug("After setup\n")
 	for i := 0; i < 2; i++ {
 		go RunWorker(mr.address, port("worker"+strconv.Itoa(i)),
 			MapFunc, ReduceFunc, -1, nil)
