@@ -54,11 +54,20 @@ func schedule(jobName string, mapFiles []string, nReduce int, phase jobPhase, re
 			}else{
 				dt = DoTaskArgs{jobName,"",phase,i,n_other}
 			}
-			debug("i is %d\n",i)
-			regchan := <-registerChan
-			call(regchan,"Worker.DoTask",dt,nil)
-			wg.Done()
-			registerChan <- regchan
+			prev := []string{}
+			for regchan := range registerChan{
+				r := call(regchan,"Worker.DoTask",dt,nil)
+				prev = append(prev,regchan)
+				if(r == true){
+					wg.Done()
+					for _,channame := range prev{
+						registerChan <- channame
+					}
+					return
+				}
+				
+			}
+			
 				
 		
 			
