@@ -94,13 +94,18 @@ func (rf *Raft) GetState() (int, bool) {
 	var term int
 	var isleader bool
 	// Your code here (2A).
+	rf.mu.Lock()
 	term = rf.currentTerm
+	state:=rf.state
+	rf.mu.Unlock()
 
-	if rf.state == Leader{
+	//rf.mu.Lock()
+	if state == Leader{
 		isleader = true
 	}else{
 		isleader = false
 	}
+	//rf.mu.Unlock()
 
 
 	return term, isleader
@@ -211,12 +216,14 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		rf.commitIndex = min(args.LeaderCommit,len(args.Entries)-1)
 	}
 
+	rf.mu.Lock()
 	if len(args.Entries) == 0{
-		rf.mu.Lock()
+		//rf.mu.Lock()
 		//DPrintf("Reset timmer")
 		rf.resetTimmer(false)
-		rf.mu.Unlock()
+		//rf.mu.Unlock()
 	}
+	rf.mu.Unlock()
 }
 
 
@@ -261,22 +268,26 @@ type RequestVoteReply struct {
 func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// Your code here (2A, 2B).
 	//DPrintf("in requestVote")
-	if args.Term <rf.currentTerm{
+	rf.mu.Lock()
+	rf_currentTerm := rf.currentTerm
+	rf.mu.Unlock()
+	if args.Term <rf_currentTerm{
 		reply.VoteGranted = false
 		reply.Term = rf.currentTerm
 		return
 	}
 
-	rf.mu.Lock()
+	//rf.mu.Lock()
 	if args.Term > rf.currentTerm {
-		//rf.mu.Lock()
+		
 		rf.state = Follower
 		rf.votedFor = -1
 		rf.count = 0
+		rf.mu.Lock()
 		rf.currentTerm = args.Term
-		//rf.mu.Unlock()
+		rf.mu.Unlock()
 	}
-	rf.mu.Unlock()
+	//rf.mu.Unlock()
 
 	
 	if rf.votedFor == -1 || rf.votedFor == args.CandidateId{
@@ -346,6 +357,7 @@ func (rf * Raft) resetTimmer(isHeartbeat bool){
 	//	<-rf.timer.C
 	//}
 	//DPrintf("Reset time")
+	//rf.mu.Lock()
 	if isHeartbeat {
 		rf.timer.Reset(duration_heartbeat())
 		
@@ -353,6 +365,7 @@ func (rf * Raft) resetTimmer(isHeartbeat bool){
 		rf.timer.Reset(duration())
 		//DPrintf("time: %d",duration())
 	}
+	//rf.mu.Unlock()
 }
 
 
@@ -438,7 +451,9 @@ func (rf *Raft) sendHeartbeat(){
 			
 		}(rf,i)
 	}
+	rf.mu.Lock()
 	rf.resetTimmer(true)
+	rf.mu.Unlock()
 }
 
 //
@@ -487,21 +502,33 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	go func (rf * Raft) {
 		for true {
 			<-rf.timer.C
-			switch rf.state{
+			rf.mu.Lock()
+			rf_state:=rf.state
+			rf.mu.Unlock()
+			switch rf_state{
 			case Follower:
 				//if election timeout covert to candidate
+				rf.mu.Lock()
 				rf.state = Candidate
 				rf.resetTimmer(false)
+				rf.mu.Unlock()
 			case Candidate:
 				//DPrintf("IN candidate")
 				//increment currentTerm, vote for itself, reset election time
+				rf.mu.Lock()
 				rf.currentTerm++
+				//rf.mu.Unlock()
+				//rf.mu.Lock()
 				rf.votedFor = rf.me
+				//rf.mu.Unlock()
 				rf.resetTimmer(false)
 				//send request vote to all other servers
 				rf.count = 1
+				rf.mu.Unlock()
 				go rf.sendRequestVoteAll()
+				rf.mu.Lock()
 				rf.resetTimmer(false)
+				rf.mu.Unlock()
 			case Leader:
 				go rf.sendHeartbeat()
 			}
