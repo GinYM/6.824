@@ -161,6 +161,7 @@ func (cfg *config) start1(i int) {
 			if m.CommandValid == false {
 				// ignore other types of ApplyMsg
 			} else if v, ok := (m.Command).(int); ok {
+				//DPrintf("Here???")
 				cfg.mu.Lock()
 				for j := 0; j < len(cfg.logs); j++ {
 					if old, oldok := cfg.logs[j][m.CommandIndex]; oldok && old != v {
@@ -347,7 +348,10 @@ func (cfg *config) nCommitted(index int) (int, interface{}) {
 		cmd1, ok := cfg.logs[i][index]
 		cfg.mu.Unlock()
 
+		//DPrintf("in nCommitted: cmd1 %d, ok %d",cmd1,ok)
+
 		if ok {
+			//DPrintf("ok!")
 			if count > 0 && cmd != cmd1 {
 				cfg.t.Fatalf("committed values do not match: index %v, %v, %v\n",
 					index, cmd, cmd1)
@@ -416,9 +420,12 @@ func (cfg *config) one(cmd int, expectedServers int, retry bool) int {
 				rf = cfg.rafts[starts]
 			}
 			cfg.mu.Unlock()
+			//DPrintf("Here?")
 			if rf != nil {
 				index1, _, ok := rf.Start(cmd)
+				//DPrintf("ps?: %t",ok)
 				if ok {
+					DPrintf("index for leaeder next: %d",index1)
 					index = index1
 					break
 				}
@@ -426,13 +433,16 @@ func (cfg *config) one(cmd int, expectedServers int, retry bool) int {
 		}
 
 		if index != -1 {
+			//DPrintf("Here")
 			// somebody claimed to be the leader and to have
 			// submitted our command; wait a while for agreement.
 			t1 := time.Now()
 			for time.Since(t1).Seconds() < 2 {
 				nd, cmd1 := cfg.nCommitted(index)
+				DPrintf("nd:%d, cmd1:%d, index:%d",nd,cmd1,index)
 				if nd > 0 && nd >= expectedServers {
 					// committed
+					//DPrintf("Here?? in if")
 					if cmd2, ok := cmd1.(int); ok && cmd2 == cmd {
 						// and it was the command we submitted.
 						return index
