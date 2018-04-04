@@ -439,7 +439,7 @@ func (cfg *config) one(cmd int, expectedServers int, retry bool) int {
 			t1 := time.Now()
 			for time.Since(t1).Seconds() < 2 {
 				nd, cmd1 := cfg.nCommitted(index)
-				DPrintf("nd:%d, cmd1:%d, index:%d",nd,cmd1,index)
+				//DPrintf("nd:%d, cmd1:%d, index:%d",nd,cmd1,index)
 				if nd > 0 && nd >= expectedServers {
 					// committed
 					//DPrintf("Here?? in if")
