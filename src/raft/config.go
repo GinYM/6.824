@@ -348,7 +348,7 @@ func (cfg *config) nCommitted(index int) (int, interface{}) {
 		cmd1, ok := cfg.logs[i][index]
 		cfg.mu.Unlock()
 
-		//DPrintf("in nCommitted: cmd1 %d, ok %d",cmd1,ok)
+		//DPrintf("in nCommitted: cmd1 %v, ok %v, i:%d",cmd1,ok,i)
 
 		if ok {
 			//DPrintf("ok!")
@@ -410,6 +410,7 @@ func (cfg *config) one(cmd int, expectedServers int, retry bool) int {
 	t0 := time.Now()
 	starts := 0
 	for time.Since(t0).Seconds() < 10 {
+		//DPrintf("Here?")
 		// try all the servers, maybe one is the leader.
 		index := -1
 		for si := 0; si < cfg.n; si++ {
@@ -425,7 +426,7 @@ func (cfg *config) one(cmd int, expectedServers int, retry bool) int {
 				index1, _, ok := rf.Start(cmd)
 				//DPrintf("ps?: %t",ok)
 				if ok {
-					DPrintf("index for leaeder next: %d",index1)
+					DPrintf("index for leaeder next: %d, leader if:%d, currentTerm:%d",index1,rf.me,rf.currentTerm)
 					index = index1
 					break
 				}
@@ -433,11 +434,12 @@ func (cfg *config) one(cmd int, expectedServers int, retry bool) int {
 		}
 
 		if index != -1 {
-			//DPrintf("Here")
+			//DPrintf("Here in one")
 			// somebody claimed to be the leader and to have
 			// submitted our command; wait a while for agreement.
 			t1 := time.Now()
 			for time.Since(t1).Seconds() < 2 {
+				//DPrintf("index is:%d",index)
 				nd, cmd1 := cfg.nCommitted(index)
 				//DPrintf("nd:%d, cmd1:%d, index:%d",nd,cmd1,index)
 				if nd > 0 && nd >= expectedServers {
