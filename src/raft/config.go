@@ -426,7 +426,7 @@ func (cfg *config) one(cmd int, expectedServers int, retry bool) int {
 				index1, _, ok := rf.Start(cmd)
 				//DPrintf("ps?: %t",ok)
 				if ok {
-					DPrintf("index for leaeder next: %d, leader if:%d, currentTerm:%d",index1,rf.me,rf.currentTerm)
+					//DPrintf("index for leaeder next: %d, leader if:%d, currentTerm:%d",index1,rf.me,rf.currentTerm)
 					index = index1
 					break
 				}

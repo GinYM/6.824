@@ -530,6 +530,8 @@ func TestPersist12C(t *testing.T) {
 		cfg.connect(i)
 	}
 
+	DPrintf("here")
+
 	cfg.one(12, servers, true)
 
 	leader1 := cfg.checkOneLeader()
@@ -567,20 +569,30 @@ func TestPersist22C(t *testing.T) {
 
 	index := 1
 	for iters := 0; iters < 5; iters++ {
+		DPrintf("iters:%d",iters)
+		DPrintf("start:%d",10+index)
 		cfg.one(10+index, servers, true)
 		index++
 
 		leader1 := cfg.checkOneLeader()
+		DPrintf("leader1:%d",leader1)
+
+		//DPrintf("start:%d",10+index)
 
 		cfg.disconnect((leader1 + 1) % servers)
 		cfg.disconnect((leader1 + 2) % servers)
 
+		DPrintf("start:%d",10+index)
 		cfg.one(10+index, servers-2, true)
 		index++
 
 		cfg.disconnect((leader1 + 0) % servers)
 		cfg.disconnect((leader1 + 3) % servers)
 		cfg.disconnect((leader1 + 4) % servers)
+
+		//DPrintf("start1:%d",(leader1 + 1) % servers)
+		//DPrintf("start1:%d",(leader1 + 2) % servers)
+
 
 		cfg.start1((leader1 + 1) % servers)
 		cfg.start1((leader1 + 2) % servers)
@@ -589,8 +601,16 @@ func TestPersist22C(t *testing.T) {
 
 		time.Sleep(RaftElectionTimeout)
 
+		//leader2 := cfg.checkOneLeader()
+		//DPrintf("leader2:%d",leader2)
+
 		cfg.start1((leader1 + 3) % servers)
 		cfg.connect((leader1 + 3) % servers)
+
+		DPrintf("start:%d",10+index)
+
+		leader3 := cfg.checkOneLeader()
+		DPrintf("leader3:%d",leader3)
 
 		cfg.one(10+index, servers-2, true)
 		index++
