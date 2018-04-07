@@ -614,7 +614,7 @@ func TestPersist22C(t *testing.T) {
 		cfg.start1((leader1 + 3) % servers)
 		cfg.connect((leader1 + 3) % servers)
 
-		DPrintf("start:%d",10+index)
+		DPrintf("start new!:%d",10+index)
 
 		leader3 := cfg.checkOneLeader()
 		DPrintf("leader3:%d",leader3)
