@@ -1,8 +1,10 @@
 package labgob
 
 //
-// wrapper around Go's encoding/gob, that
-// checks and warns about capitalization.
+// trying to send non-capitalized fields over RPC produces a range of
+// misbehavior, including both mysterious incorrect computation and
+// outright crashes. so this wrapper around Go's encoding/gob warns
+// about non-capitalized field names.
 //
 
 import "encoding/gob"
@@ -89,7 +91,7 @@ func checkType(t reflect.Type) {
 			rune, _ := utf8.DecodeRuneInString(f.Name)
 			if unicode.IsUpper(rune) == false {
 				// ta da
-				fmt.Printf("labgob warning: lower-case field %v of %v won't work over RPC or in persist/snapshot\n",
+				fmt.Printf("labgob error: lower-case field %v of %v in RPC or persist/snapshot will break your Raft\n",
 					f.Name, t.Name())
 				mu.Lock()
 				errorCount += 1
@@ -161,6 +163,9 @@ func checkDefault1(value reflect.Value, depth int, name string) {
 				if what == "" {
 					what = t.Name()
 				}
+				// this warning typically arises if code re-uses the same RPC reply
+				// variable for multiple RPC calls, or if code restores persisted
+				// state into variable that already have non-default values.
 				fmt.Printf("labgob warning: Decoding into a non-default variable/field %v may not work\n",
 					what)
 			}

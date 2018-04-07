@@ -29,13 +29,20 @@ func TestInitialElection2A(t *testing.T) {
 	// is a leader elected?
 	cfg.checkOneLeader()
 
-	// does the leader+term stay the same if there is no network failure?
+	// sleep a bit to avoid racing with followers learning of the
+	// election, then check that all peers agree on the term.
+	time.Sleep(50 * time.Millisecond)
 	term1 := cfg.checkTerms()
+
+	// does the leader+term stay the same if there is no network failure?
 	time.Sleep(2 * RaftElectionTimeout)
 	term2 := cfg.checkTerms()
 	if term1 != term2 {
 		fmt.Printf("warning: term changed even though there were no failures")
 	}
+
+	// there should still be a leader.
+	cfg.checkOneLeader()
 
 	cfg.end()
 }
@@ -54,7 +61,7 @@ func TestReElection2A(t *testing.T) {
 	cfg.checkOneLeader()
 
 	// if the old leader rejoins, that shouldn't
-	// disturb the old leader.
+	// disturb the new leader.
 	cfg.connect(leader1)
 	leader2 := cfg.checkOneLeader()
 
@@ -138,7 +145,7 @@ func TestFailNoAgree2B(t *testing.T) {
 
 	cfg.begin("Test (2B): no agreement if too many followers disconnect")
 
-	cfg.one(10, servers, true)
+	cfg.one(10, servers, false)
 
 	// 3 of 5 followers disconnect
 	leader := cfg.checkOneLeader()
