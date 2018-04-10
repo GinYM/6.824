@@ -1,3333 +1,1020 @@
-Test (2C): more persistence ...
-2018/04/07 18:43:10 iters:0
-2018/04/07 18:43:10 start:11
-2018/04/07 18:43:10 candidate id:1
-2018/04/07 18:43:10 rf.me:0, len(rf.log):1, commitIndex:0, lastTerm:0, currentTerm:1, vote:-1
-2018/04/07 18:43:10 leader_last_term:0, follower_last_term:0, leader_last_index:0, follower_last_index:0
-2018/04/07 18:43:10 from 0 to 1 rf.votedFor -1 args.LastLogTerm(leader):0 follower(commited):0
-2018/04/07 18:43:10 rf.me:2, len(rf.log):1, commitIndex:0, lastTerm:0, currentTerm:1, vote:-1
-2018/04/07 18:43:10 leader_last_term:0, follower_last_term:0, leader_last_index:0, follower_last_index:0
-2018/04/07 18:43:10 from 2 to 1 rf.votedFor -1 args.LastLogTerm(leader):0 follower(commited):0
-2018/04/07 18:43:10 rf.me:3, len(rf.log):1, commitIndex:0, lastTerm:0, currentTerm:1, vote:-1
-2018/04/07 18:43:10 leader_last_term:0, follower_last_term:0, leader_last_index:0, follower_last_index:0
-2018/04/07 18:43:10 from 3 to 1 rf.votedFor -1 args.LastLogTerm(leader):0 follower(commited):0
-2018/04/07 18:43:10 rf.me:4, len(rf.log):1, commitIndex:0, lastTerm:0, currentTerm:1, vote:-1
-2018/04/07 18:43:10 leader_last_term:0, follower_last_term:0, leader_last_index:0, follower_last_index:0
-2018/04/07 18:43:10 from 4 to 1 rf.votedFor -1 args.LastLogTerm(leader):0 follower(commited):0
-2018/04/07 18:43:10 rf.me:1, len(rf.log):1, commitIndex:0, lastTerm:0, currentTerm:1, vote:1
-2018/04/07 18:43:10 Leader Sending applymsg command:11, lastApplyied:1, rf.me:1, term:1, commitIndex:1
-2018/04/07 18:43:10 Sending applymsg command:11, lastApplyied:1, rf.me:2, term:1, commitIndex:1
-2018/04/07 18:43:10 Sending applymsg command:11, lastApplyied:1, rf.me:0, term:1, commitIndex:1
-2018/04/07 18:43:10 Sending applymsg command:11, lastApplyied:1, rf.me:3, term:1, commitIndex:1
-2018/04/07 18:43:10 Sending applymsg command:11, lastApplyied:1, rf.me:4, term:1, commitIndex:1
-2018/04/07 18:43:11 leader1:1
-2018/04/07 18:43:11 start:12
-2018/04/07 18:43:11 Leader Sending applymsg command:12, lastApplyied:2, rf.me:1, term:1, commitIndex:2
-2018/04/07 18:43:11 Sending applymsg command:12, lastApplyied:2, rf.me:4, term:1, commitIndex:2
-2018/04/07 18:43:11 Sending applymsg command:12, lastApplyied:2, rf.me:0, term:1, commitIndex:2
-2018/04/07 18:43:11 candidate id:3
-2018/04/07 18:43:11 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:2, vote:-1
-2018/04/07 18:43:11 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:11 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:11 candidate id:2
-2018/04/07 18:43:11 candidate id:4
-2018/04/07 18:43:11 candidate id:0
-2018/04/07 18:43:11 candidate id:3
-2018/04/07 18:43:11 candidate id:2
-2018/04/07 18:43:11 candidate id:3
-2018/04/07 18:43:11 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:3, vote:-1
-2018/04/07 18:43:11 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:11 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:11 candidate id:0
-2018/04/07 18:43:11 candidate id:4
-2018/04/07 18:43:11 candidate id:3
-2018/04/07 18:43:11 candidate id:2
-2018/04/07 18:43:11 candidate id:3
-2018/04/07 18:43:11 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:4, vote:-1
-2018/04/07 18:43:11 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:11 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:11 candidate id:3
-2018/04/07 18:43:11 candidate id:0
-2018/04/07 18:43:11 candidate id:4
-2018/04/07 18:43:11 candidate id:3
-2018/04/07 18:43:11 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:5, vote:-1
-2018/04/07 18:43:11 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:11 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:11 candidate id:2
-2018/04/07 18:43:12 candidate id:4
-2018/04/07 18:43:12 candidate id:2
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 candidate id:0
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:6, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:12 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:12 candidate id:2
-2018/04/07 18:43:12 candidate id:4
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:7, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:12 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:12 candidate id:0
-2018/04/07 18:43:12 start new!:13
-2018/04/07 18:43:12 candidate id:2
-2018/04/07 18:43:12 candidate id:4
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 candidate id:0
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:8, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:12 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:8, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:12 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:12 candidate id:4
-2018/04/07 18:43:12 candidate id:2
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:9, vote:-1
-2018/04/07 18:43:12 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:9, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:12 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:12 candidate id:0
-2018/04/07 18:43:12 candidate id:4
-2018/04/07 18:43:12 candidate id:2
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:10, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:12 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:10, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:12 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 candidate id:4
-2018/04/07 18:43:12 candidate id:0
-2018/04/07 18:43:12 candidate id:2
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:11, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:12 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:11, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:12 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:12 candidate id:4
-2018/04/07 18:43:12 candidate id:0
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 candidate id:2
-2018/04/07 18:43:12 candidate id:3
-2018/04/07 18:43:12 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:12, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:12 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:12 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:12, vote:-1
-2018/04/07 18:43:12 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:13 candidate id:4
-2018/04/07 18:43:13 candidate id:3
-2018/04/07 18:43:13 candidate id:0
-2018/04/07 18:43:13 candidate id:2
-2018/04/07 18:43:13 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:13, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:13 rf.me:3, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:13, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:13 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:13 candidate id:2
-2018/04/07 18:43:13 candidate id:0
-2018/04/07 18:43:13 candidate id:4
-2018/04/07 18:43:13 candidate id:3
-2018/04/07 18:43:13 candidate id:2
-2018/04/07 18:43:13 candidate id:3
-2018/04/07 18:43:13 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:14, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:13 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:14, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:13 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:13 candidate id:0
-2018/04/07 18:43:13 candidate id:4
-2018/04/07 18:43:13 candidate id:2
-2018/04/07 18:43:13 candidate id:3
-2018/04/07 18:43:13 candidate id:3
-2018/04/07 18:43:13 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:15, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:13 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:15, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:13 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:13 candidate id:0
-2018/04/07 18:43:13 candidate id:2
-2018/04/07 18:43:13 candidate id:4
-2018/04/07 18:43:13 candidate id:3
-2018/04/07 18:43:13 candidate id:3
-2018/04/07 18:43:13 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:16, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:13 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:16, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:13 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:13 candidate id:0
-2018/04/07 18:43:13 candidate id:4
-2018/04/07 18:43:13 candidate id:2
-2018/04/07 18:43:13 candidate id:3
-2018/04/07 18:43:13 candidate id:2
-2018/04/07 18:43:13 rf.me:3, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:17, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:13 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:13 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:17, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:13 candidate id:2
-2018/04/07 18:43:13 candidate id:4
-2018/04/07 18:43:13 candidate id:0
-2018/04/07 18:43:13 candidate id:3
-2018/04/07 18:43:13 candidate id:2
-2018/04/07 18:43:13 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:18, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:13 rf.me:3, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:18, vote:-1
-2018/04/07 18:43:13 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:13 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:13 candidate id:4
-2018/04/07 18:43:13 candidate id:2
-2018/04/07 18:43:14 candidate id:0
-2018/04/07 18:43:14 candidate id:3
-2018/04/07 18:43:14 candidate id:2
-2018/04/07 18:43:14 rf.me:3, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:19, vote:-1
-2018/04/07 18:43:14 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:14 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:14 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:19, vote:-1
-2018/04/07 18:43:14 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:14 candidate id:4
-2018/04/07 18:43:14 candidate id:2
-2018/04/07 18:43:14 candidate id:2
-2018/04/07 18:43:14 rf.me:3, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:20, vote:-1
-2018/04/07 18:43:14 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:14 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:14 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:20, vote:-1
-2018/04/07 18:43:14 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:14 candidate id:0
-2018/04/07 18:43:14 candidate id:3
-2018/04/07 18:43:14 candidate id:2
-2018/04/07 18:43:14 candidate id:4
-2018/04/07 18:43:14 candidate id:0
-2018/04/07 18:43:14 candidate id:2
-2018/04/07 18:43:14 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:21, vote:-1
-2018/04/07 18:43:14 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:14 rf.me:3, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:21, vote:-1
-2018/04/07 18:43:14 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:14 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:14 candidate id:3
-2018/04/07 18:43:14 candidate id:4
-2018/04/07 18:43:14 candidate id:2
-2018/04/07 18:43:14 candidate id:2
-2018/04/07 18:43:14 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:22, vote:-1
-2018/04/07 18:43:14 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:2
-2018/04/07 18:43:14 rf.me:3, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:22, vote:-1
-2018/04/07 18:43:14 leader_last_term:1, follower_last_term:1, leader_last_index:1, follower_last_index:1
-2018/04/07 18:43:14 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:14 candidate id:0
-2018/04/07 18:43:14 candidate id:3
-2018/04/07 18:43:14 candidate id:2
-2018/04/07 18:43:14 candidate id:4
-2018/04/07 18:43:14 rf.me:2, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:23, vote:-1
-2018/04/07 18:43:14 leader_last_term:1, follower_last_term:1, leader_last_index:2, follower_last_index:1
-2018/04/07 18:43:14 from 2 to 4 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:14 rf.me:3, len(rf.log):2, commitIndex:0, lastTerm:1, currentTerm:23, vote:-1
-2018/04/07 18:43:14 leader_last_term:1, follower_last_term:1, leader_last_index:2, follower_last_index:1
-2018/04/07 18:43:14 from 3 to 4 rf.votedFor -1 args.LastLogTerm(leader):1 follower(commited):1
-2018/04/07 18:43:14 rf.me:4, len(rf.log):3, commitIndex:0, lastTerm:1, currentTerm:23, vote:4
-2018/04/07 18:43:14 candidate id:4
-2018/04/07 18:43:14 candidate id:3
-2018/04/07 18:43:14 candidate id:0
-2018/04/07 18:43:14 candidate id:4
-2018/04/07 18:43:14 candidate id:2
-2018/04/07 18:43:14 candidate id:3
-2018/04/07 18:43:14 candidate id:0
-2018/04/07 18:43:14 leader3:4
-2018/04/07 18:43:14 Leader Sending applymsg command:11, lastApplyied:1, rf.me:4, term:23, commitIndex:1
-2018/04/07 18:43:14 Leader Sending applymsg command:12, lastApplyied:2, rf.me:4, term:23, commitIndex:2
-2018/04/07 18:43:14 Leader Sending applymsg command:13, lastApplyied:3, rf.me:4, term:23, commitIndex:3
-2018/04/07 18:43:14 candidate id:2
-2018/04/07 18:43:14 Sending applymsg command:11, lastApplyied:1, rf.me:3, term:23, commitIndex:1
-2018/04/07 18:43:14 Sending applymsg command:11, lastApplyied:1, rf.me:2, term:23, commitIndex:1
-2018/04/07 18:43:14 Sending applymsg command:12, lastApplyied:2, rf.me:2, term:23, commitIndex:2
-2018/04/07 18:43:14 Sending applymsg command:13, lastApplyied:3, rf.me:2, term:23, commitIndex:3
-2018/04/07 18:43:14 Sending applymsg command:12, lastApplyied:2, rf.me:3, term:23, commitIndex:2
-2018/04/07 18:43:14 Sending applymsg command:13, lastApplyied:3, rf.me:3, term:23, commitIndex:3
-2018/04/07 18:43:14 candidate id:4
-2018/04/07 18:43:14 iters:1
-2018/04/07 18:43:14 start:14
-2018/04/07 18:43:15 candidate id:3
-2018/04/07 18:43:15 candidate id:2
-2018/04/07 18:43:15 candidate id:1
-2018/04/07 18:43:15 rf.me:4, len(rf.log):4, commitIndex:3, lastTerm:23, currentTerm:24, vote:-1
-2018/04/07 18:43:15 log[1]:11
-2018/04/07 18:43:15 log[2]:12
-2018/04/07 18:43:15 log[3]:13
-2018/04/07 18:43:15 leader_last_term:23, follower_last_term:23, leader_last_index:3, follower_last_index:3
-2018/04/07 18:43:15 from 4 to 1 rf.votedFor -1 args.LastLogTerm(leader):23 follower(commited):23
-2018/04/07 18:43:15 rf.me:0, len(rf.log):3, commitIndex:2, lastTerm:1, currentTerm:24, vote:-1
-2018/04/07 18:43:15 log[1]:11
-2018/04/07 18:43:15 log[2]:12
-2018/04/07 18:43:15 leader_last_term:23, follower_last_term:1, leader_last_index:3, follower_last_index:2
-2018/04/07 18:43:15 from 0 to 1 rf.votedFor -1 args.LastLogTerm(leader):23 follower(commited):1
-2018/04/07 18:43:15 rf.me:2, len(rf.log):4, commitIndex:3, lastTerm:23, currentTerm:24, vote:-1
-2018/04/07 18:43:15 log[1]:11
-2018/04/07 18:43:15 log[2]:12
-2018/04/07 18:43:15 log[3]:13
-2018/04/07 18:43:15 leader_last_term:23, follower_last_term:23, leader_last_index:3, follower_last_index:3
-2018/04/07 18:43:15 from 2 to 1 rf.votedFor -1 args.LastLogTerm(leader):23 follower(commited):23
-2018/04/07 18:43:15 rf.me:3, len(rf.log):4, commitIndex:3, lastTerm:23, currentTerm:24, vote:-1
-2018/04/07 18:43:15 log[1]:11
-2018/04/07 18:43:15 log[2]:12
-2018/04/07 18:43:15 log[3]:13
-2018/04/07 18:43:15 leader_last_term:23, follower_last_term:23, leader_last_index:3, follower_last_index:3
-2018/04/07 18:43:15 from 3 to 1 rf.votedFor -1 args.LastLogTerm(leader):23 follower(commited):23
-2018/04/07 18:43:15 rf.me:1, len(rf.log):4, commitIndex:2, lastTerm:23, currentTerm:24, vote:1
-2018/04/07 18:43:15 log[1]:11
-2018/04/07 18:43:15 log[2]:12
-2018/04/07 18:43:15 candidate id:4
-2018/04/07 18:43:15 candidate id:3
-2018/04/07 18:43:15 candidate id:2
-2018/04/07 18:43:15 candidate id:3
-2018/04/07 18:43:15 candidate id:4
-2018/04/07 18:43:15 candidate id:2
-2018/04/07 18:43:15 candidate id:3
-2018/04/07 18:43:15 candidate id:2
-2018/04/07 18:43:15 candidate id:4
-2018/04/07 18:43:15 candidate id:3
-2018/04/07 18:43:15 candidate id:2
-2018/04/07 18:43:15 candidate id:4
-2018/04/07 18:43:15 candidate id:3
-2018/04/07 18:43:15 candidate id:2
-2018/04/07 18:43:15 candidate id:4
-2018/04/07 18:43:15 candidate id:3
-2018/04/07 18:43:15 candidate id:2
-2018/04/07 18:43:15 candidate id:4
-2018/04/07 18:43:15 candidate id:2
-2018/04/07 18:43:15 candidate id:4
-2018/04/07 18:43:15 candidate id:3
-2018/04/07 18:43:16 candidate id:4
-2018/04/07 18:43:16 candidate id:2
-2018/04/07 18:43:16 candidate id:3
-2018/04/07 18:43:16 candidate id:4
-2018/04/07 18:43:16 candidate id:3
-2018/04/07 18:43:16 candidate id:2
-2018/04/07 18:43:16 candidate id:4
-2018/04/07 18:43:16 candidate id:3
-2018/04/07 18:43:16 candidate id:2
-2018/04/07 18:43:16 candidate id:4
-2018/04/07 18:43:16 candidate id:3
-2018/04/07 18:43:16 candidate id:2
-2018/04/07 18:43:16 candidate id:4
-2018/04/07 18:43:16 candidate id:3
-2018/04/07 18:43:16 candidate id:2
-2018/04/07 18:43:16 candidate id:4
-2018/04/07 18:43:16 candidate id:3
-2018/04/07 18:43:16 candidate id:2
-2018/04/07 18:43:16 candidate id:3
-2018/04/07 18:43:16 candidate id:4
-2018/04/07 18:43:16 Leader Sending applymsg command:13, lastApplyied:3, rf.me:1, term:24, commitIndex:3
-2018/04/07 18:43:16 Leader Sending applymsg command:14, lastApplyied:4, rf.me:1, term:24, commitIndex:4
-2018/04/07 18:43:16 Sending applymsg command:14, lastApplyied:4, rf.me:2, term:24, commitIndex:4
-2018/04/07 18:43:16 Sending applymsg command:14, lastApplyied:4, rf.me:3, term:24, commitIndex:4
-2018/04/07 18:43:16 candidate id:2
-2018/04/07 18:43:16 Sending applymsg command:14, lastApplyied:4, rf.me:4, term:24, commitIndex:4
-2018/04/07 18:43:16 Sending applymsg command:13, lastApplyied:3, rf.me:0, term:24, commitIndex:3
-2018/04/07 18:43:16 Sending applymsg command:14, lastApplyied:4, rf.me:0, term:24, commitIndex:4
-2018/04/07 18:43:17 candidate id:3
-2018/04/07 18:43:17 candidate id:4
-2018/04/07 18:43:17 candidate id:2
-2018/04/07 18:43:17 candidate id:3
-2018/04/07 18:43:17 candidate id:2
-2018/04/07 18:43:17 candidate id:4
-2018/04/07 18:43:17 candidate id:3
-2018/04/07 18:43:17 candidate id:3
-2018/04/07 18:43:17 candidate id:4
-2018/04/07 18:43:17 candidate id:2
-2018/04/07 18:43:17 leader1:1
-2018/04/07 18:43:17 start:15
-2018/04/07 18:43:17 Leader Sending applymsg command:15, lastApplyied:5, rf.me:1, term:24, commitIndex:5
-2018/04/07 18:43:17 Sending applymsg command:15, lastApplyied:5, rf.me:4, term:24, commitIndex:5
-2018/04/07 18:43:17 Sending applymsg command:15, lastApplyied:5, rf.me:0, term:24, commitIndex:5
-2018/04/07 18:43:17 candidate id:3
-2018/04/07 18:43:17 candidate id:4
-2018/04/07 18:43:17 candidate id:2
-2018/04/07 18:43:17 candidate id:3
-2018/04/07 18:43:17 candidate id:2
-2018/04/07 18:43:17 candidate id:2
-2018/04/07 18:43:17 candidate id:4
-2018/04/07 18:43:17 candidate id:3
-2018/04/07 18:43:17 candidate id:2
-2018/04/07 18:43:17 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:25, vote:-1
-2018/04/07 18:43:17 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:17 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:17 candidate id:4
-2018/04/07 18:43:17 candidate id:0
-2018/04/07 18:43:17 candidate id:3
-2018/04/07 18:43:17 candidate id:2
-2018/04/07 18:43:17 candidate id:2
-2018/04/07 18:43:17 candidate id:2
-2018/04/07 18:43:17 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:26, vote:-1
-2018/04/07 18:43:17 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:17 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:0
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:27, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:18 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:18 candidate id:0
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:0
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:28, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:18 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:29, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:18 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:18 candidate id:0
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:0
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 start new!:16
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:30, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:18 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:18 rf.me:4, len(rf.log):6, commitIndex:0, lastTerm:24, currentTerm:30, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:5
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:0
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:31, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:18 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:18 rf.me:4, len(rf.log):6, commitIndex:0, lastTerm:24, currentTerm:31, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:5
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:0
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 rf.me:4, len(rf.log):6, commitIndex:0, lastTerm:24, currentTerm:32, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:5
-2018/04/07 18:43:18 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:32, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:18 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:18 candidate id:3
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 candidate id:4
-2018/04/07 18:43:18 candidate id:0
-2018/04/07 18:43:18 candidate id:2
-2018/04/07 18:43:18 rf.me:4, len(rf.log):6, commitIndex:0, lastTerm:24, currentTerm:33, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:5
-2018/04/07 18:43:18 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:33, vote:-1
-2018/04/07 18:43:18 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:18 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:0
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 rf.me:4, len(rf.log):6, commitIndex:0, lastTerm:24, currentTerm:34, vote:-1
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:5
-2018/04/07 18:43:19 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:34, vote:-1
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:19 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 candidate id:0
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 rf.me:4, len(rf.log):6, commitIndex:0, lastTerm:24, currentTerm:35, vote:-1
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:5
-2018/04/07 18:43:19 rf.me:2, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:35, vote:-1
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:24, leader_last_index:4, follower_last_index:4
-2018/04/07 18:43:19 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:0
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 rf.me:2, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:36, vote:-1
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:24, leader_last_index:5, follower_last_index:4
-2018/04/07 18:43:19 from 2 to 4 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:19 rf.me:3, len(rf.log):5, commitIndex:0, lastTerm:24, currentTerm:36, vote:-1
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:24, leader_last_index:5, follower_last_index:4
-2018/04/07 18:43:19 from 3 to 4 rf.votedFor -1 args.LastLogTerm(leader):24 follower(commited):24
-2018/04/07 18:43:19 rf.me:4, len(rf.log):6, commitIndex:0, lastTerm:24, currentTerm:36, vote:4
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 candidate id:0
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 leader3:4
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 Leader Sending applymsg command:11, lastApplyied:1, rf.me:4, term:36, commitIndex:1
-2018/04/07 18:43:19 Leader Sending applymsg command:12, lastApplyied:2, rf.me:4, term:36, commitIndex:2
-2018/04/07 18:43:19 Leader Sending applymsg command:13, lastApplyied:3, rf.me:4, term:36, commitIndex:3
-2018/04/07 18:43:19 Leader Sending applymsg command:14, lastApplyied:4, rf.me:4, term:36, commitIndex:4
-2018/04/07 18:43:19 Leader Sending applymsg command:15, lastApplyied:5, rf.me:4, term:36, commitIndex:5
-2018/04/07 18:43:19 Leader Sending applymsg command:16, lastApplyied:6, rf.me:4, term:36, commitIndex:6
-2018/04/07 18:43:19 Sending applymsg command:11, lastApplyied:1, rf.me:2, term:36, commitIndex:1
-2018/04/07 18:43:19 Sending applymsg command:12, lastApplyied:2, rf.me:2, term:36, commitIndex:2
-2018/04/07 18:43:19 Sending applymsg command:13, lastApplyied:3, rf.me:2, term:36, commitIndex:3
-2018/04/07 18:43:19 Sending applymsg command:14, lastApplyied:4, rf.me:2, term:36, commitIndex:4
-2018/04/07 18:43:19 Sending applymsg command:15, lastApplyied:5, rf.me:2, term:36, commitIndex:5
-2018/04/07 18:43:19 Sending applymsg command:16, lastApplyied:6, rf.me:2, term:36, commitIndex:6
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 Sending applymsg command:11, lastApplyied:1, rf.me:3, term:36, commitIndex:1
-2018/04/07 18:43:19 Sending applymsg command:12, lastApplyied:2, rf.me:3, term:36, commitIndex:2
-2018/04/07 18:43:19 Sending applymsg command:13, lastApplyied:3, rf.me:3, term:36, commitIndex:3
-2018/04/07 18:43:19 Sending applymsg command:14, lastApplyied:4, rf.me:3, term:36, commitIndex:4
-2018/04/07 18:43:19 Sending applymsg command:15, lastApplyied:5, rf.me:3, term:36, commitIndex:5
-2018/04/07 18:43:19 Sending applymsg command:16, lastApplyied:6, rf.me:3, term:36, commitIndex:6
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 iters:2
-2018/04/07 18:43:19 start:17
-2018/04/07 18:43:19 candidate id:0
-2018/04/07 18:43:19 rf.me:2, len(rf.log):7, commitIndex:6, lastTerm:36, currentTerm:38, vote:-1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 log[6]:16
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:36, leader_last_index:5, follower_last_index:6
-2018/04/07 18:43:19 rf.me:1, len(rf.log):7, commitIndex:5, lastTerm:24, currentTerm:38, vote:1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 rf.me:3, len(rf.log):7, commitIndex:6, lastTerm:36, currentTerm:38, vote:-1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 log[6]:16
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:36, leader_last_index:5, follower_last_index:6
-2018/04/07 18:43:19 rf.me:4, len(rf.log):7, commitIndex:6, lastTerm:36, currentTerm:38, vote:4
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 log[6]:16
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:0
-2018/04/07 18:43:19 rf.me:3, len(rf.log):7, commitIndex:6, lastTerm:36, currentTerm:39, vote:-1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 log[6]:16
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:36, leader_last_index:5, follower_last_index:6
-2018/04/07 18:43:19 rf.me:4, len(rf.log):7, commitIndex:6, lastTerm:36, currentTerm:39, vote:-1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 log[6]:16
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:36, leader_last_index:5, follower_last_index:6
-2018/04/07 18:43:19 rf.me:1, len(rf.log):7, commitIndex:5, lastTerm:24, currentTerm:39, vote:-1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:24, leader_last_index:5, follower_last_index:6
-2018/04/07 18:43:19 rf.me:2, len(rf.log):7, commitIndex:6, lastTerm:36, currentTerm:39, vote:-1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 log[6]:16
-2018/04/07 18:43:19 leader_last_term:24, follower_last_term:36, leader_last_index:5, follower_last_index:6
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:4
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:19 candidate id:2
-2018/04/07 18:43:19 rf.me:4, len(rf.log):7, commitIndex:6, lastTerm:36, currentTerm:40, vote:-1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 rf.me:0, len(rf.log):6, commitIndex:5, lastTerm:24, currentTerm:40, vote:-1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 log[6]:16
-2018/04/07 18:43:19 leader_last_term:36, follower_last_term:36, leader_last_index:6, follower_last_index:6
-2018/04/07 18:43:19 from 4 to 2 rf.votedFor -1 args.LastLogTerm(leader):36 follower(commited):36
-2018/04/07 18:43:19 rf.me:1, len(rf.log):7, commitIndex:5, lastTerm:24, currentTerm:40, vote:-1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 leader_last_term:36, follower_last_term:24, leader_last_index:6, follower_last_index:6
-2018/04/07 18:43:19 from 1 to 2 rf.votedFor -1 args.LastLogTerm(leader):36 follower(commited):24
-2018/04/07 18:43:19 rf.me:3, len(rf.log):7, commitIndex:6, lastTerm:36, currentTerm:40, vote:-1
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 rf.me:2, len(rf.log):7, commitIndex:6, lastTerm:36, currentTerm:40, vote:2
-2018/04/07 18:43:19 log[1]:11
-2018/04/07 18:43:19 log[2]:12
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 leader_last_term:36, follower_last_term:24, leader_last_index:6, follower_last_index:5
-2018/04/07 18:43:19 log[3]:13
-2018/04/07 18:43:19 log[4]:14
-2018/04/07 18:43:19 log[5]:15
-2018/04/07 18:43:19 log[6]:16
-2018/04/07 18:43:19 log[6]:16
-2018/04/07 18:43:19 leader_last_term:36, follower_last_term:36, leader_last_index:6, follower_last_index:6
-2018/04/07 18:43:19 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):36 follower(commited):36
-2018/04/07 18:43:19 from 0 to 2 rf.votedFor -1 args.LastLogTerm(leader):36 follower(commited):24
-2018/04/07 18:43:19 candidate id:3
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:20 candidate id:4
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:3
-2018/04/07 18:43:20 candidate id:2
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 Sending applymsg command:16, lastApplyied:6, rf.me:1, term:40, commitIndex:6
-2018/04/07 18:43:21 Sending applymsg command:16, lastApplyied:6, rf.me:0, term:40, commitIndex:6
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 Leader Sending applymsg command:17, lastApplyied:7, rf.me:2, term:40, commitIndex:7
-2018/04/07 18:43:21 Sending applymsg command:17, lastApplyied:7, rf.me:1, term:40, commitIndex:7
-2018/04/07 18:43:21 Sending applymsg command:17, lastApplyied:7, rf.me:3, term:40, commitIndex:7
-2018/04/07 18:43:21 Sending applymsg command:17, lastApplyied:7, rf.me:0, term:40, commitIndex:7
-2018/04/07 18:43:21 Sending applymsg command:17, lastApplyied:7, rf.me:4, term:40, commitIndex:7
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:2
-2018/04/07 18:43:21 candidate id:4
-2018/04/07 18:43:21 candidate id:3
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 leader1:2
-2018/04/07 18:43:22 start:18
-2018/04/07 18:43:22 Leader Sending applymsg command:18, lastApplyied:8, rf.me:2, term:40, commitIndex:8
-2018/04/07 18:43:22 Sending applymsg command:18, lastApplyied:8, rf.me:1, term:40, commitIndex:8
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 Sending applymsg command:18, lastApplyied:8, rf.me:0, term:40, commitIndex:8
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:0
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:1
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:41, vote:-1
-2018/04/07 18:43:22 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:7
-2018/04/07 18:43:22 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:22 candidate id:0
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:1
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:42, vote:-1
-2018/04/07 18:43:22 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:7
-2018/04/07 18:43:22 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:0
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:1
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:43, vote:-1
-2018/04/07 18:43:22 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:7
-2018/04/07 18:43:22 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:0
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:1
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:4
-2018/04/07 18:43:22 candidate id:3
-2018/04/07 18:43:22 candidate id:0
-2018/04/07 18:43:22 candidate id:2
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:44, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:7
-2018/04/07 18:43:23 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:1
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:0
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:45, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:7
-2018/04/07 18:43:23 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 start new!:19
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:1
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 rf.me:0, len(rf.log):9, commitIndex:0, lastTerm:40, currentTerm:46, vote:0
-2018/04/07 18:43:23 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:46, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:7
-2018/04/07 18:43:23 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:0
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:1
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:47, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:7
-2018/04/07 18:43:23 rf.me:0, len(rf.log):9, commitIndex:0, lastTerm:40, currentTerm:47, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:8
-2018/04/07 18:43:23 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:0
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:1
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:48, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:7
-2018/04/07 18:43:23 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:23 rf.me:0, len(rf.log):9, commitIndex:0, lastTerm:40, currentTerm:48, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:8
-2018/04/07 18:43:23 candidate id:0
-2018/04/07 18:43:23 candidate id:1
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:1
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:49, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:7
-2018/04/07 18:43:23 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:23 rf.me:0, len(rf.log):9, commitIndex:0, lastTerm:40, currentTerm:49, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:8
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:0
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:23 candidate id:2
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 candidate id:1
-2018/04/07 18:43:23 candidate id:3
-2018/04/07 18:43:23 rf.me:0, len(rf.log):9, commitIndex:0, lastTerm:40, currentTerm:50, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:8
-2018/04/07 18:43:23 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:50, vote:-1
-2018/04/07 18:43:23 leader_last_term:40, follower_last_term:40, leader_last_index:7, follower_last_index:7
-2018/04/07 18:43:23 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:23 candidate id:4
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:0
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:1
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:0
-2018/04/07 18:43:24 rf.me:3, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:51, vote:-1
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:40, leader_last_index:8, follower_last_index:7
-2018/04/07 18:43:24 from 3 to 0 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:24 rf.me:4, len(rf.log):8, commitIndex:0, lastTerm:40, currentTerm:51, vote:-1
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:40, leader_last_index:8, follower_last_index:7
-2018/04/07 18:43:24 from 4 to 0 rf.votedFor -1 args.LastLogTerm(leader):40 follower(commited):40
-2018/04/07 18:43:24 rf.me:0, len(rf.log):9, commitIndex:0, lastTerm:40, currentTerm:51, vote:0
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:1
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:0
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 leader3:0
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:1
-2018/04/07 18:43:24 Leader Sending applymsg command:11, lastApplyied:1, rf.me:0, term:51, commitIndex:1
-2018/04/07 18:43:24 Leader Sending applymsg command:12, lastApplyied:2, rf.me:0, term:51, commitIndex:2
-2018/04/07 18:43:24 Leader Sending applymsg command:13, lastApplyied:3, rf.me:0, term:51, commitIndex:3
-2018/04/07 18:43:24 Leader Sending applymsg command:14, lastApplyied:4, rf.me:0, term:51, commitIndex:4
-2018/04/07 18:43:24 Leader Sending applymsg command:15, lastApplyied:5, rf.me:0, term:51, commitIndex:5
-2018/04/07 18:43:24 Leader Sending applymsg command:16, lastApplyied:6, rf.me:0, term:51, commitIndex:6
-2018/04/07 18:43:24 Leader Sending applymsg command:17, lastApplyied:7, rf.me:0, term:51, commitIndex:7
-2018/04/07 18:43:24 Leader Sending applymsg command:18, lastApplyied:8, rf.me:0, term:51, commitIndex:8
-2018/04/07 18:43:24 Leader Sending applymsg command:19, lastApplyied:9, rf.me:0, term:51, commitIndex:9
-2018/04/07 18:43:24 Sending applymsg command:11, lastApplyied:1, rf.me:3, term:51, commitIndex:1
-2018/04/07 18:43:24 Sending applymsg command:12, lastApplyied:2, rf.me:3, term:51, commitIndex:2
-2018/04/07 18:43:24 Sending applymsg command:13, lastApplyied:3, rf.me:3, term:51, commitIndex:3
-2018/04/07 18:43:24 Sending applymsg command:14, lastApplyied:4, rf.me:3, term:51, commitIndex:4
-2018/04/07 18:43:24 Sending applymsg command:15, lastApplyied:5, rf.me:3, term:51, commitIndex:5
-2018/04/07 18:43:24 Sending applymsg command:16, lastApplyied:6, rf.me:3, term:51, commitIndex:6
-2018/04/07 18:43:24 Sending applymsg command:17, lastApplyied:7, rf.me:3, term:51, commitIndex:7
-2018/04/07 18:43:24 Sending applymsg command:18, lastApplyied:8, rf.me:3, term:51, commitIndex:8
-2018/04/07 18:43:24 Sending applymsg command:19, lastApplyied:9, rf.me:3, term:51, commitIndex:9
-2018/04/07 18:43:24 candidate id:0
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 Sending applymsg command:11, lastApplyied:1, rf.me:4, term:51, commitIndex:1
-2018/04/07 18:43:24 Sending applymsg command:12, lastApplyied:2, rf.me:4, term:51, commitIndex:2
-2018/04/07 18:43:24 Sending applymsg command:13, lastApplyied:3, rf.me:4, term:51, commitIndex:3
-2018/04/07 18:43:24 Sending applymsg command:14, lastApplyied:4, rf.me:4, term:51, commitIndex:4
-2018/04/07 18:43:24 Sending applymsg command:15, lastApplyied:5, rf.me:4, term:51, commitIndex:5
-2018/04/07 18:43:24 Sending applymsg command:16, lastApplyied:6, rf.me:4, term:51, commitIndex:6
-2018/04/07 18:43:24 Sending applymsg command:17, lastApplyied:7, rf.me:4, term:51, commitIndex:7
-2018/04/07 18:43:24 Sending applymsg command:18, lastApplyied:8, rf.me:4, term:51, commitIndex:8
-2018/04/07 18:43:24 Sending applymsg command:19, lastApplyied:9, rf.me:4, term:51, commitIndex:9
-2018/04/07 18:43:24 iters:3
-2018/04/07 18:43:24 start:20
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:1
-2018/04/07 18:43:24 rf.me:3, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:55, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 rf.me:4, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:55, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:51, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 rf.me:0, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:55, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 rf.me:2, len(rf.log):10, commitIndex:8, lastTerm:40, currentTerm:55, vote:-1
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:51, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:51, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:40, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:0
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:1
-2018/04/07 18:43:24 rf.me:2, len(rf.log):10, commitIndex:8, lastTerm:40, currentTerm:56, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:40, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 rf.me:0, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:56, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 rf.me:4, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:56, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 rf.me:3, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:56, vote:-1
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:51, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:51, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:51, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:0
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:1
-2018/04/07 18:43:24 rf.me:0, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:57, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:51, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 rf.me:3, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:57, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:51, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 rf.me:2, len(rf.log):10, commitIndex:8, lastTerm:40, currentTerm:57, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 rf.me:4, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:57, vote:-1
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:40, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 leader_last_term:40, follower_last_term:51, leader_last_index:8, follower_last_index:9
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:0
-2018/04/07 18:43:24 rf.me:3, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:58, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 leader_last_term:51, follower_last_term:51, leader_last_index:9, follower_last_index:9
-2018/04/07 18:43:24 from 3 to 0 rf.votedFor -1 args.LastLogTerm(leader):51 follower(commited):51
-2018/04/07 18:43:24 rf.me:4, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:58, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 leader_last_term:51, follower_last_term:51, leader_last_index:9, follower_last_index:9
-2018/04/07 18:43:24 from 4 to 0 rf.votedFor -1 args.LastLogTerm(leader):51 follower(commited):51
-2018/04/07 18:43:24 rf.me:1, len(rf.log):9, commitIndex:8, lastTerm:40, currentTerm:58, vote:-1
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 rf.me:2, len(rf.log):10, commitIndex:8, lastTerm:40, currentTerm:58, vote:-1
-2018/04/07 18:43:24 rf.me:0, len(rf.log):10, commitIndex:9, lastTerm:51, currentTerm:58, vote:0
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 log[9]:19
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[1]:11
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 leader_last_term:51, follower_last_term:40, leader_last_index:9, follower_last_index:8
-2018/04/07 18:43:24 from 1 to 0 rf.votedFor -1 args.LastLogTerm(leader):51 follower(commited):40
-2018/04/07 18:43:24 log[2]:12
-2018/04/07 18:43:24 log[3]:13
-2018/04/07 18:43:24 log[4]:14
-2018/04/07 18:43:24 log[5]:15
-2018/04/07 18:43:24 log[6]:16
-2018/04/07 18:43:24 log[7]:17
-2018/04/07 18:43:24 log[8]:18
-2018/04/07 18:43:24 leader_last_term:51, follower_last_term:40, leader_last_index:9, follower_last_index:9
-2018/04/07 18:43:24 from 2 to 0 rf.votedFor -1 args.LastLogTerm(leader):51 follower(commited):40
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:0
-2018/04/07 18:43:24 Sending applymsg command:19, lastApplyied:9, rf.me:1, term:58, commitIndex:9
-2018/04/07 18:43:24 Sending applymsg command:19, lastApplyied:9, rf.me:2, term:58, commitIndex:9
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:2
-2018/04/07 18:43:24 candidate id:3
-2018/04/07 18:43:24 candidate id:4
-2018/04/07 18:43:25 candidate id:0
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:0
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:0
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:0
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:0
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:0
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:25 candidate id:0
-2018/04/07 18:43:25 candidate id:2
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:4
-2018/04/07 18:43:25 candidate id:3
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:0
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:0
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 Leader Sending applymsg command:20, lastApplyied:10, rf.me:0, term:58, commitIndex:10
-2018/04/07 18:43:26 Sending applymsg command:20, lastApplyied:10, rf.me:3, term:58, commitIndex:10
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:0
-2018/04/07 18:43:26 Sending applymsg command:20, lastApplyied:10, rf.me:4, term:58, commitIndex:10
-2018/04/07 18:43:26 Sending applymsg command:20, lastApplyied:10, rf.me:2, term:58, commitIndex:10
-2018/04/07 18:43:26 Sending applymsg command:20, lastApplyied:10, rf.me:1, term:58, commitIndex:10
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:0
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:0
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:26 candidate id:0
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:3
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 leader1:0
-2018/04/07 18:43:26 start:21
-2018/04/07 18:43:26 Leader Sending applymsg command:21, lastApplyied:11, rf.me:0, term:58, commitIndex:11
-2018/04/07 18:43:26 Sending applymsg command:21, lastApplyied:11, rf.me:3, term:58, commitIndex:11
-2018/04/07 18:43:26 candidate id:4
-2018/04/07 18:43:26 Sending applymsg command:21, lastApplyied:11, rf.me:4, term:58, commitIndex:11
-2018/04/07 18:43:26 candidate id:2
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:0
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:0
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:1
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:1
-2018/04/07 18:43:27 rf.me:2, len(rf.log):11, commitIndex:0, lastTerm:58, currentTerm:59, vote:-1
-2018/04/07 18:43:27 leader_last_term:58, follower_last_term:58, leader_last_index:10, follower_last_index:10
-2018/04/07 18:43:27 from 2 to 1 rf.votedFor -1 args.LastLogTerm(leader):58 follower(commited):58
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:0
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:1
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 rf.me:1, len(rf.log):11, commitIndex:0, lastTerm:58, currentTerm:60, vote:-1
-2018/04/07 18:43:27 leader_last_term:58, follower_last_term:58, leader_last_index:10, follower_last_index:10
-2018/04/07 18:43:27 from 1 to 2 rf.votedFor -1 args.LastLogTerm(leader):58 follower(commited):58
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:0
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:1
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 rf.me:1, len(rf.log):11, commitIndex:0, lastTerm:58, currentTerm:61, vote:-1
-2018/04/07 18:43:27 leader_last_term:58, follower_last_term:58, leader_last_index:10, follower_last_index:10
-2018/04/07 18:43:27 from 1 to 2 rf.votedFor -1 args.LastLogTerm(leader):58 follower(commited):58
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:0
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:1
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 rf.me:1, len(rf.log):11, commitIndex:0, lastTerm:58, currentTerm:62, vote:-1
-2018/04/07 18:43:27 leader_last_term:58, follower_last_term:58, leader_last_index:10, follower_last_index:10
-2018/04/07 18:43:27 from 1 to 2 rf.votedFor -1 args.LastLogTerm(leader):58 follower(commited):58
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:0
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:1
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 rf.me:1, len(rf.log):11, commitIndex:0, lastTerm:58, currentTerm:63, vote:-1
-2018/04/07 18:43:27 leader_last_term:58, follower_last_term:58, leader_last_index:10, follower_last_index:10
-2018/04/07 18:43:27 from 1 to 2 rf.votedFor -1 args.LastLogTerm(leader):58 follower(commited):58
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:0
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:1
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 rf.me:1, len(rf.log):11, commitIndex:0, lastTerm:58, currentTerm:64, vote:-1
-2018/04/07 18:43:27 leader_last_term:58, follower_last_term:58, leader_last_index:10, follower_last_index:10
-2018/04/07 18:43:27 from 1 to 2 rf.votedFor -1 args.LastLogTerm(leader):58 follower(commited):58
-2018/04/07 18:43:27 candidate id:2
-2018/04/07 18:43:27 candidate id:4
-2018/04/07 18:43:27 candidate id:3
-2018/04/07 18:43:27 start new!:22
-2018/04/07 18:43:28 candidate id:0
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:1
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:1
-2018/04/07 18:43:28 rf.me:2, len(rf.log):11, commitIndex:0, lastTerm:58, currentTerm:65, vote:-1
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:58, leader_last_index:10, follower_last_index:10
-2018/04/07 18:43:28 from 2 to 1 rf.votedFor -1 args.LastLogTerm(leader):58 follower(commited):58
-2018/04/07 18:43:28 rf.me:3, len(rf.log):12, commitIndex:0, lastTerm:58, currentTerm:65, vote:-1
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:58, leader_last_index:10, follower_last_index:11
-2018/04/07 18:43:28 candidate id:1
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:0
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 rf.me:2, len(rf.log):11, commitIndex:0, lastTerm:58, currentTerm:66, vote:-1
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:58, leader_last_index:11, follower_last_index:10
-2018/04/07 18:43:28 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):58 follower(commited):58
-2018/04/07 18:43:28 rf.me:1, len(rf.log):11, commitIndex:0, lastTerm:58, currentTerm:66, vote:-1
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:58, leader_last_index:11, follower_last_index:10
-2018/04/07 18:43:28 from 1 to 3 rf.votedFor -1 args.LastLogTerm(leader):58 follower(commited):58
-2018/04/07 18:43:28 rf.me:3, len(rf.log):12, commitIndex:0, lastTerm:58, currentTerm:66, vote:3
-2018/04/07 18:43:28 candidate id:1
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:0
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:1
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 leader3:3
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 Leader Sending applymsg command:11, lastApplyied:1, rf.me:3, term:66, commitIndex:1
-2018/04/07 18:43:28 Leader Sending applymsg command:12, lastApplyied:2, rf.me:3, term:66, commitIndex:2
-2018/04/07 18:43:28 Leader Sending applymsg command:13, lastApplyied:3, rf.me:3, term:66, commitIndex:3
-2018/04/07 18:43:28 Leader Sending applymsg command:14, lastApplyied:4, rf.me:3, term:66, commitIndex:4
-2018/04/07 18:43:28 Leader Sending applymsg command:15, lastApplyied:5, rf.me:3, term:66, commitIndex:5
-2018/04/07 18:43:28 Leader Sending applymsg command:16, lastApplyied:6, rf.me:3, term:66, commitIndex:6
-2018/04/07 18:43:28 Leader Sending applymsg command:17, lastApplyied:7, rf.me:3, term:66, commitIndex:7
-2018/04/07 18:43:28 Leader Sending applymsg command:18, lastApplyied:8, rf.me:3, term:66, commitIndex:8
-2018/04/07 18:43:28 Leader Sending applymsg command:19, lastApplyied:9, rf.me:3, term:66, commitIndex:9
-2018/04/07 18:43:28 Leader Sending applymsg command:20, lastApplyied:10, rf.me:3, term:66, commitIndex:10
-2018/04/07 18:43:28 Leader Sending applymsg command:21, lastApplyied:11, rf.me:3, term:66, commitIndex:11
-2018/04/07 18:43:28 Leader Sending applymsg command:22, lastApplyied:12, rf.me:3, term:66, commitIndex:12
-2018/04/07 18:43:28 Sending applymsg command:11, lastApplyied:1, rf.me:1, term:66, commitIndex:1
-2018/04/07 18:43:28 Sending applymsg command:12, lastApplyied:2, rf.me:1, term:66, commitIndex:2
-2018/04/07 18:43:28 Sending applymsg command:11, lastApplyied:1, rf.me:2, term:66, commitIndex:1
-2018/04/07 18:43:28 Sending applymsg command:12, lastApplyied:2, rf.me:2, term:66, commitIndex:2
-2018/04/07 18:43:28 Sending applymsg command:13, lastApplyied:3, rf.me:1, term:66, commitIndex:3
-2018/04/07 18:43:28 Sending applymsg command:14, lastApplyied:4, rf.me:1, term:66, commitIndex:4
-2018/04/07 18:43:28 Sending applymsg command:15, lastApplyied:5, rf.me:1, term:66, commitIndex:5
-2018/04/07 18:43:28 Sending applymsg command:16, lastApplyied:6, rf.me:1, term:66, commitIndex:6
-2018/04/07 18:43:28 Sending applymsg command:13, lastApplyied:3, rf.me:2, term:66, commitIndex:3
-2018/04/07 18:43:28 Sending applymsg command:14, lastApplyied:4, rf.me:2, term:66, commitIndex:4
-2018/04/07 18:43:28 Sending applymsg command:17, lastApplyied:7, rf.me:1, term:66, commitIndex:7
-2018/04/07 18:43:28 Sending applymsg command:18, lastApplyied:8, rf.me:1, term:66, commitIndex:8
-2018/04/07 18:43:28 Sending applymsg command:15, lastApplyied:5, rf.me:2, term:66, commitIndex:5
-2018/04/07 18:43:28 Sending applymsg command:16, lastApplyied:6, rf.me:2, term:66, commitIndex:6
-2018/04/07 18:43:28 Sending applymsg command:19, lastApplyied:9, rf.me:1, term:66, commitIndex:9
-2018/04/07 18:43:28 Sending applymsg command:20, lastApplyied:10, rf.me:1, term:66, commitIndex:10
-2018/04/07 18:43:28 Sending applymsg command:17, lastApplyied:7, rf.me:2, term:66, commitIndex:7
-2018/04/07 18:43:28 Sending applymsg command:18, lastApplyied:8, rf.me:2, term:66, commitIndex:8
-2018/04/07 18:43:28 Sending applymsg command:21, lastApplyied:11, rf.me:1, term:66, commitIndex:11
-2018/04/07 18:43:28 Sending applymsg command:22, lastApplyied:12, rf.me:1, term:66, commitIndex:12
-2018/04/07 18:43:28 Sending applymsg command:19, lastApplyied:9, rf.me:2, term:66, commitIndex:9
-2018/04/07 18:43:28 Sending applymsg command:20, lastApplyied:10, rf.me:2, term:66, commitIndex:10
-2018/04/07 18:43:28 Sending applymsg command:21, lastApplyied:11, rf.me:2, term:66, commitIndex:11
-2018/04/07 18:43:28 Sending applymsg command:22, lastApplyied:12, rf.me:2, term:66, commitIndex:12
-2018/04/07 18:43:28 iters:4
-2018/04/07 18:43:28 start:23
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:0
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:1
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 rf.me:3, len(rf.log):14, commitIndex:12, lastTerm:66, currentTerm:68, vote:-1
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 log[12]:22
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:13
-2018/04/07 18:43:28 rf.me:2, len(rf.log):13, commitIndex:12, lastTerm:66, currentTerm:68, vote:-1
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 rf.me:0, len(rf.log):14, commitIndex:11, lastTerm:66, currentTerm:68, vote:-1
-2018/04/07 18:43:28 rf.me:1, len(rf.log):13, commitIndex:12, lastTerm:66, currentTerm:68, vote:-1
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 log[12]:22
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:12
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:13
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 log[12]:22
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:12
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:0
-2018/04/07 18:43:28 candidate id:1
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 rf.me:1, len(rf.log):13, commitIndex:12, lastTerm:66, currentTerm:69, vote:-1
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 rf.me:0, len(rf.log):14, commitIndex:11, lastTerm:66, currentTerm:69, vote:-1
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:13
-2018/04/07 18:43:28 rf.me:3, len(rf.log):14, commitIndex:12, lastTerm:66, currentTerm:69, vote:-1
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 rf.me:2, len(rf.log):13, commitIndex:12, lastTerm:66, currentTerm:69, vote:-1
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 log[12]:22
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:12
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 log[12]:22
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:13
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 log[12]:22
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:12
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:1
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:0
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:28 rf.me:2, len(rf.log):13, commitIndex:12, lastTerm:66, currentTerm:70, vote:-1
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 rf.me:3, len(rf.log):14, commitIndex:12, lastTerm:66, currentTerm:70, vote:-1
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 rf.me:1, len(rf.log):13, commitIndex:12, lastTerm:66, currentTerm:70, vote:-1
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 rf.me:0, len(rf.log):14, commitIndex:11, lastTerm:66, currentTerm:70, vote:-1
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 log[12]:22
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:12
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 log[12]:22
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:13
-2018/04/07 18:43:28 log[12]:22
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:12
-2018/04/07 18:43:28 log[1]:11
-2018/04/07 18:43:28 log[2]:12
-2018/04/07 18:43:28 log[3]:13
-2018/04/07 18:43:28 log[4]:14
-2018/04/07 18:43:28 log[5]:15
-2018/04/07 18:43:28 log[6]:16
-2018/04/07 18:43:28 log[7]:17
-2018/04/07 18:43:28 log[8]:18
-2018/04/07 18:43:28 log[9]:19
-2018/04/07 18:43:28 log[10]:20
-2018/04/07 18:43:28 log[11]:21
-2018/04/07 18:43:28 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:13
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:2
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:3
-2018/04/07 18:43:28 candidate id:4
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 rf.me:3, len(rf.log):14, commitIndex:12, lastTerm:66, currentTerm:71, vote:-1
-2018/04/07 18:43:29 log[1]:11
-2018/04/07 18:43:29 log[2]:12
-2018/04/07 18:43:29 log[3]:13
-2018/04/07 18:43:29 log[4]:14
-2018/04/07 18:43:29 log[5]:15
-2018/04/07 18:43:29 log[6]:16
-2018/04/07 18:43:29 log[7]:17
-2018/04/07 18:43:29 log[8]:18
-2018/04/07 18:43:29 log[9]:19
-2018/04/07 18:43:29 log[10]:20
-2018/04/07 18:43:29 log[11]:21
-2018/04/07 18:43:29 log[12]:22
-2018/04/07 18:43:29 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:13
-2018/04/07 18:43:29 rf.me:2, len(rf.log):13, commitIndex:12, lastTerm:66, currentTerm:71, vote:-1
-2018/04/07 18:43:29 log[1]:11
-2018/04/07 18:43:29 log[2]:12
-2018/04/07 18:43:29 log[3]:13
-2018/04/07 18:43:29 log[4]:14
-2018/04/07 18:43:29 log[5]:15
-2018/04/07 18:43:29 log[6]:16
-2018/04/07 18:43:29 log[7]:17
-2018/04/07 18:43:29 log[8]:18
-2018/04/07 18:43:29 log[9]:19
-2018/04/07 18:43:29 log[10]:20
-2018/04/07 18:43:29 log[11]:21
-2018/04/07 18:43:29 log[12]:22
-2018/04/07 18:43:29 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:12
-2018/04/07 18:43:29 rf.me:0, len(rf.log):14, commitIndex:11, lastTerm:66, currentTerm:71, vote:-1
-2018/04/07 18:43:29 log[1]:11
-2018/04/07 18:43:29 log[2]:12
-2018/04/07 18:43:29 log[3]:13
-2018/04/07 18:43:29 log[4]:14
-2018/04/07 18:43:29 log[5]:15
-2018/04/07 18:43:29 log[6]:16
-2018/04/07 18:43:29 log[7]:17
-2018/04/07 18:43:29 log[8]:18
-2018/04/07 18:43:29 log[9]:19
-2018/04/07 18:43:29 log[10]:20
-2018/04/07 18:43:29 log[11]:21
-2018/04/07 18:43:29 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:13
-2018/04/07 18:43:29 rf.me:1, len(rf.log):13, commitIndex:12, lastTerm:66, currentTerm:71, vote:-1
-2018/04/07 18:43:29 log[1]:11
-2018/04/07 18:43:29 log[2]:12
-2018/04/07 18:43:29 log[3]:13
-2018/04/07 18:43:29 log[4]:14
-2018/04/07 18:43:29 log[5]:15
-2018/04/07 18:43:29 log[6]:16
-2018/04/07 18:43:29 log[7]:17
-2018/04/07 18:43:29 log[8]:18
-2018/04/07 18:43:29 log[9]:19
-2018/04/07 18:43:29 log[10]:20
-2018/04/07 18:43:29 log[11]:21
-2018/04/07 18:43:29 log[12]:22
-2018/04/07 18:43:29 leader_last_term:58, follower_last_term:66, leader_last_index:11, follower_last_index:12
-2018/04/07 18:43:29 candidate id:1
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:0
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:1
-2018/04/07 18:43:29 rf.me:4, len(rf.log):12, commitIndex:11, lastTerm:58, currentTerm:72, vote:-1
-2018/04/07 18:43:29 log[1]:11
-2018/04/07 18:43:29 log[2]:12
-2018/04/07 18:43:29 log[3]:13
-2018/04/07 18:43:29 log[4]:14
-2018/04/07 18:43:29 log[5]:15
-2018/04/07 18:43:29 log[6]:16
-2018/04/07 18:43:29 rf.me:2, len(rf.log):13, commitIndex:12, lastTerm:66, currentTerm:72, vote:-1
-2018/04/07 18:43:29 log[1]:11
-2018/04/07 18:43:29 log[2]:12
-2018/04/07 18:43:29 log[3]:13
-2018/04/07 18:43:29 log[4]:14
-2018/04/07 18:43:29 log[5]:15
-2018/04/07 18:43:29 log[6]:16
-2018/04/07 18:43:29 log[7]:17
-2018/04/07 18:43:29 log[8]:18
-2018/04/07 18:43:29 log[9]:19
-2018/04/07 18:43:29 log[10]:20
-2018/04/07 18:43:29 log[11]:21
-2018/04/07 18:43:29 log[12]:22
-2018/04/07 18:43:29 leader_last_term:66, follower_last_term:66, leader_last_index:12, follower_last_index:12
-2018/04/07 18:43:29 from 2 to 1 rf.votedFor -1 args.LastLogTerm(leader):66 follower(commited):66
-2018/04/07 18:43:29 rf.me:0, len(rf.log):14, commitIndex:11, lastTerm:66, currentTerm:72, vote:-1
-2018/04/07 18:43:29 log[1]:11
-2018/04/07 18:43:29 log[2]:12
-2018/04/07 18:43:29 log[3]:13
-2018/04/07 18:43:29 log[4]:14
-2018/04/07 18:43:29 log[5]:15
-2018/04/07 18:43:29 log[6]:16
-2018/04/07 18:43:29 log[7]:17
-2018/04/07 18:43:29 log[8]:18
-2018/04/07 18:43:29 log[9]:19
-2018/04/07 18:43:29 log[10]:20
-2018/04/07 18:43:29 log[11]:21
-2018/04/07 18:43:29 leader_last_term:66, follower_last_term:66, leader_last_index:12, follower_last_index:13
-2018/04/07 18:43:29 rf.me:3, len(rf.log):14, commitIndex:12, lastTerm:66, currentTerm:72, vote:-1
-2018/04/07 18:43:29 log[1]:11
-2018/04/07 18:43:29 log[2]:12
-2018/04/07 18:43:29 log[7]:17
-2018/04/07 18:43:29 log[3]:13
-2018/04/07 18:43:29 log[4]:14
-2018/04/07 18:43:29 log[5]:15
-2018/04/07 18:43:29 log[6]:16
-2018/04/07 18:43:29 log[7]:17
-2018/04/07 18:43:29 log[8]:18
-2018/04/07 18:43:29 log[9]:19
-2018/04/07 18:43:29 log[10]:20
-2018/04/07 18:43:29 log[11]:21
-2018/04/07 18:43:29 log[12]:22
-2018/04/07 18:43:29 leader_last_term:66, follower_last_term:66, leader_last_index:12, follower_last_index:13
-2018/04/07 18:43:29 log[8]:18
-2018/04/07 18:43:29 log[9]:19
-2018/04/07 18:43:29 log[10]:20
-2018/04/07 18:43:29 log[11]:21
-2018/04/07 18:43:29 leader_last_term:66, follower_last_term:58, leader_last_index:12, follower_last_index:11
-2018/04/07 18:43:29 from 4 to 1 rf.votedFor -1 args.LastLogTerm(leader):66 follower(commited):58
-2018/04/07 18:43:29 rf.me:1, len(rf.log):13, commitIndex:12, lastTerm:66, currentTerm:72, vote:1
-2018/04/07 18:43:29 log[1]:11
-2018/04/07 18:43:29 log[2]:12
-2018/04/07 18:43:29 log[3]:13
-2018/04/07 18:43:29 log[4]:14
-2018/04/07 18:43:29 log[5]:15
-2018/04/07 18:43:29 log[6]:16
-2018/04/07 18:43:29 log[7]:17
-2018/04/07 18:43:29 log[8]:18
-2018/04/07 18:43:29 log[9]:19
-2018/04/07 18:43:29 log[10]:20
-2018/04/07 18:43:29 log[11]:21
-2018/04/07 18:43:29 log[12]:22
-2018/04/07 18:43:29 Sending applymsg command:22, lastApplyied:12, rf.me:0, term:72, commitIndex:12
-2018/04/07 18:43:29 candidate id:1
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:0
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:1
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:0
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:1
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:0
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:1
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:0
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:1
-2018/04/07 18:43:29 candidate id:2
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:29 candidate id:0
-2018/04/07 18:43:29 candidate id:4
-2018/04/07 18:43:29 candidate id:3
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:1
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:0
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:1
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:0
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:1
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:0
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:1
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 Sending applymsg command:22, lastApplyied:12, rf.me:4, term:72, commitIndex:12
-2018/04/07 18:43:30 Leader Sending applymsg command:23, lastApplyied:13, rf.me:1, term:72, commitIndex:13
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 Sending applymsg command:23, lastApplyied:13, rf.me:0, term:72, commitIndex:13
-2018/04/07 18:43:30 Sending applymsg command:23, lastApplyied:13, rf.me:4, term:72, commitIndex:13
-2018/04/07 18:43:30 Sending applymsg command:23, lastApplyied:13, rf.me:2, term:72, commitIndex:13
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 Sending applymsg command:23, lastApplyied:13, rf.me:3, term:72, commitIndex:13
-2018/04/07 18:43:30 candidate id:0
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:1
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:0
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:1
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:0
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:30 candidate id:3
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:2
-2018/04/07 18:43:30 candidate id:4
-2018/04/07 18:43:31 candidate id:1
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 leader1:1
-2018/04/07 18:43:31 start:24
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 Leader Sending applymsg command:24, lastApplyied:14, rf.me:1, term:72, commitIndex:14
-2018/04/07 18:43:31 Sending applymsg command:24, lastApplyied:14, rf.me:4, term:72, commitIndex:14
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 Sending applymsg command:24, lastApplyied:14, rf.me:0, term:72, commitIndex:14
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:1
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:1
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 rf.me:3, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:73, vote:-1
-2018/04/07 18:43:31 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:13
-2018/04/07 18:43:31 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:1
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 rf.me:3, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:74, vote:-1
-2018/04/07 18:43:31 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:13
-2018/04/07 18:43:31 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:1
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:1
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 rf.me:3, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:75, vote:-1
-2018/04/07 18:43:31 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:13
-2018/04/07 18:43:31 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:1
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 rf.me:3, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:76, vote:-1
-2018/04/07 18:43:31 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:13
-2018/04/07 18:43:31 from 3 to 2 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:1
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:3
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:31 candidate id:4
-2018/04/07 18:43:31 candidate id:0
-2018/04/07 18:43:31 candidate id:2
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 rf.me:2, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:77, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:13
-2018/04/07 18:43:32 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:1
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 start new!:25
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 rf.me:2, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:78, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:13
-2018/04/07 18:43:32 rf.me:4, len(rf.log):15, commitIndex:0, lastTerm:72, currentTerm:78, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:14
-2018/04/07 18:43:32 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:1
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 rf.me:4, len(rf.log):15, commitIndex:0, lastTerm:72, currentTerm:79, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:14
-2018/04/07 18:43:32 rf.me:2, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:79, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:13
-2018/04/07 18:43:32 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:1
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 rf.me:2, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:80, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:13
-2018/04/07 18:43:32 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:32 rf.me:4, len(rf.log):15, commitIndex:0, lastTerm:72, currentTerm:80, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:14
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:1
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 rf.me:4, len(rf.log):15, commitIndex:0, lastTerm:72, currentTerm:81, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:14
-2018/04/07 18:43:32 rf.me:2, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:81, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:13, follower_last_index:13
-2018/04/07 18:43:32 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:1
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 rf.me:3, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:82, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:13
-2018/04/07 18:43:32 from 3 to 4 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:32 rf.me:2, len(rf.log):14, commitIndex:0, lastTerm:72, currentTerm:82, vote:-1
-2018/04/07 18:43:32 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:13
-2018/04/07 18:43:32 from 2 to 4 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:32 rf.me:4, len(rf.log):15, commitIndex:0, lastTerm:72, currentTerm:82, vote:4
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:1
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:0
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:32 candidate id:4
-2018/04/07 18:43:32 candidate id:3
-2018/04/07 18:43:32 candidate id:1
-2018/04/07 18:43:32 candidate id:2
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 leader3:4
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 Leader Sending applymsg command:11, lastApplyied:1, rf.me:4, term:82, commitIndex:1
-2018/04/07 18:43:33 Leader Sending applymsg command:12, lastApplyied:2, rf.me:4, term:82, commitIndex:2
-2018/04/07 18:43:33 Leader Sending applymsg command:13, lastApplyied:3, rf.me:4, term:82, commitIndex:3
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 Leader Sending applymsg command:14, lastApplyied:4, rf.me:4, term:82, commitIndex:4
-2018/04/07 18:43:33 Leader Sending applymsg command:15, lastApplyied:5, rf.me:4, term:82, commitIndex:5
-2018/04/07 18:43:33 Leader Sending applymsg command:16, lastApplyied:6, rf.me:4, term:82, commitIndex:6
-2018/04/07 18:43:33 Leader Sending applymsg command:17, lastApplyied:7, rf.me:4, term:82, commitIndex:7
-2018/04/07 18:43:33 Leader Sending applymsg command:18, lastApplyied:8, rf.me:4, term:82, commitIndex:8
-2018/04/07 18:43:33 Leader Sending applymsg command:19, lastApplyied:9, rf.me:4, term:82, commitIndex:9
-2018/04/07 18:43:33 Leader Sending applymsg command:20, lastApplyied:10, rf.me:4, term:82, commitIndex:10
-2018/04/07 18:43:33 Leader Sending applymsg command:21, lastApplyied:11, rf.me:4, term:82, commitIndex:11
-2018/04/07 18:43:33 Leader Sending applymsg command:22, lastApplyied:12, rf.me:4, term:82, commitIndex:12
-2018/04/07 18:43:33 Leader Sending applymsg command:23, lastApplyied:13, rf.me:4, term:82, commitIndex:13
-2018/04/07 18:43:33 Leader Sending applymsg command:24, lastApplyied:14, rf.me:4, term:82, commitIndex:14
-2018/04/07 18:43:33 Leader Sending applymsg command:25, lastApplyied:15, rf.me:4, term:82, commitIndex:15
-2018/04/07 18:43:33 Sending applymsg command:11, lastApplyied:1, rf.me:2, term:82, commitIndex:1
-2018/04/07 18:43:33 Sending applymsg command:12, lastApplyied:2, rf.me:2, term:82, commitIndex:2
-2018/04/07 18:43:33 Sending applymsg command:13, lastApplyied:3, rf.me:2, term:82, commitIndex:3
-2018/04/07 18:43:33 Sending applymsg command:14, lastApplyied:4, rf.me:2, term:82, commitIndex:4
-2018/04/07 18:43:33 Sending applymsg command:15, lastApplyied:5, rf.me:2, term:82, commitIndex:5
-2018/04/07 18:43:33 Sending applymsg command:16, lastApplyied:6, rf.me:2, term:82, commitIndex:6
-2018/04/07 18:43:33 Sending applymsg command:17, lastApplyied:7, rf.me:2, term:82, commitIndex:7
-2018/04/07 18:43:33 Sending applymsg command:18, lastApplyied:8, rf.me:2, term:82, commitIndex:8
-2018/04/07 18:43:33 Sending applymsg command:19, lastApplyied:9, rf.me:2, term:82, commitIndex:9
-2018/04/07 18:43:33 Sending applymsg command:20, lastApplyied:10, rf.me:2, term:82, commitIndex:10
-2018/04/07 18:43:33 Sending applymsg command:21, lastApplyied:11, rf.me:2, term:82, commitIndex:11
-2018/04/07 18:43:33 Sending applymsg command:22, lastApplyied:12, rf.me:2, term:82, commitIndex:12
-2018/04/07 18:43:33 Sending applymsg command:23, lastApplyied:13, rf.me:2, term:82, commitIndex:13
-2018/04/07 18:43:33 Sending applymsg command:24, lastApplyied:14, rf.me:2, term:82, commitIndex:14
-2018/04/07 18:43:33 Sending applymsg command:25, lastApplyied:15, rf.me:2, term:82, commitIndex:15
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:1
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 Sending applymsg command:11, lastApplyied:1, rf.me:3, term:82, commitIndex:1
-2018/04/07 18:43:33 Sending applymsg command:12, lastApplyied:2, rf.me:3, term:82, commitIndex:2
-2018/04/07 18:43:33 Sending applymsg command:13, lastApplyied:3, rf.me:3, term:82, commitIndex:3
-2018/04/07 18:43:33 Sending applymsg command:14, lastApplyied:4, rf.me:3, term:82, commitIndex:4
-2018/04/07 18:43:33 Sending applymsg command:15, lastApplyied:5, rf.me:3, term:82, commitIndex:5
-2018/04/07 18:43:33 Sending applymsg command:16, lastApplyied:6, rf.me:3, term:82, commitIndex:6
-2018/04/07 18:43:33 Sending applymsg command:17, lastApplyied:7, rf.me:3, term:82, commitIndex:7
-2018/04/07 18:43:33 Sending applymsg command:18, lastApplyied:8, rf.me:3, term:82, commitIndex:8
-2018/04/07 18:43:33 Sending applymsg command:19, lastApplyied:9, rf.me:3, term:82, commitIndex:9
-2018/04/07 18:43:33 Sending applymsg command:20, lastApplyied:10, rf.me:3, term:82, commitIndex:10
-2018/04/07 18:43:33 Sending applymsg command:21, lastApplyied:11, rf.me:3, term:82, commitIndex:11
-2018/04/07 18:43:33 Sending applymsg command:22, lastApplyied:12, rf.me:3, term:82, commitIndex:12
-2018/04/07 18:43:33 Sending applymsg command:23, lastApplyied:13, rf.me:3, term:82, commitIndex:13
-2018/04/07 18:43:33 Sending applymsg command:24, lastApplyied:14, rf.me:3, term:82, commitIndex:14
-2018/04/07 18:43:33 Sending applymsg command:25, lastApplyied:15, rf.me:3, term:82, commitIndex:15
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:86, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:86, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:86, vote:-1
-2018/04/07 18:43:33 rf.me:1, len(rf.log):16, commitIndex:14, lastTerm:72, currentTerm:86, vote:-1
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:1
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:87, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 rf.me:1, len(rf.log):16, commitIndex:14, lastTerm:72, currentTerm:87, vote:-1
-2018/04/07 18:43:33 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:87, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:87, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:1
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:1
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:88, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:88, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 rf.me:1, len(rf.log):16, commitIndex:14, lastTerm:72, currentTerm:88, vote:-1
-2018/04/07 18:43:33 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:88, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:1
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:89, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:89, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:89, vote:-1
-2018/04/07 18:43:33 rf.me:1, len(rf.log):16, commitIndex:14, lastTerm:72, currentTerm:89, vote:-1
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 rf.me:1, len(rf.log):16, commitIndex:14, lastTerm:72, currentTerm:90, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:90, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:90, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:90, vote:-1
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:1
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:0
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:1
-2018/04/07 18:43:33 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:91, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:15, follower_last_index:15
-2018/04/07 18:43:33 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:91, vote:-1
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 rf.me:0, len(rf.log):15, commitIndex:14, lastTerm:72, currentTerm:91, vote:-1
-2018/04/07 18:43:33 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:91, vote:-1
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:15, follower_last_index:15
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:72, leader_last_index:15, follower_last_index:14
-2018/04/07 18:43:33 from 0 to 1 rf.votedFor -1 args.LastLogTerm(leader):72 follower(commited):72
-2018/04/07 18:43:33 log[1]:11
-2018/04/07 18:43:33 log[2]:12
-2018/04/07 18:43:33 log[3]:13
-2018/04/07 18:43:33 log[4]:14
-2018/04/07 18:43:33 log[5]:15
-2018/04/07 18:43:33 log[6]:16
-2018/04/07 18:43:33 log[7]:17
-2018/04/07 18:43:33 log[8]:18
-2018/04/07 18:43:33 log[9]:19
-2018/04/07 18:43:33 log[10]:20
-2018/04/07 18:43:33 log[11]:21
-2018/04/07 18:43:33 log[12]:22
-2018/04/07 18:43:33 log[13]:23
-2018/04/07 18:43:33 log[14]:24
-2018/04/07 18:43:33 log[15]:25
-2018/04/07 18:43:33 leader_last_term:72, follower_last_term:82, leader_last_index:15, follower_last_index:15
-2018/04/07 18:43:33 candidate id:4
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:3
-2018/04/07 18:43:33 candidate id:2
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:1
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:0
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:0
-2018/04/07 18:43:34 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:92, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 rf.me:1, len(rf.log):16, commitIndex:14, lastTerm:72, currentTerm:92, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:92, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:92, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:1
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:0
-2018/04/07 18:43:34 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:93, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 rf.me:1, len(rf.log):16, commitIndex:14, lastTerm:72, currentTerm:93, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:93, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:93, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 candidate id:0
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:1
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:0
-2018/04/07 18:43:34 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:94, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:94, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:94, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 rf.me:1, len(rf.log):16, commitIndex:14, lastTerm:72, currentTerm:94, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:0
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:0
-2018/04/07 18:43:34 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:95, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:95, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:95, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:82, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 rf.me:1, len(rf.log):16, commitIndex:14, lastTerm:72, currentTerm:95, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 leader_last_term:72, follower_last_term:72, leader_last_index:14, follower_last_index:15
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:1
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:0
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:1
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 rf.me:4, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:96, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:82, follower_last_term:82, leader_last_index:15, follower_last_index:15
-2018/04/07 18:43:34 from 4 to 3 rf.votedFor -1 args.LastLogTerm(leader):82 follower(commited):82
-2018/04/07 18:43:34 rf.me:0, len(rf.log):15, commitIndex:14, lastTerm:72, currentTerm:96, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 rf.me:2, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:96, vote:-1
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 rf.me:1, len(rf.log):16, commitIndex:14, lastTerm:72, currentTerm:96, vote:-1
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 leader_last_term:82, follower_last_term:72, leader_last_index:15, follower_last_index:14
-2018/04/07 18:43:34 from 0 to 3 rf.votedFor -1 args.LastLogTerm(leader):82 follower(commited):72
-2018/04/07 18:43:34 rf.me:3, len(rf.log):16, commitIndex:15, lastTerm:82, currentTerm:96, vote:3
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 log[15]:25
-2018/04/07 18:43:34 leader_last_term:82, follower_last_term:82, leader_last_index:15, follower_last_index:15
-2018/04/07 18:43:34 from 2 to 3 rf.votedFor -1 args.LastLogTerm(leader):82 follower(commited):82
-2018/04/07 18:43:34 log[1]:11
-2018/04/07 18:43:34 log[2]:12
-2018/04/07 18:43:34 log[3]:13
-2018/04/07 18:43:34 log[4]:14
-2018/04/07 18:43:34 log[5]:15
-2018/04/07 18:43:34 log[6]:16
-2018/04/07 18:43:34 log[7]:17
-2018/04/07 18:43:34 log[8]:18
-2018/04/07 18:43:34 log[9]:19
-2018/04/07 18:43:34 log[10]:20
-2018/04/07 18:43:34 log[11]:21
-2018/04/07 18:43:34 log[12]:22
-2018/04/07 18:43:34 log[13]:23
-2018/04/07 18:43:34 log[14]:24
-2018/04/07 18:43:34 leader_last_term:82, follower_last_term:72, leader_last_index:15, follower_last_index:15
-2018/04/07 18:43:34 from 1 to 3 rf.votedFor -1 args.LastLogTerm(leader):82 follower(commited):72
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:0
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:1
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:0
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:1
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:34 candidate id:3
-2018/04/07 18:43:34 candidate id:4
-2018/04/07 18:43:34 candidate id:2
-2018/04/07 18:43:35 candidate id:3
-2018/04/07 18:43:35 candidate id:3
-2018/04/07 18:43:35 candidate id:4
-2018/04/07 18:43:35 candidate id:1
-2018/04/07 18:43:35 candidate id:3
-2018/04/07 18:43:35 candidate id:2
-2018/04/07 18:43:35 candidate id:4
-2018/04/07 18:43:35 candidate id:2
-2018/04/07 18:43:35 candidate id:4
-2018/04/07 18:43:35 candidate id:0
-2018/04/07 18:43:35 candidate id:3
-2018/04/07 18:43:35 Sending applymsg command:25, lastApplyied:15, rf.me:1, term:96, commitIndex:15
-2018/04/07 18:43:35 Sending applymsg command:25, lastApplyied:15, rf.me:0, term:96, commitIndex:15
-2018/04/07 18:43:35 candidate id:2
-2018/04/07 18:43:35 candidate id:2
-2018/04/07 18:43:35 Leader Sending applymsg command:1000, lastApplyied:16, rf.me:3, term:96, commitIndex:16
-2018/04/07 18:43:35 Sending applymsg command:1000, lastApplyied:16, rf.me:1, term:96, commitIndex:16
-2018/04/07 18:43:35 Sending applymsg command:1000, lastApplyied:16, rf.me:2, term:96, commitIndex:16
-2018/04/07 18:43:35 candidate id:4
-2018/04/07 18:43:35 candidate id:3
-2018/04/07 18:43:35 candidate id:3
-2018/04/07 18:43:35 Sending applymsg command:1000, lastApplyied:16, rf.me:0, term:96, commitIndex:16
-2018/04/07 18:43:35 Sending applymsg command:1000, lastApplyied:16, rf.me:4, term:96, commitIndex:16
-2018/04/07 18:43:35 candidate id:4
-2018/04/07 18:43:35 candidate id:3
-  ... Passed --  24.7  5 9093   16
+Test (2C): Figure 8 (unreliable) ...
+2018/04/11 00:36:30 Here?
+2018/04/11 00:36:30 Here?
+2018/04/11 00:36:30 Here?
+2018/04/11 00:36:30 Here?
+2018/04/11 00:36:30 Here?
+2018/04/11 00:36:30 Here?
+2018/04/11 00:36:31 Here?
+2018/04/11 00:36:31 Here?
+2018/04/11 00:36:31 index is:1
+2018/04/11 00:36:31 ok, cmd:3257
+2018/04/11 00:36:31 iter is:0
+2018/04/11 00:36:31 iter is:1
+2018/04/11 00:36:31 iter is:2
+2018/04/11 00:36:31 iter is:3
+2018/04/11 00:36:31 iter is:4
+2018/04/11 00:36:31 iter is:5
+2018/04/11 00:36:31 iter is:6
+2018/04/11 00:36:31 iter is:7
+2018/04/11 00:36:31 iter is:8
+2018/04/11 00:36:31 iter is:9
+2018/04/11 00:36:31 iter is:10
+2018/04/11 00:36:31 iter is:11
+2018/04/11 00:36:31 iter is:12
+2018/04/11 00:36:32 iter is:13
+2018/04/11 00:36:32 iter is:14
+2018/04/11 00:36:32 iter is:15
+2018/04/11 00:36:32 iter is:16
+2018/04/11 00:36:32 iter is:17
+2018/04/11 00:36:32 iter is:18
+2018/04/11 00:36:32 iter is:19
+2018/04/11 00:36:32 iter is:20
+2018/04/11 00:36:32 iter is:21
+2018/04/11 00:36:32 iter is:22
+2018/04/11 00:36:32 iter is:23
+2018/04/11 00:36:32 iter is:24
+2018/04/11 00:36:32 iter is:25
+2018/04/11 00:36:32 iter is:26
+2018/04/11 00:36:32 iter is:27
+2018/04/11 00:36:32 iter is:28
+2018/04/11 00:36:32 iter is:29
+2018/04/11 00:36:32 iter is:30
+2018/04/11 00:36:32 iter is:31
+2018/04/11 00:36:32 iter is:32
+2018/04/11 00:36:32 iter is:33
+2018/04/11 00:36:32 iter is:34
+2018/04/11 00:36:32 iter is:35
+2018/04/11 00:36:32 iter is:36
+2018/04/11 00:36:32 iter is:37
+2018/04/11 00:36:33 iter is:38
+2018/04/11 00:36:33 iter is:39
+2018/04/11 00:36:33 iter is:40
+2018/04/11 00:36:33 iter is:41
+2018/04/11 00:36:33 iter is:42
+2018/04/11 00:36:33 iter is:43
+2018/04/11 00:36:33 iter is:44
+2018/04/11 00:36:33 iter is:45
+2018/04/11 00:36:33 iter is:46
+2018/04/11 00:36:33 iter is:47
+2018/04/11 00:36:33 iter is:48
+2018/04/11 00:36:33 iter is:49
+2018/04/11 00:36:33 iter is:50
+2018/04/11 00:36:33 iter is:51
+2018/04/11 00:36:33 iter is:52
+2018/04/11 00:36:33 iter is:53
+2018/04/11 00:36:33 iter is:54
+2018/04/11 00:36:33 iter is:55
+2018/04/11 00:36:33 iter is:56
+2018/04/11 00:36:33 iter is:57
+2018/04/11 00:36:33 iter is:58
+2018/04/11 00:36:33 iter is:59
+2018/04/11 00:36:33 iter is:60
+2018/04/11 00:36:33 iter is:61
+2018/04/11 00:36:33 iter is:62
+2018/04/11 00:36:33 iter is:63
+2018/04/11 00:36:33 iter is:64
+2018/04/11 00:36:33 iter is:65
+2018/04/11 00:36:33 iter is:66
+2018/04/11 00:36:33 iter is:67
+2018/04/11 00:36:33 iter is:68
+2018/04/11 00:36:33 iter is:69
+2018/04/11 00:36:33 iter is:70
+2018/04/11 00:36:33 iter is:71
+2018/04/11 00:36:33 iter is:72
+2018/04/11 00:36:33 iter is:73
+2018/04/11 00:36:33 iter is:74
+2018/04/11 00:36:33 iter is:75
+2018/04/11 00:36:33 iter is:76
+2018/04/11 00:36:33 iter is:77
+2018/04/11 00:36:33 iter is:78
+2018/04/11 00:36:33 iter is:79
+2018/04/11 00:36:33 iter is:80
+2018/04/11 00:36:33 iter is:81
+2018/04/11 00:36:33 iter is:82
+2018/04/11 00:36:33 iter is:83
+2018/04/11 00:36:33 iter is:84
+2018/04/11 00:36:33 iter is:85
+2018/04/11 00:36:33 iter is:86
+2018/04/11 00:36:33 iter is:87
+2018/04/11 00:36:33 iter is:88
+2018/04/11 00:36:33 iter is:89
+2018/04/11 00:36:33 iter is:90
+2018/04/11 00:36:33 iter is:91
+2018/04/11 00:36:33 iter is:92
+2018/04/11 00:36:33 iter is:93
+2018/04/11 00:36:33 iter is:94
+2018/04/11 00:36:33 iter is:95
+2018/04/11 00:36:33 iter is:96
+2018/04/11 00:36:33 iter is:97
+2018/04/11 00:36:33 iter is:98
+2018/04/11 00:36:33 iter is:99
+2018/04/11 00:36:33 iter is:100
+2018/04/11 00:36:33 iter is:101
+2018/04/11 00:36:33 iter is:102
+2018/04/11 00:36:33 iter is:103
+2018/04/11 00:36:33 iter is:104
+2018/04/11 00:36:34 iter is:105
+2018/04/11 00:36:34 iter is:106
+2018/04/11 00:36:34 iter is:107
+2018/04/11 00:36:34 iter is:108
+2018/04/11 00:36:34 iter is:109
+2018/04/11 00:36:34 iter is:110
+2018/04/11 00:36:34 iter is:111
+2018/04/11 00:36:34 iter is:112
+2018/04/11 00:36:34 iter is:113
+2018/04/11 00:36:34 iter is:114
+2018/04/11 00:36:34 iter is:115
+2018/04/11 00:36:34 iter is:116
+2018/04/11 00:36:34 iter is:117
+2018/04/11 00:36:34 iter is:118
+2018/04/11 00:36:34 iter is:119
+2018/04/11 00:36:34 iter is:120
+2018/04/11 00:36:34 iter is:121
+2018/04/11 00:36:34 iter is:122
+2018/04/11 00:36:35 iter is:123
+2018/04/11 00:36:35 iter is:124
+2018/04/11 00:36:35 iter is:125
+2018/04/11 00:36:35 iter is:126
+2018/04/11 00:36:35 iter is:127
+2018/04/11 00:36:35 iter is:128
+2018/04/11 00:36:35 iter is:129
+2018/04/11 00:36:35 iter is:130
+2018/04/11 00:36:35 iter is:131
+2018/04/11 00:36:35 iter is:132
+2018/04/11 00:36:35 iter is:133
+2018/04/11 00:36:35 iter is:134
+2018/04/11 00:36:35 iter is:135
+2018/04/11 00:36:35 iter is:136
+2018/04/11 00:36:35 iter is:137
+2018/04/11 00:36:35 iter is:138
+2018/04/11 00:36:35 iter is:139
+2018/04/11 00:36:35 iter is:140
+2018/04/11 00:36:35 iter is:141
+2018/04/11 00:36:35 iter is:142
+2018/04/11 00:36:35 iter is:143
+2018/04/11 00:36:35 iter is:144
+2018/04/11 00:36:35 iter is:145
+2018/04/11 00:36:36 iter is:146
+2018/04/11 00:36:36 iter is:147
+2018/04/11 00:36:36 iter is:148
+2018/04/11 00:36:36 iter is:149
+2018/04/11 00:36:36 iter is:150
+2018/04/11 00:36:36 iter is:151
+2018/04/11 00:36:36 iter is:152
+2018/04/11 00:36:36 iter is:153
+2018/04/11 00:36:36 iter is:154
+2018/04/11 00:36:36 iter is:155
+2018/04/11 00:36:36 iter is:156
+2018/04/11 00:36:36 iter is:157
+2018/04/11 00:36:36 iter is:158
+2018/04/11 00:36:36 iter is:159
+2018/04/11 00:36:36 iter is:160
+2018/04/11 00:36:36 iter is:161
+2018/04/11 00:36:36 iter is:162
+2018/04/11 00:36:36 iter is:163
+2018/04/11 00:36:36 iter is:164
+2018/04/11 00:36:36 iter is:165
+2018/04/11 00:36:36 iter is:166
+2018/04/11 00:36:36 iter is:167
+2018/04/11 00:36:36 iter is:168
+2018/04/11 00:36:36 iter is:169
+2018/04/11 00:36:36 iter is:170
+2018/04/11 00:36:36 iter is:171
+2018/04/11 00:36:36 iter is:172
+2018/04/11 00:36:36 iter is:173
+2018/04/11 00:36:36 iter is:174
+2018/04/11 00:36:36 iter is:175
+2018/04/11 00:36:36 iter is:176
+2018/04/11 00:36:36 iter is:177
+2018/04/11 00:36:37 iter is:178
+2018/04/11 00:36:37 iter is:179
+2018/04/11 00:36:37 iter is:180
+2018/04/11 00:36:37 iter is:181
+2018/04/11 00:36:37 iter is:182
+2018/04/11 00:36:37 iter is:183
+2018/04/11 00:36:37 iter is:184
+2018/04/11 00:36:37 iter is:185
+2018/04/11 00:36:37 iter is:186
+2018/04/11 00:36:37 iter is:187
+2018/04/11 00:36:37 iter is:188
+2018/04/11 00:36:37 iter is:189
+2018/04/11 00:36:37 iter is:190
+2018/04/11 00:36:37 iter is:191
+2018/04/11 00:36:37 iter is:192
+2018/04/11 00:36:37 iter is:193
+2018/04/11 00:36:37 iter is:194
+2018/04/11 00:36:38 iter is:195
+2018/04/11 00:36:38 iter is:196
+2018/04/11 00:36:38 iter is:197
+2018/04/11 00:36:38 iter is:198
+2018/04/11 00:36:38 iter is:199
+2018/04/11 00:36:38 iter is:200
+2018/04/11 00:36:38 iter is:201
+2018/04/11 00:36:38 iter is:202
+2018/04/11 00:36:38 iter is:203
+2018/04/11 00:36:38 iter is:204
+2018/04/11 00:36:38 iter is:205
+2018/04/11 00:36:38 iter is:206
+2018/04/11 00:36:38 iter is:207
+2018/04/11 00:36:38 iter is:208
+2018/04/11 00:36:38 iter is:209
+2018/04/11 00:36:38 iter is:210
+2018/04/11 00:36:38 iter is:211
+2018/04/11 00:36:38 iter is:212
+2018/04/11 00:36:38 iter is:213
+2018/04/11 00:36:38 iter is:214
+2018/04/11 00:36:38 iter is:215
+2018/04/11 00:36:38 iter is:216
+2018/04/11 00:36:38 iter is:217
+2018/04/11 00:36:38 iter is:218
+2018/04/11 00:36:38 iter is:219
+2018/04/11 00:36:38 iter is:220
+2018/04/11 00:36:38 iter is:221
+2018/04/11 00:36:38 iter is:222
+2018/04/11 00:36:38 iter is:223
+2018/04/11 00:36:38 iter is:224
+2018/04/11 00:36:38 iter is:225
+2018/04/11 00:36:38 iter is:226
+2018/04/11 00:36:38 iter is:227
+2018/04/11 00:36:38 iter is:228
+2018/04/11 00:36:38 iter is:229
+2018/04/11 00:36:38 iter is:230
+2018/04/11 00:36:38 iter is:231
+2018/04/11 00:36:38 iter is:232
+2018/04/11 00:36:38 iter is:233
+2018/04/11 00:36:38 iter is:234
+2018/04/11 00:36:38 iter is:235
+2018/04/11 00:36:38 iter is:236
+2018/04/11 00:36:38 iter is:237
+2018/04/11 00:36:38 iter is:238
+2018/04/11 00:36:38 iter is:239
+2018/04/11 00:36:38 iter is:240
+2018/04/11 00:36:38 iter is:241
+2018/04/11 00:36:38 iter is:242
+2018/04/11 00:36:38 iter is:243
+2018/04/11 00:36:38 iter is:244
+2018/04/11 00:36:38 iter is:245
+2018/04/11 00:36:39 iter is:246
+2018/04/11 00:36:39 iter is:247
+2018/04/11 00:36:39 iter is:248
+2018/04/11 00:36:39 iter is:249
+2018/04/11 00:36:39 iter is:250
+2018/04/11 00:36:39 iter is:251
+2018/04/11 00:36:39 iter is:252
+2018/04/11 00:36:39 iter is:253
+2018/04/11 00:36:39 iter is:254
+2018/04/11 00:36:39 iter is:255
+2018/04/11 00:36:39 iter is:256
+2018/04/11 00:36:39 iter is:257
+2018/04/11 00:36:39 iter is:258
+2018/04/11 00:36:39 iter is:259
+2018/04/11 00:36:39 iter is:260
+2018/04/11 00:36:39 iter is:261
+2018/04/11 00:36:39 iter is:262
+2018/04/11 00:36:39 iter is:263
+2018/04/11 00:36:39 iter is:264
+2018/04/11 00:36:39 iter is:265
+2018/04/11 00:36:39 iter is:266
+2018/04/11 00:36:39 iter is:267
+2018/04/11 00:36:39 iter is:268
+2018/04/11 00:36:39 iter is:269
+2018/04/11 00:36:39 iter is:270
+2018/04/11 00:36:39 iter is:271
+2018/04/11 00:36:39 iter is:272
+2018/04/11 00:36:39 iter is:273
+2018/04/11 00:36:39 iter is:274
+2018/04/11 00:36:39 iter is:275
+2018/04/11 00:36:39 iter is:276
+2018/04/11 00:36:39 iter is:277
+2018/04/11 00:36:39 iter is:278
+2018/04/11 00:36:39 iter is:279
+2018/04/11 00:36:39 iter is:280
+2018/04/11 00:36:39 iter is:281
+2018/04/11 00:36:39 iter is:282
+2018/04/11 00:36:39 iter is:283
+2018/04/11 00:36:39 iter is:284
+2018/04/11 00:36:39 iter is:285
+2018/04/11 00:36:39 iter is:286
+2018/04/11 00:36:39 iter is:287
+2018/04/11 00:36:39 iter is:288
+2018/04/11 00:36:39 iter is:289
+2018/04/11 00:36:39 iter is:290
+2018/04/11 00:36:39 iter is:291
+2018/04/11 00:36:39 iter is:292
+2018/04/11 00:36:39 iter is:293
+2018/04/11 00:36:39 iter is:294
+2018/04/11 00:36:39 iter is:295
+2018/04/11 00:36:39 iter is:296
+2018/04/11 00:36:39 iter is:297
+2018/04/11 00:36:39 iter is:298
+2018/04/11 00:36:39 iter is:299
+2018/04/11 00:36:39 iter is:300
+2018/04/11 00:36:39 iter is:301
+2018/04/11 00:36:39 iter is:302
+2018/04/11 00:36:39 iter is:303
+2018/04/11 00:36:39 iter is:304
+2018/04/11 00:36:39 iter is:305
+2018/04/11 00:36:39 iter is:306
+2018/04/11 00:36:39 iter is:307
+2018/04/11 00:36:40 iter is:308
+2018/04/11 00:36:40 iter is:309
+2018/04/11 00:36:40 iter is:310
+2018/04/11 00:36:40 iter is:311
+2018/04/11 00:36:40 iter is:312
+2018/04/11 00:36:40 iter is:313
+2018/04/11 00:36:40 iter is:314
+2018/04/11 00:36:40 iter is:315
+2018/04/11 00:36:40 iter is:316
+2018/04/11 00:36:40 iter is:317
+2018/04/11 00:36:40 iter is:318
+2018/04/11 00:36:40 iter is:319
+2018/04/11 00:36:40 iter is:320
+2018/04/11 00:36:40 iter is:321
+2018/04/11 00:36:40 iter is:322
+2018/04/11 00:36:40 iter is:323
+2018/04/11 00:36:40 iter is:324
+2018/04/11 00:36:40 iter is:325
+2018/04/11 00:36:40 iter is:326
+2018/04/11 00:36:40 iter is:327
+2018/04/11 00:36:40 iter is:328
+2018/04/11 00:36:40 iter is:329
+2018/04/11 00:36:40 iter is:330
+2018/04/11 00:36:40 iter is:331
+2018/04/11 00:36:40 iter is:332
+2018/04/11 00:36:40 iter is:333
+2018/04/11 00:36:40 iter is:334
+2018/04/11 00:36:41 iter is:335
+2018/04/11 00:36:41 iter is:336
+2018/04/11 00:36:41 iter is:337
+2018/04/11 00:36:41 iter is:338
+2018/04/11 00:36:41 iter is:339
+2018/04/11 00:36:41 iter is:340
+2018/04/11 00:36:41 iter is:341
+2018/04/11 00:36:41 iter is:342
+2018/04/11 00:36:41 iter is:343
+2018/04/11 00:36:41 iter is:344
+2018/04/11 00:36:41 iter is:345
+2018/04/11 00:36:41 iter is:346
+2018/04/11 00:36:41 iter is:347
+2018/04/11 00:36:41 iter is:348
+2018/04/11 00:36:41 iter is:349
+2018/04/11 00:36:41 iter is:350
+2018/04/11 00:36:41 iter is:351
+2018/04/11 00:36:41 iter is:352
+2018/04/11 00:36:41 iter is:353
+2018/04/11 00:36:41 iter is:354
+2018/04/11 00:36:41 iter is:355
+2018/04/11 00:36:41 iter is:356
+2018/04/11 00:36:41 iter is:357
+2018/04/11 00:36:41 iter is:358
+2018/04/11 00:36:41 iter is:359
+2018/04/11 00:36:41 iter is:360
+2018/04/11 00:36:41 iter is:361
+2018/04/11 00:36:41 iter is:362
+2018/04/11 00:36:41 iter is:363
+2018/04/11 00:36:41 iter is:364
+2018/04/11 00:36:41 iter is:365
+2018/04/11 00:36:41 iter is:366
+2018/04/11 00:36:41 iter is:367
+2018/04/11 00:36:41 iter is:368
+2018/04/11 00:36:41 iter is:369
+2018/04/11 00:36:41 iter is:370
+2018/04/11 00:36:41 iter is:371
+2018/04/11 00:36:41 iter is:372
+2018/04/11 00:36:42 iter is:373
+2018/04/11 00:36:42 iter is:374
+2018/04/11 00:36:42 iter is:375
+2018/04/11 00:36:42 iter is:376
+2018/04/11 00:36:42 iter is:377
+2018/04/11 00:36:42 iter is:378
+2018/04/11 00:36:42 iter is:379
+2018/04/11 00:36:42 iter is:380
+2018/04/11 00:36:42 iter is:381
+2018/04/11 00:36:42 iter is:382
+2018/04/11 00:36:42 iter is:383
+2018/04/11 00:36:42 iter is:384
+2018/04/11 00:36:42 iter is:385
+2018/04/11 00:36:42 iter is:386
+2018/04/11 00:36:42 iter is:387
+2018/04/11 00:36:42 iter is:388
+2018/04/11 00:36:42 iter is:389
+2018/04/11 00:36:42 iter is:390
+2018/04/11 00:36:42 iter is:391
+2018/04/11 00:36:42 iter is:392
+2018/04/11 00:36:42 iter is:393
+2018/04/11 00:36:42 iter is:394
+2018/04/11 00:36:42 iter is:395
+2018/04/11 00:36:43 iter is:396
+2018/04/11 00:36:43 iter is:397
+2018/04/11 00:36:43 iter is:398
+2018/04/11 00:36:43 iter is:399
+2018/04/11 00:36:43 iter is:400
+2018/04/11 00:36:43 iter is:401
+2018/04/11 00:36:43 iter is:402
+2018/04/11 00:36:43 iter is:403
+2018/04/11 00:36:43 iter is:404
+2018/04/11 00:36:43 iter is:405
+2018/04/11 00:36:43 iter is:406
+2018/04/11 00:36:43 iter is:407
+2018/04/11 00:36:43 iter is:408
+2018/04/11 00:36:43 iter is:409
+2018/04/11 00:36:43 iter is:410
+2018/04/11 00:36:43 iter is:411
+2018/04/11 00:36:43 iter is:412
+2018/04/11 00:36:43 iter is:413
+2018/04/11 00:36:43 iter is:414
+2018/04/11 00:36:43 iter is:415
+2018/04/11 00:36:43 iter is:416
+2018/04/11 00:36:43 iter is:417
+2018/04/11 00:36:43 iter is:418
+2018/04/11 00:36:43 iter is:419
+2018/04/11 00:36:43 iter is:420
+2018/04/11 00:36:43 iter is:421
+2018/04/11 00:36:43 iter is:422
+2018/04/11 00:36:43 iter is:423
+2018/04/11 00:36:43 iter is:424
+2018/04/11 00:36:43 iter is:425
+2018/04/11 00:36:43 iter is:426
+2018/04/11 00:36:44 iter is:427
+2018/04/11 00:36:44 iter is:428
+2018/04/11 00:36:44 iter is:429
+2018/04/11 00:36:44 iter is:430
+2018/04/11 00:36:44 iter is:431
+2018/04/11 00:36:44 iter is:432
+2018/04/11 00:36:44 iter is:433
+2018/04/11 00:36:44 iter is:434
+2018/04/11 00:36:44 iter is:435
+2018/04/11 00:36:44 iter is:436
+2018/04/11 00:36:44 iter is:437
+2018/04/11 00:36:44 iter is:438
+2018/04/11 00:36:44 iter is:439
+2018/04/11 00:36:44 iter is:440
+2018/04/11 00:36:44 iter is:441
+2018/04/11 00:36:44 iter is:442
+2018/04/11 00:36:44 iter is:443
+2018/04/11 00:36:44 iter is:444
+2018/04/11 00:36:44 iter is:445
+2018/04/11 00:36:44 iter is:446
+2018/04/11 00:36:44 iter is:447
+2018/04/11 00:36:45 iter is:448
+2018/04/11 00:36:45 iter is:449
+2018/04/11 00:36:45 iter is:450
+2018/04/11 00:36:45 iter is:451
+2018/04/11 00:36:45 iter is:452
+2018/04/11 00:36:45 iter is:453
+2018/04/11 00:36:45 iter is:454
+2018/04/11 00:36:45 iter is:455
+2018/04/11 00:36:45 iter is:456
+2018/04/11 00:36:45 iter is:457
+2018/04/11 00:36:45 iter is:458
+2018/04/11 00:36:45 iter is:459
+2018/04/11 00:36:45 iter is:460
+2018/04/11 00:36:45 iter is:461
+2018/04/11 00:36:45 iter is:462
+2018/04/11 00:36:45 iter is:463
+2018/04/11 00:36:45 iter is:464
+2018/04/11 00:36:45 iter is:465
+2018/04/11 00:36:45 iter is:466
+2018/04/11 00:36:45 iter is:467
+2018/04/11 00:36:45 iter is:468
+2018/04/11 00:36:45 iter is:469
+2018/04/11 00:36:45 iter is:470
+2018/04/11 00:36:45 iter is:471
+2018/04/11 00:36:45 iter is:472
+2018/04/11 00:36:45 iter is:473
+2018/04/11 00:36:45 iter is:474
+2018/04/11 00:36:45 iter is:475
+2018/04/11 00:36:45 iter is:476
+2018/04/11 00:36:45 iter is:477
+2018/04/11 00:36:45 iter is:478
+2018/04/11 00:36:46 iter is:479
+2018/04/11 00:36:46 iter is:480
+2018/04/11 00:36:46 iter is:481
+2018/04/11 00:36:46 iter is:482
+2018/04/11 00:36:46 iter is:483
+2018/04/11 00:36:46 iter is:484
+2018/04/11 00:36:46 iter is:485
+2018/04/11 00:36:46 iter is:486
+2018/04/11 00:36:46 iter is:487
+2018/04/11 00:36:46 iter is:488
+2018/04/11 00:36:46 iter is:489
+2018/04/11 00:36:46 iter is:490
+2018/04/11 00:36:46 iter is:491
+2018/04/11 00:36:46 iter is:492
+2018/04/11 00:36:46 iter is:493
+2018/04/11 00:36:46 iter is:494
+2018/04/11 00:36:46 iter is:495
+2018/04/11 00:36:46 iter is:496
+2018/04/11 00:36:46 iter is:497
+2018/04/11 00:36:46 iter is:498
+2018/04/11 00:36:46 iter is:499
+2018/04/11 00:36:46 iter is:500
+2018/04/11 00:36:46 iter is:501
+2018/04/11 00:36:46 iter is:502
+2018/04/11 00:36:46 iter is:503
+2018/04/11 00:36:46 iter is:504
+2018/04/11 00:36:46 iter is:505
+2018/04/11 00:36:46 iter is:506
+2018/04/11 00:36:46 iter is:507
+2018/04/11 00:36:46 iter is:508
+2018/04/11 00:36:46 iter is:509
+2018/04/11 00:36:46 iter is:510
+2018/04/11 00:36:46 iter is:511
+2018/04/11 00:36:47 iter is:512
+2018/04/11 00:36:47 iter is:513
+2018/04/11 00:36:47 iter is:514
+2018/04/11 00:36:47 iter is:515
+2018/04/11 00:36:47 iter is:516
+2018/04/11 00:36:47 iter is:517
+2018/04/11 00:36:47 iter is:518
+2018/04/11 00:36:47 iter is:519
+2018/04/11 00:36:47 iter is:520
+2018/04/11 00:36:47 iter is:521
+2018/04/11 00:36:47 iter is:522
+2018/04/11 00:36:47 iter is:523
+2018/04/11 00:36:47 iter is:524
+2018/04/11 00:36:47 iter is:525
+2018/04/11 00:36:47 iter is:526
+2018/04/11 00:36:47 iter is:527
+2018/04/11 00:36:47 iter is:528
+2018/04/11 00:36:47 iter is:529
+2018/04/11 00:36:47 iter is:530
+2018/04/11 00:36:47 iter is:531
+2018/04/11 00:36:47 iter is:532
+2018/04/11 00:36:47 iter is:533
+2018/04/11 00:36:47 iter is:534
+2018/04/11 00:36:47 iter is:535
+2018/04/11 00:36:47 iter is:536
+2018/04/11 00:36:47 iter is:537
+2018/04/11 00:36:47 iter is:538
+2018/04/11 00:36:47 iter is:539
+2018/04/11 00:36:47 iter is:540
+2018/04/11 00:36:47 iter is:541
+2018/04/11 00:36:47 iter is:542
+2018/04/11 00:36:48 iter is:543
+2018/04/11 00:36:48 iter is:544
+2018/04/11 00:36:48 iter is:545
+2018/04/11 00:36:48 iter is:546
+2018/04/11 00:36:48 iter is:547
+2018/04/11 00:36:48 iter is:548
+2018/04/11 00:36:48 iter is:549
+2018/04/11 00:36:48 iter is:550
+2018/04/11 00:36:48 iter is:551
+2018/04/11 00:36:48 iter is:552
+2018/04/11 00:36:48 iter is:553
+2018/04/11 00:36:48 iter is:554
+2018/04/11 00:36:48 iter is:555
+2018/04/11 00:36:48 iter is:556
+2018/04/11 00:36:48 iter is:557
+2018/04/11 00:36:48 iter is:558
+2018/04/11 00:36:48 iter is:559
+2018/04/11 00:36:48 iter is:560
+2018/04/11 00:36:48 iter is:561
+2018/04/11 00:36:48 iter is:562
+2018/04/11 00:36:48 iter is:563
+2018/04/11 00:36:48 iter is:564
+2018/04/11 00:36:48 iter is:565
+2018/04/11 00:36:48 iter is:566
+2018/04/11 00:36:48 iter is:567
+2018/04/11 00:36:48 iter is:568
+2018/04/11 00:36:48 iter is:569
+2018/04/11 00:36:48 iter is:570
+2018/04/11 00:36:48 iter is:571
+2018/04/11 00:36:48 iter is:572
+2018/04/11 00:36:48 iter is:573
+2018/04/11 00:36:48 iter is:574
+2018/04/11 00:36:48 iter is:575
+2018/04/11 00:36:48 iter is:576
+2018/04/11 00:36:48 iter is:577
+2018/04/11 00:36:48 iter is:578
+2018/04/11 00:36:48 iter is:579
+2018/04/11 00:36:48 iter is:580
+2018/04/11 00:36:48 iter is:581
+2018/04/11 00:36:48 iter is:582
+2018/04/11 00:36:48 iter is:583
+2018/04/11 00:36:48 iter is:584
+2018/04/11 00:36:49 iter is:585
+2018/04/11 00:36:49 iter is:586
+2018/04/11 00:36:49 iter is:587
+2018/04/11 00:36:49 iter is:588
+2018/04/11 00:36:49 iter is:589
+2018/04/11 00:36:49 iter is:590
+2018/04/11 00:36:49 iter is:591
+2018/04/11 00:36:49 iter is:592
+2018/04/11 00:36:49 iter is:593
+2018/04/11 00:36:49 iter is:594
+2018/04/11 00:36:49 iter is:595
+2018/04/11 00:36:49 iter is:596
+2018/04/11 00:36:49 iter is:597
+2018/04/11 00:36:49 iter is:598
+2018/04/11 00:36:49 iter is:599
+2018/04/11 00:36:49 iter is:600
+2018/04/11 00:36:49 iter is:601
+2018/04/11 00:36:49 iter is:602
+2018/04/11 00:36:49 iter is:603
+2018/04/11 00:36:49 iter is:604
+2018/04/11 00:36:49 iter is:605
+2018/04/11 00:36:49 iter is:606
+2018/04/11 00:36:49 iter is:607
+2018/04/11 00:36:49 iter is:608
+2018/04/11 00:36:49 iter is:609
+2018/04/11 00:36:50 iter is:610
+2018/04/11 00:36:50 iter is:611
+2018/04/11 00:36:50 iter is:612
+2018/04/11 00:36:50 iter is:613
+2018/04/11 00:36:50 iter is:614
+2018/04/11 00:36:50 iter is:615
+2018/04/11 00:36:50 iter is:616
+2018/04/11 00:36:50 iter is:617
+2018/04/11 00:36:50 iter is:618
+2018/04/11 00:36:50 iter is:619
+2018/04/11 00:36:50 iter is:620
+2018/04/11 00:36:50 iter is:621
+2018/04/11 00:36:50 iter is:622
+2018/04/11 00:36:50 iter is:623
+2018/04/11 00:36:50 iter is:624
+2018/04/11 00:36:50 iter is:625
+2018/04/11 00:36:50 iter is:626
+2018/04/11 00:36:50 iter is:627
+2018/04/11 00:36:50 iter is:628
+2018/04/11 00:36:50 iter is:629
+2018/04/11 00:36:50 iter is:630
+2018/04/11 00:36:50 iter is:631
+2018/04/11 00:36:50 iter is:632
+2018/04/11 00:36:50 iter is:633
+2018/04/11 00:36:50 iter is:634
+2018/04/11 00:36:50 iter is:635
+2018/04/11 00:36:50 iter is:636
+2018/04/11 00:36:51 iter is:637
+2018/04/11 00:36:51 iter is:638
+2018/04/11 00:36:51 iter is:639
+2018/04/11 00:36:51 iter is:640
+2018/04/11 00:36:51 iter is:641
+2018/04/11 00:36:51 iter is:642
+2018/04/11 00:36:51 iter is:643
+2018/04/11 00:36:51 iter is:644
+2018/04/11 00:36:51 iter is:645
+2018/04/11 00:36:51 iter is:646
+2018/04/11 00:36:51 iter is:647
+2018/04/11 00:36:51 iter is:648
+2018/04/11 00:36:51 iter is:649
+2018/04/11 00:36:51 iter is:650
+2018/04/11 00:36:51 iter is:651
+2018/04/11 00:36:51 iter is:652
+2018/04/11 00:36:51 iter is:653
+2018/04/11 00:36:51 iter is:654
+2018/04/11 00:36:51 iter is:655
+2018/04/11 00:36:51 iter is:656
+2018/04/11 00:36:52 iter is:657
+2018/04/11 00:36:52 iter is:658
+2018/04/11 00:36:52 iter is:659
+2018/04/11 00:36:52 iter is:660
+2018/04/11 00:36:52 iter is:661
+2018/04/11 00:36:52 iter is:662
+2018/04/11 00:36:52 iter is:663
+2018/04/11 00:36:52 iter is:664
+2018/04/11 00:36:52 iter is:665
+2018/04/11 00:36:52 iter is:666
+2018/04/11 00:36:52 iter is:667
+2018/04/11 00:36:52 iter is:668
+2018/04/11 00:36:52 iter is:669
+2018/04/11 00:36:52 iter is:670
+2018/04/11 00:36:52 iter is:671
+2018/04/11 00:36:52 iter is:672
+2018/04/11 00:36:52 iter is:673
+2018/04/11 00:36:52 iter is:674
+2018/04/11 00:36:52 iter is:675
+2018/04/11 00:36:52 iter is:676
+2018/04/11 00:36:52 iter is:677
+2018/04/11 00:36:52 iter is:678
+2018/04/11 00:36:52 iter is:679
+2018/04/11 00:36:52 iter is:680
+2018/04/11 00:36:52 iter is:681
+2018/04/11 00:36:52 iter is:682
+2018/04/11 00:36:52 iter is:683
+2018/04/11 00:36:52 iter is:684
+2018/04/11 00:36:52 iter is:685
+2018/04/11 00:36:52 iter is:686
+2018/04/11 00:36:53 iter is:687
+2018/04/11 00:36:53 iter is:688
+2018/04/11 00:36:53 iter is:689
+2018/04/11 00:36:53 iter is:690
+2018/04/11 00:36:53 iter is:691
+2018/04/11 00:36:53 iter is:692
+2018/04/11 00:36:53 iter is:693
+2018/04/11 00:36:53 iter is:694
+2018/04/11 00:36:53 iter is:695
+2018/04/11 00:36:53 iter is:696
+2018/04/11 00:36:53 iter is:697
+2018/04/11 00:36:53 iter is:698
+2018/04/11 00:36:53 iter is:699
+2018/04/11 00:36:53 iter is:700
+2018/04/11 00:36:53 iter is:701
+2018/04/11 00:36:53 iter is:702
+2018/04/11 00:36:53 iter is:703
+2018/04/11 00:36:53 iter is:704
+2018/04/11 00:36:53 iter is:705
+2018/04/11 00:36:53 iter is:706
+2018/04/11 00:36:53 iter is:707
+2018/04/11 00:36:53 iter is:708
+2018/04/11 00:36:53 iter is:709
+2018/04/11 00:36:53 iter is:710
+2018/04/11 00:36:53 iter is:711
+2018/04/11 00:36:53 iter is:712
+2018/04/11 00:36:53 iter is:713
+2018/04/11 00:36:54 iter is:714
+2018/04/11 00:36:54 iter is:715
+2018/04/11 00:36:54 iter is:716
+2018/04/11 00:36:54 iter is:717
+2018/04/11 00:36:54 iter is:718
+2018/04/11 00:36:54 iter is:719
+2018/04/11 00:36:54 iter is:720
+2018/04/11 00:36:54 iter is:721
+2018/04/11 00:36:54 iter is:722
+2018/04/11 00:36:54 iter is:723
+2018/04/11 00:36:54 iter is:724
+2018/04/11 00:36:54 iter is:725
+2018/04/11 00:36:54 iter is:726
+2018/04/11 00:36:54 iter is:727
+2018/04/11 00:36:54 iter is:728
+2018/04/11 00:36:54 iter is:729
+2018/04/11 00:36:54 iter is:730
+2018/04/11 00:36:54 iter is:731
+2018/04/11 00:36:54 iter is:732
+2018/04/11 00:36:54 iter is:733
+2018/04/11 00:36:54 iter is:734
+2018/04/11 00:36:54 iter is:735
+2018/04/11 00:36:54 iter is:736
+2018/04/11 00:36:54 iter is:737
+2018/04/11 00:36:54 iter is:738
+2018/04/11 00:36:54 iter is:739
+2018/04/11 00:36:55 iter is:740
+2018/04/11 00:36:55 iter is:741
+2018/04/11 00:36:55 iter is:742
+2018/04/11 00:36:55 iter is:743
+2018/04/11 00:36:55 iter is:744
+2018/04/11 00:36:55 iter is:745
+2018/04/11 00:36:55 iter is:746
+2018/04/11 00:36:55 iter is:747
+2018/04/11 00:36:55 iter is:748
+2018/04/11 00:36:55 iter is:749
+2018/04/11 00:36:55 iter is:750
+2018/04/11 00:36:55 iter is:751
+2018/04/11 00:36:55 iter is:752
+2018/04/11 00:36:55 iter is:753
+2018/04/11 00:36:55 iter is:754
+2018/04/11 00:36:55 iter is:755
+2018/04/11 00:36:55 iter is:756
+2018/04/11 00:36:55 iter is:757
+2018/04/11 00:36:55 iter is:758
+2018/04/11 00:36:55 iter is:759
+2018/04/11 00:36:55 iter is:760
+2018/04/11 00:36:55 iter is:761
+2018/04/11 00:36:56 iter is:762
+2018/04/11 00:36:56 iter is:763
+2018/04/11 00:36:56 iter is:764
+2018/04/11 00:36:56 iter is:765
+2018/04/11 00:36:56 iter is:766
+2018/04/11 00:36:56 iter is:767
+2018/04/11 00:36:56 iter is:768
+2018/04/11 00:36:56 iter is:769
+2018/04/11 00:36:56 iter is:770
+2018/04/11 00:36:56 iter is:771
+2018/04/11 00:36:56 iter is:772
+2018/04/11 00:36:56 iter is:773
+2018/04/11 00:36:56 iter is:774
+2018/04/11 00:36:56 iter is:775
+2018/04/11 00:36:56 iter is:776
+2018/04/11 00:36:56 iter is:777
+2018/04/11 00:36:56 iter is:778
+2018/04/11 00:36:56 iter is:779
+2018/04/11 00:36:56 iter is:780
+2018/04/11 00:36:56 iter is:781
+2018/04/11 00:36:56 iter is:782
+2018/04/11 00:36:56 iter is:783
+2018/04/11 00:36:56 iter is:784
+2018/04/11 00:36:56 iter is:785
+2018/04/11 00:36:56 iter is:786
+2018/04/11 00:36:56 iter is:787
+2018/04/11 00:36:56 iter is:788
+2018/04/11 00:36:56 iter is:789
+2018/04/11 00:36:56 iter is:790
+2018/04/11 00:36:56 iter is:791
+2018/04/11 00:36:56 iter is:792
+2018/04/11 00:36:56 iter is:793
+2018/04/11 00:36:56 iter is:794
+2018/04/11 00:36:56 iter is:795
+2018/04/11 00:36:56 iter is:796
+2018/04/11 00:36:56 iter is:797
+2018/04/11 00:36:56 iter is:798
+2018/04/11 00:36:56 iter is:799
+2018/04/11 00:36:56 iter is:800
+2018/04/11 00:36:56 iter is:801
+2018/04/11 00:36:56 iter is:802
+2018/04/11 00:36:56 iter is:803
+2018/04/11 00:36:56 iter is:804
+2018/04/11 00:36:56 iter is:805
+2018/04/11 00:36:56 iter is:806
+2018/04/11 00:36:56 iter is:807
+2018/04/11 00:36:56 iter is:808
+2018/04/11 00:36:56 iter is:809
+2018/04/11 00:36:56 iter is:810
+2018/04/11 00:36:56 iter is:811
+2018/04/11 00:36:56 iter is:812
+2018/04/11 00:36:56 iter is:813
+2018/04/11 00:36:56 iter is:814
+2018/04/11 00:36:57 iter is:815
+2018/04/11 00:36:57 iter is:816
+2018/04/11 00:36:57 iter is:817
+2018/04/11 00:36:57 iter is:818
+2018/04/11 00:36:57 iter is:819
+2018/04/11 00:36:57 iter is:820
+2018/04/11 00:36:57 iter is:821
+2018/04/11 00:36:57 iter is:822
+2018/04/11 00:36:57 iter is:823
+2018/04/11 00:36:57 iter is:824
+2018/04/11 00:36:57 iter is:825
+2018/04/11 00:36:57 iter is:826
+2018/04/11 00:36:57 iter is:827
+2018/04/11 00:36:57 iter is:828
+2018/04/11 00:36:57 iter is:829
+2018/04/11 00:36:57 iter is:830
+2018/04/11 00:36:57 iter is:831
+2018/04/11 00:36:57 iter is:832
+2018/04/11 00:36:57 iter is:833
+2018/04/11 00:36:57 iter is:834
+2018/04/11 00:36:57 iter is:835
+2018/04/11 00:36:57 iter is:836
+2018/04/11 00:36:57 iter is:837
+2018/04/11 00:36:57 iter is:838
+2018/04/11 00:36:57 iter is:839
+2018/04/11 00:36:57 iter is:840
+2018/04/11 00:36:57 iter is:841
+2018/04/11 00:36:57 iter is:842
+2018/04/11 00:36:57 iter is:843
+2018/04/11 00:36:57 iter is:844
+2018/04/11 00:36:57 iter is:845
+2018/04/11 00:36:57 iter is:846
+2018/04/11 00:36:57 iter is:847
+2018/04/11 00:36:58 iter is:848
+2018/04/11 00:36:58 iter is:849
+2018/04/11 00:36:58 iter is:850
+2018/04/11 00:36:58 iter is:851
+2018/04/11 00:36:58 iter is:852
+2018/04/11 00:36:58 iter is:853
+2018/04/11 00:36:58 iter is:854
+2018/04/11 00:36:58 iter is:855
+2018/04/11 00:36:58 iter is:856
+2018/04/11 00:36:58 iter is:857
+2018/04/11 00:36:58 iter is:858
+2018/04/11 00:36:58 iter is:859
+2018/04/11 00:36:59 iter is:860
+2018/04/11 00:36:59 iter is:861
+2018/04/11 00:36:59 iter is:862
+2018/04/11 00:36:59 iter is:863
+2018/04/11 00:36:59 iter is:864
+2018/04/11 00:36:59 iter is:865
+2018/04/11 00:36:59 iter is:866
+2018/04/11 00:36:59 iter is:867
+2018/04/11 00:36:59 iter is:868
+2018/04/11 00:36:59 iter is:869
+2018/04/11 00:36:59 iter is:870
+2018/04/11 00:36:59 iter is:871
+2018/04/11 00:36:59 iter is:872
+2018/04/11 00:36:59 iter is:873
+2018/04/11 00:36:59 iter is:874
+2018/04/11 00:36:59 iter is:875
+2018/04/11 00:36:59 iter is:876
+2018/04/11 00:36:59 iter is:877
+2018/04/11 00:36:59 iter is:878
+2018/04/11 00:36:59 iter is:879
+2018/04/11 00:37:00 iter is:880
+2018/04/11 00:37:00 iter is:881
+2018/04/11 00:37:00 iter is:882
+2018/04/11 00:37:00 iter is:883
+2018/04/11 00:37:00 iter is:884
+2018/04/11 00:37:00 iter is:885
+2018/04/11 00:37:00 iter is:886
+2018/04/11 00:37:00 iter is:887
+2018/04/11 00:37:00 iter is:888
+2018/04/11 00:37:00 iter is:889
+2018/04/11 00:37:00 iter is:890
+2018/04/11 00:37:00 iter is:891
+2018/04/11 00:37:00 iter is:892
+2018/04/11 00:37:00 iter is:893
+2018/04/11 00:37:00 iter is:894
+2018/04/11 00:37:00 iter is:895
+2018/04/11 00:37:00 iter is:896
+2018/04/11 00:37:00 iter is:897
+2018/04/11 00:37:00 iter is:898
+2018/04/11 00:37:00 iter is:899
+2018/04/11 00:37:00 iter is:900
+2018/04/11 00:37:00 iter is:901
+2018/04/11 00:37:00 iter is:902
+2018/04/11 00:37:00 iter is:903
+2018/04/11 00:37:00 iter is:904
+2018/04/11 00:37:00 iter is:905
+2018/04/11 00:37:00 iter is:906
+2018/04/11 00:37:00 iter is:907
+2018/04/11 00:37:00 iter is:908
+2018/04/11 00:37:00 iter is:909
+2018/04/11 00:37:01 iter is:910
+2018/04/11 00:37:01 iter is:911
+2018/04/11 00:37:01 iter is:912
+2018/04/11 00:37:01 iter is:913
+2018/04/11 00:37:01 iter is:914
+2018/04/11 00:37:01 iter is:915
+2018/04/11 00:37:01 iter is:916
+2018/04/11 00:37:01 iter is:917
+2018/04/11 00:37:01 iter is:918
+2018/04/11 00:37:02 iter is:919
+2018/04/11 00:37:02 iter is:920
+2018/04/11 00:37:02 iter is:921
+2018/04/11 00:37:02 iter is:922
+2018/04/11 00:37:02 iter is:923
+2018/04/11 00:37:02 iter is:924
+2018/04/11 00:37:02 iter is:925
+2018/04/11 00:37:02 iter is:926
+2018/04/11 00:37:02 iter is:927
+2018/04/11 00:37:02 iter is:928
+2018/04/11 00:37:02 iter is:929
+2018/04/11 00:37:02 iter is:930
+2018/04/11 00:37:02 iter is:931
+2018/04/11 00:37:02 iter is:932
+2018/04/11 00:37:02 iter is:933
+2018/04/11 00:37:02 iter is:934
+2018/04/11 00:37:02 iter is:935
+2018/04/11 00:37:02 iter is:936
+2018/04/11 00:37:02 iter is:937
+2018/04/11 00:37:02 iter is:938
+2018/04/11 00:37:03 iter is:939
+2018/04/11 00:37:03 iter is:940
+2018/04/11 00:37:03 iter is:941
+2018/04/11 00:37:03 iter is:942
+2018/04/11 00:37:03 iter is:943
+2018/04/11 00:37:03 iter is:944
+2018/04/11 00:37:03 iter is:945
+2018/04/11 00:37:03 iter is:946
+2018/04/11 00:37:03 iter is:947
+2018/04/11 00:37:03 iter is:948
+2018/04/11 00:37:03 iter is:949
+2018/04/11 00:37:03 iter is:950
+2018/04/11 00:37:03 iter is:951
+2018/04/11 00:37:03 iter is:952
+2018/04/11 00:37:03 iter is:953
+2018/04/11 00:37:03 iter is:954
+2018/04/11 00:37:03 iter is:955
+2018/04/11 00:37:03 iter is:956
+2018/04/11 00:37:03 iter is:957
+2018/04/11 00:37:03 iter is:958
+2018/04/11 00:37:03 iter is:959
+2018/04/11 00:37:03 iter is:960
+2018/04/11 00:37:03 iter is:961
+2018/04/11 00:37:03 iter is:962
+2018/04/11 00:37:03 iter is:963
+2018/04/11 00:37:03 iter is:964
+2018/04/11 00:37:03 iter is:965
+2018/04/11 00:37:03 iter is:966
+2018/04/11 00:37:03 iter is:967
+2018/04/11 00:37:03 iter is:968
+2018/04/11 00:37:03 iter is:969
+2018/04/11 00:37:03 iter is:970
+2018/04/11 00:37:03 iter is:971
+2018/04/11 00:37:03 iter is:972
+2018/04/11 00:37:03 iter is:973
+2018/04/11 00:37:03 iter is:974
+2018/04/11 00:37:03 iter is:975
+2018/04/11 00:37:03 iter is:976
+2018/04/11 00:37:03 iter is:977
+2018/04/11 00:37:03 iter is:978
+2018/04/11 00:37:03 iter is:979
+2018/04/11 00:37:03 iter is:980
+2018/04/11 00:37:03 iter is:981
+2018/04/11 00:37:04 iter is:982
+2018/04/11 00:37:04 iter is:983
+2018/04/11 00:37:04 iter is:984
+2018/04/11 00:37:04 iter is:985
+2018/04/11 00:37:04 iter is:986
+2018/04/11 00:37:04 iter is:987
+2018/04/11 00:37:04 iter is:988
+2018/04/11 00:37:04 iter is:989
+2018/04/11 00:37:04 iter is:990
+2018/04/11 00:37:04 iter is:991
+2018/04/11 00:37:04 iter is:992
+2018/04/11 00:37:04 iter is:993
+2018/04/11 00:37:04 iter is:994
+2018/04/11 00:37:04 iter is:995
+2018/04/11 00:37:04 iter is:996
+2018/04/11 00:37:04 iter is:997
+2018/04/11 00:37:05 iter is:998
+2018/04/11 00:37:05 iter is:999
+2018/04/11 00:37:05 Here???
+2018/04/11 00:37:05 Here?
+2018/04/11 00:37:05 index is:580
+2018/04/11 00:37:07 Here?
+2018/04/11 00:37:07 index is:640
+2018/04/11 00:37:07 ok, cmd:9064
+  ... Passed --  36.9  5 6144  640
 PASS
-ok  	raft	24.676s
+ok  	raft	36.945s

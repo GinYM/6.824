@@ -56,14 +56,23 @@ func TestReElection2A(t *testing.T) {
 
 	leader1 := cfg.checkOneLeader()
 
+	DPrintf("leader1:%d",leader1)
+
 	// if the leader disconnects, a new one should be elected.
 	cfg.disconnect(leader1)
-	cfg.checkOneLeader()
+
+
+	l2:=cfg.checkOneLeader()
+	DPrintf("leader2:%d",l2)
 
 	// if the old leader rejoins, that shouldn't
 	// disturb the new leader.
 	cfg.connect(leader1)
+
+	DPrintf("connect!!!!!!")
 	leader2 := cfg.checkOneLeader()
+
+	DPrintf("leade3:%d",leader2)
 
 	// if there's no quorum, no leader should
 	// be elected.
@@ -71,6 +80,8 @@ func TestReElection2A(t *testing.T) {
 	cfg.disconnect((leader2 + 1) % servers)
 	time.Sleep(2 * RaftElectionTimeout)
 	cfg.checkNoLeader()
+
+	DPrintf("here1")
 
 	// if a quorum arises, it should elect a leader.
 	cfg.connect((leader2 + 1) % servers)
@@ -174,6 +185,8 @@ func TestFailNoAgree2B(t *testing.T) {
 	cfg.connect((leader + 2) % servers)
 	cfg.connect((leader + 3) % servers)
 
+	DPrintf("reconnect")
+
 	// the disconnected majority may have chosen a leader from
 	// among their own ranks, forgetting index 2.
 	leader2 := cfg.checkOneLeader()
@@ -212,6 +225,7 @@ loop:
 		leader := cfg.checkOneLeader()
 		_, term, ok := cfg.rafts[leader].Start(1)
 		if !ok {
+			DPrintf("ok is:%v",ok)
 			// leader moved on really quickly
 			continue
 		}
@@ -244,11 +258,14 @@ loop:
 			}
 		}
 
+		DPrintf("here???")
+
 		failed := false
 		cmds := []int{}
 		for index := range is {
 			cmd := cfg.wait(index, servers, term)
 			if ix, ok := cmd.(int); ok {
+				DPrintf("ix is:%d",ix)
 				if ix == -1 {
 					// peers have moved on to later terms
 					// so we can't expect all Start()s to
@@ -270,6 +287,8 @@ loop:
 			}()
 			continue
 		}
+
+
 
 		for ii := 0; ii < iters; ii++ {
 			x := 100 + ii
@@ -767,7 +786,10 @@ func TestFigure8Unreliable2C(t *testing.T) {
 
 	nup := servers
 	for iters := 0; iters < 1000; iters++ {
+
+		//DPrintf("iter is:%d",iters)
 		if iters == 200 {
+			DPrintf("iter is:%d",iters)
 			cfg.setlongreordering(true)
 		}
 		leader := -1
@@ -777,6 +799,12 @@ func TestFigure8Unreliable2C(t *testing.T) {
 				leader = i
 			}
 		}
+
+		//if leader!=-1{
+		//	DPrintf("leader for test is :%d")
+		//}
+
+		//DPrintf("leader for test is:%d",leader)
 
 		if (rand.Int() % 1000) < 100 {
 			ms := rand.Int63() % (int64(RaftElectionTimeout/time.Millisecond) / 2)
@@ -805,6 +833,8 @@ func TestFigure8Unreliable2C(t *testing.T) {
 			cfg.connect(i)
 		}
 	}
+
+	DPrintf("Here???")
 
 	cfg.one(rand.Int()%10000, servers, true)
 

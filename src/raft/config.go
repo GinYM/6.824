@@ -372,7 +372,7 @@ func (cfg *config) nCommitted(index int) (int, interface{}) {
 		//DPrintf("in nCommitted: cmd1 %v, ok %v, i:%d",cmd1,ok,i)
 
 		if ok {
-			//DPrintf("ok!")
+			DPrintf("ok!")
 			if count > 0 && cmd != cmd1 {
 				cfg.t.Fatalf("committed values do not match: index %v, %v, %v\n",
 					index, cmd, cmd1)
@@ -455,12 +455,13 @@ func (cfg *config) one(cmd int, expectedServers int, retry bool) int {
 		}
 
 		if index != -1 {
+			//DPrintf("index is:%d",index)
 			//DPrintf("Here in one")
 			// somebody claimed to be the leader and to have
 			// submitted our command; wait a while for agreement.
 			t1 := time.Now()
 			for time.Since(t1).Seconds() < 2 {
-				//DPrintf("index is:%d",index)
+				DPrintf("index is:%d",index)
 				nd, cmd1 := cfg.nCommitted(index)
 				//DPrintf("nd:%d, cmd1:%d, index:%d",nd,cmd1,index)
 				if nd > 0 && nd >= expectedServers {
@@ -468,6 +469,7 @@ func (cfg *config) one(cmd int, expectedServers int, retry bool) int {
 					//DPrintf("Here?? in if")
 					if cmd2, ok := cmd1.(int); ok && cmd2 == cmd {
 						// and it was the command we submitted.
+						DPrintf("ok, cmd:%v",cmd2)
 						return index
 					}
 				}
