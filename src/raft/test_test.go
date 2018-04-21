@@ -834,7 +834,7 @@ func TestFigure8Unreliable2C(t *testing.T) {
 		}
 	}
 
-	DPrintf("Here???")
+	DPrintf("Here??? before cfg.one")
 
 	cfg.one(rand.Int()%10000, servers, true)
 
