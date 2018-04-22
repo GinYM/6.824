@@ -107,7 +107,7 @@ type Raft struct {
 	//channel
 	heartbeatCh chan bool
 	isLeaderCh chan bool
-	commitCh chan bool
+	commitCh chan int
 
 }
 
@@ -231,6 +231,7 @@ type AppendEntriesArgs struct {
 type AppendEntriesReply struct {
 	Term int
 	Success bool
+	InconIdx int
 }
 
 //
@@ -240,18 +241,23 @@ type AppendEntriesReply struct {
 func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply) {
 	// Your code here (2A, 2B).
 	//DPrintf("Here??")
-	rf.heartbeatCh<-true
+	
 	rf.mu.Lock()
 	
 	rf_currentTerm := rf.currentTerm
 	logLen := len(rf.log)
+	//rf_state = rf.state
 	//state := rf.state
 	rf.mu.Unlock()
+
+
 
 	//DPrintf("rf.currentTerm:%d, args.Term:%d",rf.currentTerm,args.Term)
 
 	reply.Term = rf_currentTerm
 	reply.Success = false
+
+	reply.InconIdx = -1
 
 	//DPrintf("rf.me%d, reply.Term:%d",rf.me,reply.Term)
 
@@ -295,6 +301,13 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	//Rule 2 Reply false if log doesn’t contain an entry at prevLogIndex whose term matches prevLogTerm 
 	//DPrintf("len of log: %d in Leader: %d args.PreLogIndex %d",len(rf.log),args.LeaderId,args.PrevLogIndex)
 	if rf.log[args.PrevLogIndex].Term != args.PrevLogTerm {
+		idx := -1
+		for idx = args.PrevLogIndex;idx>=1;idx--{
+			if rf.log[idx].Term != rf.log[args.PrevLogIndex].Term{
+				break
+			}
+		}
+		reply.InconIdx = idx
 		//DPrintf("args.PrevLogIndex:%d args.PrevLogTerm:%d rf_Term:%d",args.PrevLogIndex,args.PrevLogTerm,rf.log[args.PrevLogIndex].Term)
 		//DPrintf("Here3")
 		reply.Success = false
@@ -347,13 +360,13 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		
 		rf.commitIndex = min(args.LeaderCommit,len(rf.log)-1)
 		rf.mu.Unlock()
-		rf.commitCh <- true
+		rf.commitCh <- args.Term
 		
 	}else{
 		rf.mu.Unlock()
 	}
 	//rf.mu.Unlock()
-
+	rf.heartbeatCh<-true
 	
 }
 
@@ -363,6 +376,18 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 // send indefinitely
 func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *AppendEntriesReply) bool {
 	ok := rf.peers[server].Call("Raft.AppendEntries", args, reply)
+
+	for ok==false{
+		rf.mu.Lock()
+		state := rf.state
+		rf.mu.Unlock()
+
+		if rf.isKilled == false && state == Leader{
+			ok = rf.peers[server].Call("Raft.AppendEntries", args, reply)
+		}else{
+			break
+		}
+	}
 	
 	return ok
 }
@@ -537,7 +562,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	}else{
 		term = rf.currentTerm
 		index = rf.nextIndex[rf.me]
-		DPrintf("Here Start new command! %v, leader:%d",command,rf.me)
+		DPrintf("Here Start new command! %v, leader:%d, currentTerm:%d",command,rf.me,rf.currentTerm)
 		rf.log = append(rf.log,&LogEntry{command,rf.currentTerm})
 		rf.persist()
 		rf.nextIndex[rf.me] = len(rf.log)
@@ -600,7 +625,7 @@ func (rf *Raft) sendRequestVoteAll(){
 				//transformToLeader := false
 				if rf_count == len_peers/2+len_peers%2{
 
-					//DPrintf("is leader! rf.me:%d, currentTerm:%d",rf.me,rf.currentTerm)
+					DPrintf("is leader! rf.me:%d, currentTerm:%d",rf.me,rf.currentTerm)
 					rf.isLeaderCh<-true
 				}
 				//rf.mu.Unlock()
@@ -609,7 +634,9 @@ func (rf *Raft) sendRequestVoteAll(){
 				if reply.Term > rf.currentTerm{
 					rf.currentTerm = reply.Term
 					rf.state = Follower
+					DPrintf("become follower:%d in sendRequestVote",rf.me)
 					rf.votedFor = -1
+					rf.count = 0
 					rf.persist()
 				}
 				rf.mu.Unlock()
@@ -645,8 +672,12 @@ func (rf *Raft) sendRPC(){
 		//DPrintf("len of nextindex: %d",lenNextIndex)
 		rf.mu.Lock()
 		rf_state := rf.state
+		isKilled := rf.isKilled
 		rf.mu.Unlock()
-		if i == rf.me || rf_state != Leader{
+		if (rf_state != Leader || isKilled == true){
+			break
+		}
+		if i == rf.me{
 			continue
 		}
 		go func(rf *Raft,i int){
@@ -655,107 +686,58 @@ func (rf *Raft) sendRPC(){
 			
 			lastLogIndex := len(rf.log)-1
 			nextIndex := min(rf.nextIndex[i],lastLogIndex+1)
-			//DPrintf("NextIndex is: %d",nextIndex)
-			
-				//lastLogIndex := len(rf.log)-1
-				//nextIndex := min(rf.nextIndex[i],lastLogIndex+1)
-				isKilled:=rf.isKilled
-				rfState := rf.state
+
+			args:=AppendEntriesArgs{
+					Term:rf.currentTerm,
+					LeaderId:rf.me,
+					PrevLogIndex:nextIndex-1,
+					PrevLogTerm:rf.log[nextIndex-1].Term,
+					Entries:rf.log[nextIndex:],
+					LeaderCommit:rf.commitIndex}
+			rf.mu.Unlock()
+			reply:=AppendEntriesReply{}
+			//DPrintf("sending rpc from leader:%d to follower:%d, currentTerm:%d",rf.me,i,rf.currentTerm)
+			rf.sendAppendEntries(i, &args, &reply)
+			//fix respond
+			//DPrintf("ok is:%v",ok)
+			//DPrintf("leader:%d from follower:%d, reply.Term:%d, currentTerm:%d",rf.me,i,reply.Term,rf.currentTerm)
+					
+			rf.mu.Lock()
+			rf_currentTerm := rf.currentTerm
+			//rf.mu.Unlock()
+
+			if rf_currentTerm != reply.Term{
 				rf.mu.Unlock()
+				return
+			}
 
-				if isKilled || rfState!=Leader{
-					return
-				}
-
-				//DPrintf("next index: %d",nextIndex)
-
-				if nextIndex <1{
-					rf.mu.Lock()
-					rf.nextIndex[i] = 1
-					nextIndex = 1
-					rf.mu.Unlock()
-					//return
-				}
-
-				//if lastLogIndex+1 > nextIndex{
-					//DPrintf("Here")
-					rf.mu.Lock()
-					//DPrintf("Leader: %d",rf.me)
-					//DPrintf("AppendEntries: nextIndex: %d",nextIndex)
-					//DPrintf("AppendEntries: len(rf.log): %d",len(rf.log))
-					//if rf.nextIndex[i]>=len(rf.log){
-					//	DPrintf("leader:%d follower:%d, nextIndex is %d, len(log): %d",rf.me,i,rf.nextIndex[i],len(rf.log))
-					//}
-					//logLen:=len(rf.log)
-					//rf.showInfo()
-					//DPrintf("sned RPC len(rf.log):%d, lastCommand:%v, leader Commit:%d, leader:%d, follower:%d, term:%d, nextIndex:%d",len(rf.log),rf.log[len(rf.log)-1].Command,rf.commitIndex,rf.me,i,rf.currentTerm,nextIndex)
-					args:=AppendEntriesArgs{
-						Term:rf.currentTerm,
-						LeaderId:rf.me,
-						PrevLogIndex:nextIndex-1,
-						PrevLogTerm:rf.log[nextIndex-1].Term,
-						Entries:rf.log[nextIndex:],
-						LeaderCommit:rf.commitIndex}
-					rf.mu.Unlock()
-
-					reply:=AppendEntriesReply{}
-					//DPrintf("sending rpc from leader:%d to follower:%d, currentTerm:%d",rf.me,i,rf.currentTerm)
-					rf.sendAppendEntries(i, &args, &reply)
-					//fix respond
-					//DPrintf("ok is:%v",ok)
-					//DPrintf("leader:%d from follower:%d, reply.Term:%d, currentTerm:%d",rf.me,i,reply.Term,rf.currentTerm)
-					
-					
-
-					//DPrintf("Before success")
-					if reply.Success == true{
-						//DPrintf("Here? after success, follower is:%d",i)
-						rf.mu.Lock()
-						//DPrintf("Before nextIndex:%v",rf.nextIndex)
-						rf.nextIndex[i] =  args.PrevLogIndex+len(args.Entries)+1
-						//rf.nextIndex[i] =  logLen
-						//DPrintf("leader:%d follower:%d, nextIndex is %d, len(log): %d",rf.me,i,rf.nextIndex[i],len(rf.log))
-						rf.matchIndex[i] = args.PrevLogIndex+len(args.Entries)
-						//rf.matchIndex[i] = logLen-1 //bug? check matchIndex
-						//DPrintf("rf.matchIndex:%v, nextIndex:%v",rf.matchIndex,rf.nextIndex)
-						//DPrintf("match index: %d for raft:%d, leader:%d",rf.matchIndex[i],i,rf.me)
-						rf.mu.Unlock()
-
+			if reply.Success == true{
 						
-					}else{
-						rf.mu.Lock()
-						//DPrintf("here!!!!!")
-						
-						if reply.Term > rf.currentTerm{
-							//DPrintf("test!!!! Here rf.me:%d",rf.me)
-							//DPrintf("here!! becoming followers")
-							//rf.currentTerm = reply.Term
-							//rf.mu.Lock()
-							//DPrintf("becombe follower:%d",rf.me)
-							
-							rf.convertToFollower(reply.Term)
-							//rf.persist()
-							//rf.mu.Unlock()
-							
-							
-						}else{
-							//rf.mu.Lock()
-							nextIndex--
-							if nextIndex<1{
-								nextIndex = 1
-							}
-							rf.nextIndex[i] = nextIndex
-							//DPrintf("Here else")
-							//rf.nextIndex[i]--
-							//rf.mu.Unlock()
-						}
-						rf.mu.Unlock()
-						
+				rf.nextIndex[i] =  args.PrevLogIndex+len(args.Entries)+1
+				//rf.nextIndex[i] =  logLen
+				//DPrintf("leader:%d follower:%d, nextIndex is %d, len(log): %d",rf.me,i,rf.nextIndex[i],len(rf.log))
+				rf.matchIndex[i] = args.PrevLogIndex+len(args.Entries)
+				//rf.matchIndex[i] = logLen-1 //bug? check matchIndex
+				//DPrintf("rf.matchIndex:%v, nextIndex:%v",rf.matchIndex,rf.nextIndex)
+				//DPrintf("match index: %d for raft:%d, leader:%d",rf.matchIndex[i],i,rf.me)
+				//rf.mu.Unlock()	
+			}else{
+				//rf.mu.Lock()
+				//DPrintf("here!!!!!")
+				if reply.Term > rf.currentTerm{
+					rf.convertToFollower(reply.Term)
+				}else{
+					//rf.mu.Lock()
+					nextIndex = reply.InconIdx
+					if nextIndex<1{
+						nextIndex = 1
 					}
-				//}
+					rf.nextIndex[i] = nextIndex	
+				}
+						
+			}
+			rf.mu.Unlock()
 
-			//}
-			
 		}(rf,i)
 
 		
@@ -773,7 +755,7 @@ func (rf *Raft) checkCommitIndex(){
 	//lenPeers:=len(rf.peers)
 	copy(storeMatchIndex,rf.matchIndex)
 	rf_commitIndex:=rf.commitIndex
-	rf.mu.Unlock()
+	//rf.mu.Unlock()
 	//DPrintf("Start checking, rf.me:%d",rf.me)
 
 	//DPrintf("storeMatchIndex: %d",storeMatchIndex[len(storeMatchIndex)-1])
@@ -783,37 +765,25 @@ func (rf *Raft) checkCommitIndex(){
 	for i:=len(storeMatchIndex)/2-(len(storeMatchIndex)+1)%2;i>=0;i--{
 		//DPrintf("here in for loop")
 		if(storeMatchIndex[i]>rf_commitIndex){
-			rf.mu.Lock()
+			//rf.mu.Lock()
 			if rf.log[storeMatchIndex[i]].Term == rf.currentTerm{
 				//rf.commitIndex = storeMatchIndex[i]
 				//DPrintf("match find!!! commitIndex:%d",storeMatchIndex[i])
 				//DPrintf("matchIndex[i]:%d rf.commitIndex: %d",storeMatchIndex[i],rf.commitIndex)
 				rf.commitIndex = storeMatchIndex[i]
+				rf_currentTerm := rf.currentTerm
 				rf.mu.Unlock()
-				rf.commitCh<-true
-				/*
-				for rf.lastApplied < storeMatchIndex[i]{
-					rf.lastApplied++
-					rf.commitIndex = rf.lastApplied
-					DPrintf("Leader Sending applymsg command:%v, lastApplyied:%d, rf.me:%d, term:%d, commitIndex:%d",rf.log[rf.lastApplied].Command,rf.lastApplied,rf.me, rf.currentTerm, rf.commitIndex)
-					rf.applyCh<-ApplyMsg{
-						CommandValid:true,
-						Command:rf.log[rf.commitIndex].Command,
-						CommandIndex:rf.lastApplied}
-				}
-				*/
-				//DPrintf("leader:%d commitIndex: %d",rf.me,rf.commitIndex)
+				rf.commitCh<- rf_currentTerm
+				rf.mu.Lock()
 			
 				break
 			}
-			rf.mu.Unlock()
+			//rf.mu.Unlock()
 		}else{
 			break
 		}
 	}
-
-	
-
+	rf.mu.Unlock()
 }
 
 
@@ -830,8 +800,7 @@ func (rf *Raft) asCandidate(){
 	select{
 	case isLeader := <-rf.isLeaderCh:
 		if isLeader{
-			
-			
+	
 			rf.mu.Lock()
 			//DPrintf("become leader,rf.me:%d",rf.me)
 				
@@ -850,7 +819,7 @@ func (rf *Raft) asCandidate(){
 		
 		
 	case <-rf.heartbeatCh:
-		//DPrintf("receive heartbeatCh")
+		DPrintf("receive heartbeatCh, become follower:%d",rf.me)
 		rf.mu.Lock()
 		rf.state = Follower
 		rf.mu.Unlock()
@@ -860,7 +829,7 @@ func (rf *Raft) asCandidate(){
 }
 
 func (rf *Raft) convertToFollower(term int){
-	//DPrintf("become follower")
+	DPrintf("become follower, rf.me:%d, currentTerm:%d",rf.me, rf.currentTerm)
 	rf.currentTerm = term
 	rf.state = Follower
 	rf.count = 0
@@ -869,10 +838,12 @@ func (rf *Raft) convertToFollower(term int){
 }
 
 func (rf *Raft) asLeader(){
-	//DPrintf("sending heartbeat in rf.me:%d",rf.me)
+	
 	time.Sleep(duration_heartbeat())
 	rf.checkCommitIndex()
 	
+	DPrintf("sending heartbeat in rf.me:%d",rf.me)
+
 	rf.sendRPC()
 	
 }
@@ -893,9 +864,12 @@ func (rf *Raft) asFollower(){
 func (rf *Raft) applyMsg(){
 	for true{
 		select{
-		case <-rf.commitCh:
+		case  <-rf.commitCh:
 			rf.mu.Lock()
 			for i:=rf.lastApplied+1;i<=rf.commitIndex;i++{
+				//if rf.log[i].Term != t{
+				//	continue
+				//}
 				DPrintf("sending message rf.me:%d, command:%v, CommandIndex:%d, state:%v, currentTerm:%d",rf.me,rf.log[i].Command,i,rf.state,rf.currentTerm)
 				msg := ApplyMsg{CommandValid:true,
 					Command:rf.log[i].Command,
@@ -964,7 +938,7 @@ func Make(peers []*labrpc.ClientEnd, me int,
 
 	rf.heartbeatCh = make(chan bool)
 	rf.isLeaderCh = make(chan bool)
-	rf.commitCh =make(chan bool)
+	rf.commitCh =make(chan int)
 
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
