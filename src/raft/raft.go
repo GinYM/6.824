@@ -383,15 +383,15 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		return
 	}
 
-	//rf.mu.Lock()
+	rf.mu.Lock()
 	if args.Term > rf_currentTerm {
 		rf.convertToFollower(args.Term)
 		
 	}
 	//rf.mu.Unlock()
-	rf.mu.Lock()
+	//rf.mu.Lock()
 	rf_votedFor = rf.votedFor
-	rf.mu.Unlock()
+	//rf.mu.Unlock()
 
 	//rf.showInfo()
 	if rf_votedFor == -1 || rf_votedFor == args.CandidateId{
@@ -399,13 +399,13 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		if (args.LastLogTerm > rf_last_term)||(args.LastLogTerm == rf_last_term && args.LastLogIndex>=rf_last_index){
 			//DPrintf("from %d to %d rf.votedFor %d args.LastLogTerm(leader):%d follower(commited):%d",rf.me,args.CandidateId,rf.votedFor,args.LastLogTerm,rf_last_term)
 			reply.VoteGranted = true
-			rf.mu.Lock()
+			//rf.mu.Lock()
 			rf.votedFor = args.CandidateId
 			rf.persist()
-			rf.mu.Unlock()
+			//rf.mu.Unlock()
 		}
 	}
-
+	rf.mu.Unlock()
 
 }
 
@@ -526,11 +526,13 @@ func (rf *Raft) Kill() {
 func (rf *Raft) sendRequestVoteAll(){
 	rf.mu.Lock()
 	rf.count = 1
+	rf_me := rf.me
+	rf_state := rf.state
 	rf.mu.Unlock()
 	for i:=0;i<len(rf.peers);i++{
 
 		//DPrintf("Here?")
-		if i == rf.me || rf.state != Candidate{
+		if i == rf_me || rf_state != Candidate{
 			continue
 		}
 		go func(rf *Raft, i int){
@@ -552,7 +554,7 @@ func (rf *Raft) sendRequestVoteAll(){
 				//transformToLeader := false
 				if rf_count == len_peers/2+len_peers%2{
 
-					DPrintf("is leader! rf.me:%d, currentTerm:%d",rf.me,rf.currentTerm)
+					//DPrintf("is leader! rf.me:%d, currentTerm:%d",rf.me,rf.currentTerm)
 					rf.isLeaderCh<-true
 				}
 				//rf.mu.Unlock()
@@ -764,7 +766,7 @@ func (rf *Raft) applyMsg(){
 				//if rf.log[i].Term != t{
 				//	continue
 				//}
-				DPrintf("sending message rf.me:%d, command:%v, CommandIndex:%d, state:%v, currentTerm:%d",rf.me,rf.log[i].Command,i,rf.state,rf.currentTerm)
+				//DPrintf("sending message rf.me:%d, command:%v, CommandIndex:%d, state:%v, currentTerm:%d",rf.me,rf.log[i].Command,i,rf.state,rf.currentTerm)
 				msg := ApplyMsg{CommandValid:true,
 					Command:rf.log[i].Command,
 					CommandIndex:i}
