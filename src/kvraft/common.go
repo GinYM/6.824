@@ -3,6 +3,7 @@ package raftkv
 const (
 	OK       = "OK"
 	ErrNoKey = "ErrNoKey"
+	ErrWrongLeader = "ErrWrongLeader"
 )
 
 type Err string
@@ -16,6 +17,7 @@ type PutAppendArgs struct {
 	// Field names must start with capital letters,
 	// otherwise RPC will break.
 }
+
 
 type PutAppendReply struct {
 	WrongLeader bool

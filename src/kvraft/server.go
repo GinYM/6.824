@@ -6,6 +6,8 @@ import (
 	"log"
 	"raft"
 	"sync"
+	"time"
+	"math/rand"
 )
 
 const Debug = 0
@@ -18,10 +20,14 @@ func DPrintf(format string, a ...interface{}) (n int, err error) {
 }
 
 
+
 type Op struct {
 	// Your definitions here.
 	// Field names must start with capital letters,
 	// otherwise RPC will break.
+	Operation string //"Put" or "Append"
+	Key string
+	Value string
 }
 
 type KVServer struct {
@@ -33,15 +39,68 @@ type KVServer struct {
 	maxraftstate int // snapshot if log grows this big
 
 	// Your definitions here.
+	store map[string]string
 }
 
 
 func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 	// Your code here.
+	op := Op{Operation:"Get", Key:args.Key, Value:""}
+	index, _, isLeader := kv.rf.Start(op)
+	reply.WrongLeader = !isLeader
+	if isLeader == false{
+		reply.Err = ErrWrongLeader
+		reply.Value = ""
+		return
+	}
+
+	for true{
+		msg := <-kv.applyCh
+		if msg.CommandIndex != index || msg.Command != op{
+			kv.applyCh <- msg
+			time.Sleep(time.Duration(rand.Int()%50+50)*time.Millisecond)
+		}else{
+			value,ok := kv.store[args.Key] 
+			if ok{
+				reply.Value = value
+				reply.Err = OK
+			}else{
+				reply.Value = ""
+				reply.Err = ErrNoKey
+			}
+			break
+		}
+	}
+	
+
 }
 
 func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	// Your code here.
+	op := Op{Operation:args.Op, Key:args.Key, Value:args.Value}
+	index, _, isLeader := kv.rf.Start(op)
+	reply.WrongLeader = !isLeader
+	if isLeader == false{
+		reply.Err = ErrWrongLeader
+		return
+	}
+	for true{
+		msg := <-kv.applyCh
+		if msg.CommandIndex != index || msg.Command != op{
+			kv.applyCh <- msg
+			time.Sleep(time.Duration(rand.Int()%50+50)*time.Millisecond)
+		}else{
+			kv.mu.Lock()
+			if op.Operation == "Put"{
+				kv.store[args.Key] = args.Value	
+			}else{
+				kv.store[args.Key] = kv.store[args.Key] + args.Value
+			}
+			reply.Err = OK
+			kv.mu.Unlock()
+			break
+		}
+	}
 }
 
 //
@@ -84,6 +143,7 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
 
 	// You may need initialization code here.
+	kv.store = make(map[string]string)
 
 	return kv
 }

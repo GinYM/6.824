@@ -1,0 +1,11 @@
+Test: one client (3A) ...
+  ... Passed --  15.4  5  5193  150
+Test: many clients (3A) ...
+  ... Passed --  16.6  5  8138  751
+Test: unreliable net, many clients (3A) ...
+2018/04/26 00:41:18 get wrong value, key 0, wanted:
+x 0 0 yx 0 1 y
+, got
+x 0 0 yx 0 1 yx 0 1 y
+exit status 1
+FAIL	kvraft	33.167s
