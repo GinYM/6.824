@@ -8,6 +8,9 @@ import "math/big"
 type Clerk struct {
 	servers []*labrpc.ClientEnd
 	// You will have to modify this struct.
+	commandId int
+	clientId int64
+	lastLeader int
 }
 
 func nrand() int64 {
@@ -21,6 +24,10 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 	ck := new(Clerk)
 	ck.servers = servers
 	// You'll have to add code here.
+	ck.commandId = 0
+	ck.clientId	= nrand()
+	DPrintf("clientId: %v", ck.clientId)
+	ck.lastLeader = 0
 	return ck
 }
 
@@ -39,17 +46,24 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 func (ck *Clerk) Get(key string) string {
 
 	// You will have to modify this function.
+	//DPrintf("ck.clientId: %v", ck.clientId)
 	
-	args := GetArgs{Key:key}
+	ck.commandId++
+	args := GetArgs{Key:key, Id:ck.commandId, ClientId:ck.clientId}
 	var reply GetReply
 	//reply := GetReply{}
-	i := nrand()%int64(len(ck.servers))
+	DPrintf("lastLeader: %v", ck.lastLeader)
+	i := ck.lastLeader
 	for true{
 		reply = GetReply{}
 		ok := ck.servers[i].Call("KVServer.Get", &args, &reply)
+
+		DPrintf("In Server: %v, Get:%v reply: %v", i, key, reply)
+
 		if ok == false || reply.WrongLeader || (reply.Err != ErrNoKey && reply.Err != OK){
-			i = (i+1)%int64(len(ck.servers))
+			i = (i+1)%(len(ck.servers))
 		}else{
+			ck.lastLeader = i
 			break
 		}
 	}
@@ -73,16 +87,22 @@ func (ck *Clerk) Get(key string) string {
 //
 func (ck *Clerk) PutAppend(key string, value string, op string) {
 	// You will have to modify this function.
-	args := PutAppendArgs{Key:key, Value:value, Op:op}
-	i := nrand()%int64(len(ck.servers))
+	DPrintf("ck.clientId: %v", ck.clientId)
+	ck.commandId++
+	args := PutAppendArgs{Key:key, Value:value, Op:op, Id: ck.commandId, ClientId: ck.clientId}
+	i := ck.lastLeader
 	var reply PutAppendReply
 	for true{
 		reply = PutAppendReply{}
 		ok := ck.servers[i].Call("KVServer.PutAppend", &args, &reply)
+		DPrintf("In server: %v, key:%v, value:%v, ok: %v reply: %v", i, key, value, ok, reply)
 		if ok == false || reply.WrongLeader{
-			i = (i+1)%int64(len(ck.servers))
-		}else{
+			i = (i+1)%(len(ck.servers))
+		}else if ok == true && reply.Err == OK && reply.WrongLeader == false{
+			ck.lastLeader = i
 			break
+		}else if reply.Err == ErrTimeOut{
+			continue
 		}
 	}
 	

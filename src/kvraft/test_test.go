@@ -532,12 +532,14 @@ func TestOnePartition3A(t *testing.T) {
 
 	select {
 	case <-done0:
+		//DPrintf("here done0")
 	case <-time.After(30 * 100 * time.Millisecond):
 		t.Fatalf("Put did not complete")
 	}
 
 	select {
 	case <-done1:
+		//DPrintf("here done1")
 	case <-time.After(30 * 100 * time.Millisecond):
 		t.Fatalf("Get did not complete")
 	default:
