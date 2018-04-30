@@ -3,6 +3,7 @@ package raftkv
 import "labrpc"
 import "crypto/rand"
 import "math/big"
+import "time"
 
 
 type Clerk struct {
@@ -60,11 +61,15 @@ func (ck *Clerk) Get(key string) string {
 
 		DPrintf("In Server: %v, Get:%v reply: %v", i, key, reply)
 
-		if ok == false || reply.WrongLeader || (reply.Err != ErrNoKey && reply.Err != OK){
-			i = (i+1)%(len(ck.servers))
-		}else{
+		if reply.Err == OK && reply.WrongLeader == false && ok == true{
 			ck.lastLeader = i
 			break
+		//}else if reply.Err == ErrNoKey{
+		//	time.Sleep(time.Millisecond*200)
+		//	continue
+		}else{
+			time.Sleep(100*time.Millisecond)
+			i = (i+1)%(len(ck.servers))
 		}
 	}
 
@@ -96,13 +101,12 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 		reply = PutAppendReply{}
 		ok := ck.servers[i].Call("KVServer.PutAppend", &args, &reply)
 		DPrintf("In server: %v, key:%v, value:%v, ok: %v reply: %v", i, key, value, ok, reply)
-		if ok == false || reply.WrongLeader{
-			i = (i+1)%(len(ck.servers))
-		}else if ok == true && reply.Err == OK && reply.WrongLeader == false{
+		
+		if ok == true && reply.Err == OK && reply.WrongLeader == false{
 			ck.lastLeader = i
 			break
-		}else if reply.Err == ErrTimeOut{
-			continue
+		}else{
+			i = (i+1)%(len(ck.servers))
 		}
 	}
 	

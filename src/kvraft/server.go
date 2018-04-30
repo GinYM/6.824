@@ -7,6 +7,7 @@ import (
 	"raft"
 	"sync"
 	"time"
+	//"strconv"
 	//"math/rand"
 )
 
@@ -43,9 +44,10 @@ type KVServer struct {
 	// Your definitions here.
 	store map[string]string
 	latestId map[int64]int
-	commands []Op
-	commitPutAppend chan bool
-	commitGet chan bool
+	commands map[int]Op
+	//commitPutAppend chan bool
+	//commitGet chan string
+	commits map[int]chan bool
 
 }
 
@@ -53,32 +55,18 @@ func (kv *KVServer) exist(commandId int, serverId int64) bool{
 	if kv.latestId[serverId] >= commandId{
 		return true
 	}else{
+		kv.latestId[serverId] = commandId
 		return false
 	}
 }
 
+//func (kv *KVServer) receiveCommit(index int)
 
 func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
-	// Your code here.
-	//DPrintf("Get Key: %v", args.Key)
+	// Your code here.	
 	op := Op{Operation:"Get", Key:args.Key, Value:"", Id:args.Id, ClientId:args.ClientId}
-
-	if kv.exist(args.Id, args.ClientId){
-		value, ok := kv.store[args.Key]
-		if ok{
-    		reply.Value = value
-    		reply.Err = OK
-    		DPrintf("Get value:%v", reply.Value)
-    	}else{
-    		reply.Value = ""
-    		reply.Err = ErrNoKey
-    	}
-    	DPrintf("exists!! id:%v clientId:%d", args.Id, args.ClientId)
-    	return
-	}
-
 	index, _, isLeader := kv.rf.Start(op)
-	
+	reply.WrongLeader = !isLeader
 	if isLeader == false{
     	reply.Err = ErrWrongLeader
     	reply.Value = ""
@@ -86,18 +74,17 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
     	return
     }
 
+    ch,ok := kv.commits[index]
+    if !ok{
+    	kv.commits[index] = make(chan bool,1)
+    	ch = kv.commits[index]
+    }
+
 	select{
-	case <-kv.commitGet:
+	case <-ch:  // uid := <-kv.commitGet:
 		kv.mu.Lock()
 		value, ok := kv.store[args.Key]
 		defer kv.mu.Unlock()
-		if index >= len(kv.commands) || (kv.commands[index] != op){
-			reply.Value = ""
-			reply.Err = ErrNoKey
-			DPrintf("index: %v", index)
-			DPrintf("len(commands): %v",len(kv.commands))
-			return
-		}
     	if ok{
     		reply.Value = value
     		reply.Err = OK
@@ -113,53 +100,47 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
     	reply.Err = ErrTimeOut
 	}
 	
+	
 }
 
 
-
-func (kv *KVServer) update(id int, clientId int64){
-	kv.latestId[clientId] = id
-}
 
 func (kv *KVServer) Apply(){
 	for true{
 		select{
 		case msg := <- kv.applyCh:
-
-			DPrintf("Apply: %v", msg)
+			DPrintf("Apply: %v, me:%v", msg, kv.me)
 			command := msg.Command.(Op)
-			kv.update(command.Id, command.ClientId)
+			//
 			kv.mu.Lock()
-			_,isLeader := kv.rf.GetState()
-			kv.mu.Unlock()
+			//_,isLeader := kv.rf.GetState()
+			//if command.Operation != "Get"{
+			//}
+			DPrintf("kv.latestId[%v]: %v", command.ClientId, kv.latestId[command.ClientId])
 
-			DPrintf("Is Leader: %v, me: %v", isLeader, kv.me)
-
-			kv.commands = append(kv.commands, command)
-
-			if command.Operation == "Get"{
-				if isLeader{
-					kv.commitGet <- true
-				}
-			}else{
-				DPrintf("latestId:%v msg:%v", kv.latestId[command.ClientId], msg)
-					kv.mu.Lock()
-					if command.Operation == "Put"{
+			kv.commands[msg.CommandIndex] = command
+			if kv.exist(command.Id, command.ClientId) == false{
+				switch command.Operation{
+				case "Put":
+					kv.store[command.Key] = command.Value
+				case "Append":
+					if _,ok := kv.store[command.Key];ok == false{
 						kv.store[command.Key] = command.Value
-						DPrintf("Put command: %v", command)
 					}else{
-						DPrintf("Append command: %v", command)
 						kv.store[command.Key] = kv.store[command.Key] + command.Value
 					}
-					kv.mu.Unlock()
-					if isLeader{
-						//DPrintf("PutAppend commit, me: %v",kv.me)
-						kv.commitPutAppend <- true
-					}
-				
+				}
 			}
-
-			
+			ch, ok := kv.commits[msg.CommandIndex]
+			kv.mu.Unlock()
+			if ok{
+				select{
+				case <- kv.commits[msg.CommandIndex]:
+				default:
+				}
+				ch <- true
+			}
+			//kv.commits[msg.CommandIndex] <- true
 		}
 	}
 }
@@ -167,11 +148,13 @@ func (kv *KVServer) Apply(){
 func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	// Your code here.
 	//DPrintf("Put Op: %v", args.Op)
+	/*
 	if kv.exist(args.Id, args.ClientId){
 		reply.Err = OK
 		reply.WrongLeader = false
 		return
 	}
+	*/
 	
 	op := Op{Operation:args.Op, Key:args.Key, Value:args.Value, Id:(args.Id), ClientId:args.ClientId}
 	index, _, isLeader := kv.rf.Start(op)
@@ -182,18 +165,26 @@ func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		return
 	}
 
+	ch,ok := kv.commits[index]
+    if !ok{
+    	kv.commits[index] = make(chan bool,1)
+    	ch = kv.commits[index]
+    }
+
 	//DPrintf("Waiting me: %v", kv.me)
+	DPrintf("Put op:%v", op)
 
 	select{
-	case <-kv.commitPutAppend:
-		if index >=len(kv.commands) || (kv.commands[index] != op){
+	case <-ch:
+		kv.mu.Lock()
+		if kv.commands[index] == op{
+			reply.Err = OK
+		}else{
 			reply.Err = ErrWrongLeader
 			reply.WrongLeader = true
-		}else{
-			reply.Err = OK
 		}
-		//reply.Err = OK
-		//DPrintf("PutAppendReply Success: %v",reply.Err)
+		kv.mu.Unlock()
+		
     case <-time.After(time.Millisecond*1000):
     	DPrintf("PutAppendReply ErrTimeOut")
     	reply.Err = ErrTimeOut
@@ -242,11 +233,11 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	// You may need initialization code here.
 	kv.store = make(map[string]string)
 	kv.latestId = make(map[int64]int)
-	kv.commands = []Op{}
-	kv.commands = append(kv.commands, Op{})
+	kv.commands = make(map[int]Op)
 
-	kv.commitPutAppend = make(chan bool)
-	kv.commitGet = make(chan bool)
+	//kv.commitPutAppend = make(chan bool)
+	//kv.commitGet = make(chan string)
+	kv.commits = make(map[int]chan bool)
 
 	go kv.Apply()
 
