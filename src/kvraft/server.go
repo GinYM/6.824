@@ -42,13 +42,79 @@ type KVServer struct {
 	maxraftstate int // snapshot if log grows this big
 
 	// Your definitions here.
-	store map[string]string
-	latestId map[int64]int
-	commands map[int]Op
+	store map[string]string   // store key value
+	latestId map[int64]int    // id for each client
+	commands map[int]Op       // operation
 	//commitPutAppend chan bool
 	//commitGet chan string
 	commits map[int]chan bool
 
+}
+
+func (kv *KVServer) getLastIncluded() int{
+	smallest = -1
+	for _,value := range kv.latestId{
+		if smallest == -1{
+			smallest = value
+		}else{
+			if value < smallest{
+				smallest = value
+			}
+		}
+	}
+	return smallest 
+}
+
+func (kv *KVServer) generateSHData() []byte{
+	w := new(bytes.Buffer)
+	e := labgob.NewEncoder(w)
+	e.Encode(kv.store)
+	e.Encode(kv.latestId)
+	
+	data := w.Bytes()
+	return data
+	
+}
+
+func (kv *KVServer) readSnapshot(){
+	data := kv.rf.persister.ReadSnapshot()
+	r := bytes.NewBuffer(data)
+	d := labgob.NewDecoder(r)
+	var currentTerm int
+	var votedFor int
+	var log []*LogEntry
+
+	var store map[string]string 
+	var latestId map[int64]int 
+
+	if d.Decode(&store) != nil ||
+		d.Decode(&latestId) != nil{
+			DPrintf("Error!")
+			return
+	} else{
+		kv.store = store
+		kv.latestId = latestId
+	}
+}
+
+
+func (kv *KVServer) SendSnapshot(index int){
+	if kv.rf.persister.RaftStateSize() > kv.maxraftstate{
+		term, isLeader := kv.rf.GetState()
+		if isLeader == false{
+			return
+		}
+		data := kv.generateSHData()
+		//smallestIdx = kv.getSmallestIdx()
+		args := InstallSnapshotArgs struct {
+					Term: term,
+					LeaderId: kv.me,
+					LastIncludedIndex: index,
+					//LastIncludedTerm int,
+					Data: data}
+		reply := InstallSnapshotReply{}
+		kv.rf.SendInstallSnapshotAll(&args, &reply)
+	}
 }
 
 func (kv *KVServer) exist(commandId int, serverId int64) bool{
@@ -109,41 +175,44 @@ func (kv *KVServer) Apply(){
 	for true{
 		select{
 		case msg := <- kv.applyCh:
-			DPrintf("Apply: %v, me:%v", msg, kv.me)
-			command := msg.Command.(Op)
-			//
-			kv.mu.Lock()
-			//_,isLeader := kv.rf.GetState()
-			//if command.Operation != "Get"{
-			//}
-			DPrintf("kv.latestId[%v]: %v", command.ClientId, kv.latestId[command.ClientId])
+			if msg.CommandValid == true{
+				DPrintf("Apply: %v, me:%v", msg, kv.me)
+				command := msg.Command.(Op)
+				kv.mu.Lock()
+				DPrintf("kv.latestId[%v]: %v", command.ClientId, kv.latestId[command.ClientId])
 
-			kv.commands[msg.CommandIndex] = command
-			if kv.exist(command.Id, command.ClientId) == false{
-				switch command.Operation{
-				case "Put":
-					kv.store[command.Key] = command.Value
-				case "Append":
-					if _,ok := kv.store[command.Key];ok == false{
+				kv.commands[msg.CommandIndex] = command
+				if kv.exist(command.Id, command.ClientId) == false{
+					switch command.Operation{
+					case "Put":
 						kv.store[command.Key] = command.Value
-					}else{
-						kv.store[command.Key] = kv.store[command.Key] + command.Value
+					case "Append":
+						if _,ok := kv.store[command.Key];ok == false{
+							kv.store[command.Key] = command.Value
+						}else{
+							kv.store[command.Key] = kv.store[command.Key] + command.Value
+						}
 					}
 				}
-			}
-			ch, ok := kv.commits[msg.CommandIndex]
-			kv.mu.Unlock()
-			if ok{
-				select{
-				case <- kv.commits[msg.CommandIndex]:
-				default:
+				ch, ok := kv.commits[msg.CommandIndex]
+				kv.mu.Unlock()
+				if ok{
+					select{
+					case <- kv.commits[msg.CommandIndex]:
+					default:
+					}
+					ch <- true
 				}
-				ch <- true
+				kv.SendSnapshot(msg.CommandIndex)
+			}else{
+				DPrintf("Receive Snapshot")
 			}
+			
 			//kv.commits[msg.CommandIndex] <- true
 		}
 	}
 }
+
 
 func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	// Your code here.
@@ -238,6 +307,8 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	//kv.commitPutAppend = make(chan bool)
 	//kv.commitGet = make(chan string)
 	kv.commits = make(map[int]chan bool)
+
+	kv.readSnapshot()
 
 	go kv.Apply()
 

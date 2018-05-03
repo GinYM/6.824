@@ -258,7 +258,7 @@ loop:
 			}
 		}
 
-		DPrintf("here???")
+		//DPrintf("here???")
 
 		failed := false
 		cmds := []int{}
