@@ -27,7 +27,7 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 	// You'll have to add code here.
 	ck.commandId = 0
 	ck.clientId	= nrand()
-	DPrintf("clientId: %v", ck.clientId)
+	//DPrintf("clientId: %v", ck.clientId)
 	ck.lastLeader = 0
 	return ck
 }
@@ -53,13 +53,13 @@ func (ck *Clerk) Get(key string) string {
 	args := GetArgs{Key:key, Id:ck.commandId, ClientId:ck.clientId}
 	var reply GetReply
 	//reply := GetReply{}
-	DPrintf("lastLeader: %v", ck.lastLeader)
+	//DPrintf("lastLeader: %v", ck.lastLeader)
 	i := ck.lastLeader
 	for true{
 		reply = GetReply{}
 		ok := ck.servers[i].Call("KVServer.Get", &args, &reply)
 
-		DPrintf("In Server: %v, Get:%v reply: %v", i, key, reply)
+		//DPrintf("In Server: %v, Get:%v reply: %v", i, key, reply)
 
 		if reply.Err == OK && reply.WrongLeader == false && ok == true{
 			ck.lastLeader = i
@@ -92,7 +92,7 @@ func (ck *Clerk) Get(key string) string {
 //
 func (ck *Clerk) PutAppend(key string, value string, op string) {
 	// You will have to modify this function.
-	DPrintf("ck.clientId: %v", ck.clientId)
+	//DPrintf("ck.clientId: %v", ck.clientId)
 	ck.commandId++
 	args := PutAppendArgs{Key:key, Value:value, Op:op, Id: ck.commandId, ClientId: ck.clientId}
 	i := ck.lastLeader

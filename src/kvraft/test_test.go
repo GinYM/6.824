@@ -425,7 +425,7 @@ func GenericTestLinearizability(t *testing.T, part string, nclients int, nserver
 
 func TestBasic3A(t *testing.T) {
 	// Test: one client (3A) ...
-	GenericTest(t, "3A", 1, false, false, false, -1)
+	GenericTest(t, "3A", 1, false, false, false, 1)
 }
 
 func TestConcurrent3A(t *testing.T) {
@@ -626,6 +626,8 @@ func TestSnapshotRPC3B(t *testing.T) {
 		t.Fatalf("logs were not trimmed (%v > 2*%v)", cfg.LogSize(), maxraftstate)
 	}
 
+	DPrintf("Check Success!")
+
 	// now make group that requires participation of
 	// lagging server, so that it has to catch up.
 	cfg.partition([]int{0, 2}, []int{1})
@@ -638,6 +640,8 @@ func TestSnapshotRPC3B(t *testing.T) {
 		check(cfg, t, ck1, "1", "1")
 		check(cfg, t, ck1, "49", "49")
 	}
+
+	DPrintf("Check partition Success")
 
 	// now everybody
 	cfg.partition([]int{0, 1, 2}, []int{})

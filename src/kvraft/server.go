@@ -7,6 +7,7 @@ import (
 	"raft"
 	"sync"
 	"time"
+	"bytes"
 	//"strconv"
 	//"math/rand"
 )
@@ -52,7 +53,7 @@ type KVServer struct {
 }
 
 func (kv *KVServer) getLastIncluded() int{
-	smallest = -1
+	smallest := -1
 	for _,value := range kv.latestId{
 		if smallest == -1{
 			smallest = value
@@ -76,13 +77,9 @@ func (kv *KVServer) generateSHData() []byte{
 	
 }
 
-func (kv *KVServer) readSnapshot(){
-	data := kv.rf.persister.ReadSnapshot()
+func (kv *KVServer) readSnapshot(data []byte){
 	r := bytes.NewBuffer(data)
 	d := labgob.NewDecoder(r)
-	var currentTerm int
-	var votedFor int
-	var log []*LogEntry
 
 	var store map[string]string 
 	var latestId map[int64]int 
@@ -99,21 +96,17 @@ func (kv *KVServer) readSnapshot(){
 
 
 func (kv *KVServer) SendSnapshot(index int){
-	if kv.rf.persister.RaftStateSize() > kv.maxraftstate{
-		term, isLeader := kv.rf.GetState()
+
+	if kv.maxraftstate != -1 && kv.rf.GetRaftStateSize() > kv.maxraftstate{
+		_, isLeader := kv.rf.GetState()
 		if isLeader == false{
 			return
 		}
 		data := kv.generateSHData()
-		//smallestIdx = kv.getSmallestIdx()
-		args := InstallSnapshotArgs struct {
-					Term: term,
-					LeaderId: kv.me,
-					LastIncludedIndex: index,
-					//LastIncludedTerm int,
-					Data: data}
-		reply := InstallSnapshotReply{}
-		kv.rf.SendInstallSnapshotAll(&args, &reply)
+
+		//DPrintf("SendSnapshot")
+		DPrintf("In SendSnapshot: %v", kv.store)
+		kv.rf.SendInstallSnapshotAll(index, data)
 	}
 }
 
@@ -195,6 +188,7 @@ func (kv *KVServer) Apply(){
 					}
 				}
 				ch, ok := kv.commits[msg.CommandIndex]
+				_, isLeader := kv.rf.GetState()
 				kv.mu.Unlock()
 				if ok{
 					select{
@@ -203,9 +197,13 @@ func (kv *KVServer) Apply(){
 					}
 					ch <- true
 				}
-				kv.SendSnapshot(msg.CommandIndex)
+				if isLeader{
+					kv.SendSnapshot(msg.CommandIndex)
+				}
 			}else{
 				DPrintf("Receive Snapshot")
+				kv.readSnapshot(msg.SnapshotData)
+				//DPrintf("Command: %v", kv.store)
 			}
 			
 			//kv.commits[msg.CommandIndex] <- true
@@ -308,7 +306,7 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	//kv.commitGet = make(chan string)
 	kv.commits = make(map[int]chan bool)
 
-	kv.readSnapshot()
+	//kv.readSnapshot()
 
 	go kv.Apply()
 
