@@ -59,7 +59,7 @@ func (ck *Clerk) Get(key string) string {
 		reply = GetReply{}
 		ok := ck.servers[i].Call("KVServer.Get", &args, &reply)
 
-		//DPrintf("In Server: %v, Get:%v reply: %v", i, key, reply)
+		DPrintf("In Server: %v, Get:%v reply: %v", i, key, reply)
 
 		if reply.Err == OK && reply.WrongLeader == false && ok == true{
 			ck.lastLeader = i

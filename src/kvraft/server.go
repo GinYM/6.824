@@ -49,6 +49,7 @@ type KVServer struct {
 	//commitPutAppend chan bool
 	//commitGet chan string
 	commits map[int]chan bool
+	//isKilled chan bool
 
 }
 
@@ -97,16 +98,23 @@ func (kv *KVServer) readSnapshot(data []byte){
 
 func (kv *KVServer) SendSnapshot(index int){
 
+	kv.mu.Lock()
+	//defer kv.mu.Unlock()
+
 	if kv.maxraftstate != -1 && kv.rf.GetRaftStateSize() > kv.maxraftstate{
 		_, isLeader := kv.rf.GetState()
 		if isLeader == false{
+			kv.mu.Unlock()
 			return
 		}
 		data := kv.generateSHData()
 
 		//DPrintf("SendSnapshot")
 		DPrintf("In SendSnapshot: %v", kv.store)
+		kv.mu.Unlock()
 		kv.rf.SendInstallSnapshotAll(index, data)
+	}else{
+		kv.mu.Unlock()
 	}
 }
 
@@ -133,17 +141,21 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
     	return
     }
 
+    kv.mu.Lock()
+
     ch,ok := kv.commits[index]
     if !ok{
     	kv.commits[index] = make(chan bool,1)
     	ch = kv.commits[index]
     }
 
+    kv.mu.Unlock()
+
 	select{
 	case <-ch:  // uid := <-kv.commitGet:
 		kv.mu.Lock()
 		value, ok := kv.store[args.Key]
-		defer kv.mu.Unlock()
+		kv.mu.Unlock()
     	if ok{
     		reply.Value = value
     		reply.Err = OK
@@ -153,6 +165,7 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
     		reply.Value = ""
     		reply.Err = ErrNoKey
     	}
+    	//kv.mu.Unlock()
     case <-time.After(time.Millisecond*1000):
     	DPrintf("Timeout!")
     	reply.Value = ""
@@ -167,6 +180,8 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 func (kv *KVServer) Apply(){
 	for true{
 		select{
+		//case <- kv.isKilled:
+		//	break
 		case msg := <- kv.applyCh:
 			if msg.CommandValid == true{
 				DPrintf("Apply: %v, me:%v", msg, kv.me)
@@ -189,10 +204,13 @@ func (kv *KVServer) Apply(){
 				}
 				ch, ok := kv.commits[msg.CommandIndex]
 				_, isLeader := kv.rf.GetState()
+
+				commitMsgCh := kv.commits[msg.CommandIndex]
+
 				kv.mu.Unlock()
 				if ok{
 					select{
-					case <- kv.commits[msg.CommandIndex]:
+					case <- commitMsgCh:
 					default:
 					}
 					ch <- true
@@ -201,8 +219,10 @@ func (kv *KVServer) Apply(){
 					kv.SendSnapshot(msg.CommandIndex)
 				}
 			}else{
+				kv.mu.Lock()
 				DPrintf("Receive Snapshot")
 				kv.readSnapshot(msg.SnapshotData)
+				kv.mu.Unlock()
 				//DPrintf("Command: %v", kv.store)
 			}
 			
@@ -222,15 +242,21 @@ func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 		return
 	}
 	*/
+
+	//kv.mu.Lock()
 	
 	op := Op{Operation:args.Op, Key:args.Key, Value:args.Value, Id:(args.Id), ClientId:args.ClientId}
 	index, _, isLeader := kv.rf.Start(op)
+
+
 
 	reply.WrongLeader = !isLeader
 	if isLeader == false {
 		reply.Err = ErrWrongLeader
 		return
 	}
+
+	kv.mu.Lock()
 
 	ch,ok := kv.commits[index]
     if !ok{
@@ -240,6 +266,8 @@ func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 
 	//DPrintf("Waiting me: %v", kv.me)
 	DPrintf("Put op:%v", op)
+
+	kv.mu.Unlock()
 
 	select{
 	case <-ch:
@@ -267,6 +295,7 @@ func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 func (kv *KVServer) Kill() {
 	kv.rf.Kill()
 	// Your code here, if desired.
+	//kv.isKilled <- true
 }
 
 //
@@ -305,6 +334,7 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	//kv.commitPutAppend = make(chan bool)
 	//kv.commitGet = make(chan string)
 	kv.commits = make(map[int]chan bool)
+	//kv.isKilled = make(chan bool)
 
 	//kv.readSnapshot()
 

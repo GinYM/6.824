@@ -605,8 +605,9 @@ func TestSnapshotRPC3B(t *testing.T) {
 	ck := cfg.makeClient(cfg.All())
 
 	cfg.begin("Test: InstallSnapshot RPC (3B)")
-
+	DPrintf("Before Put")
 	Put(cfg, ck, "a", "A")
+	DPrintf("After Put")
 	check(cfg, t, ck, "a", "A")
 
 	// a bunch of puts into the majority partition.
