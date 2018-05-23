@@ -25,6 +25,7 @@ func check(t *testing.T, groups []int, ck *Clerk) {
 	// any un-allocated shards?
 	if len(groups) > 0 {
 		for s, g := range c.Shards {
+			DPrintf("c.Groups:%v", c.Groups)
 			_, ok := c.Groups[g]
 			if ok == false {
 				t.Fatalf("shard %v -> invalid group %v", s, g)
@@ -91,15 +92,29 @@ func TestBasic(t *testing.T) {
 
 	check(t, []int{}, ck)
 
+	DPrintf("After first check")
+
 	var gid1 int = 1
 	ck.Join(map[int][]string{gid1: []string{"x", "y", "z"}})
+	
+	DPrintf("After first Join")
+	
 	check(t, []int{gid1}, ck)
+
+	DPrintf("After first check")
+
 	cfa[1] = ck.Query(-1)
+
+	DPrintf("After second Query")
 
 	var gid2 int = 2
 	ck.Join(map[int][]string{gid2: []string{"a", "b", "c"}})
 	check(t, []int{gid1, gid2}, ck)
 	cfa[2] = ck.Query(-1)
+
+	ck.Join(map[int][]string{gid2: []string{"a", "b", "c"}})
+	check(t, []int{gid1, gid2}, ck)
+	cfa[3] = ck.Query(-1)
 
 	cfx := ck.Query(-1)
 	sa1 := cfx.Groups[gid1]
@@ -110,6 +125,8 @@ func TestBasic(t *testing.T) {
 	if len(sa2) != 3 || sa2[0] != "a" || sa2[1] != "b" || sa2[2] != "c" {
 		t.Fatalf("wrong servers for gid %v: %v\n", gid2, sa2)
 	}
+
+	DPrintf("Here????!!!!!!")
 
 	ck.Leave([]int{gid1})
 	check(t, []int{gid2}, ck)
@@ -126,6 +143,7 @@ func TestBasic(t *testing.T) {
 		cfg.ShutdownServer(s)
 		for i := 0; i < len(cfa); i++ {
 			c := ck.Query(cfa[i].Num)
+			DPrintf("i:%v c:%v cfa:%v", i, c, cfa[i])
 			check_same_config(t, c, cfa[i])
 		}
 		cfg.StartServer(s)

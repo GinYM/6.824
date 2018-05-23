@@ -9,9 +9,9 @@ import "time"
 type Clerk struct {
 	servers []*labrpc.ClientEnd
 	// You will have to modify this struct.
-	commandId int
-	clientId int64
-	lastLeader int
+	commandId int  // command id
+	clientId int64 // client  unique id
+	lastLeader int //record last leader
 }
 
 func nrand() int64 {
