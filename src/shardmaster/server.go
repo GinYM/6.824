@@ -5,11 +5,10 @@ import "raft"
 import "labrpc"
 import "sync"
 import "labgob"
-import "sort"
 import "time"
 import "log"
 
-const Debug = 1
+const Debug = 0
 
 func DPrintf(format string, a ...interface{}) (n int, err error) {
 	if Debug > 0 {
@@ -305,102 +304,44 @@ func (sm *ShardMaster) ShowShards(){
 	DPrintf("%v",sm.configs[sm.configIdx].Shards)
 }
 
+func (sm *ShardMaster) GetCurrentConfigs() *Config{
+	return &sm.configs[sm.configIdx]
+}
+
+func (sm *ShardMaster) FindFirstGid(start, gid int) int{
+	currentConfig := sm.GetCurrentConfigs()
+	for start < len(currentConfig.Shards) && currentConfig.Shards[start] != gid{
+		start++
+	}
+	return start
+}
+
 // make sure gids in shards are balanced
 func (sm *ShardMaster) CombineServers(servers *map[int][]string){
 	//DPrintf("sm.configIdx:%d len(sm.configs)")
 	sm.ShowShards()
 	currentConfig := &sm.configs[sm.configIdx]
 
-	countgids := map[int]int{}
 	for gid,server := range (*servers){
 		currentConfig.Groups[gid] = server
-		countgids[gid] = 0
-	}
-
-	//DPrintf("Groups:%v", currentConfig.Groups)
-
-	for i:=0;i<len(currentConfig.Shards);i++{
-		// initialized state, empty
-
-		_,ok := countgids[currentConfig.Shards[i]]
-		if ok{
-			countgids[currentConfig.Shards[i]]++
-		}else{
-			countgids[currentConfig.Shards[i]] = 1
-		}
-	}
-
-	num := len(currentConfig.Groups)
-	// fill empty Shards
-
-	//("countgids:%v", countgids)
-
-	//p := make(PairList, len(countgids))
-	p := PairList{}
-	for gid,count := range countgids{
-		p = append(p, Pair{gid, count})
-	}
-	
-	sort.Sort(p)
-
-	//DPrintf("pair:%v",p)
-	each := NShards/num
-	topnum := NShards/num
-	if NShards%num != 0{
-		topnum++
-	}
-
-	start := 0
-	end := len(p)-1
-
-	DPrintf("NShards:%d, num:%d", NShards, num)
-	for start < end {
-		//find not balanced
-		for start<end && p[start].value == each{
-			start++
-		}
-		if p[end].key == -1{
-			if p[end].value == 0{
-				end--
-				for end>=0 && (p[end].value == each){
-					end--
-				}
-			}
-		}else{
-			for end>start && ( (end == len(p)-1 && p[end].value == topnum) || (end != len(p)-1 && p[end].value == each)){
-				end--
-			}
-		}
 		
-		if start >= end{
-			break
-		} 
-		//set start's gid to end's gid
-		DPrintf("Set start:%d to end:%d",p[start].key, p[end].key)
-		sm.SetGid(p[end].key,p[start].key)
-		p[start].value++
-		p[end].value--
 	}
 
-	DPrintf("After set: %v",currentConfig.Shards)
+	sm.Balance()
+
+
+	//DPrintf("NShards:%d, num:%d", NShards, num)
+	//DPrintf("After set: %v",currentConfig.Shards)
 }
 
-func (sm * ShardMaster) RemoveGids(GIDs *[]int){
-	
-	currentConfig := &sm.configs[sm.configIdx]
+func (sm * ShardMaster) Balance(){
+	currentConfig := sm.GetCurrentConfigs()
 
-	//DPrintf("In RemoveGids:%v", currentConfig.Shards)
-
-	//remove gids from Groups
-	for _,v := range (*GIDs){
-		delete(currentConfig.Groups, v)
-	}
-
-	//update shards
 	count := map[int]int{}
 	maxGid := -1
 	maxCount := -1
 	storeEmpty := []int{}
+
 	for i,gid := range currentConfig.Shards{
 		_,ok := currentConfig.Groups[gid]
 		if ok == false{
@@ -420,15 +361,67 @@ func (sm * ShardMaster) RemoveGids(GIDs *[]int){
 		}
 	}
 
-	num := len(count)
+	for gid,_ := range currentConfig.Groups{
+		_,ok := count[gid]
+		if ok == false{
+			count[gid] = 0
+		}
+	}
+
+	num := len(currentConfig.Groups)
 	if num == 0{
 		return
 	}
 	each := NShards/num
 	topnum := NShards/num
+	if NShards%num != 0{
+		topnum++
+	}
+
+	if NShards < num{
+		topnum = 0
+	}
+
+	if each == 0{
+		each = 1
+	}
+	if topnum == 0{
+		topnum = 1
+	}
+
+	// remove excessed gids
+	for i,v := range count{
+		calnum := 0
+		if maxGid == -1{
+			maxGid = i
+		}
+		if i == maxGid{
+			calnum = topnum
+		}else{
+			calnum = each
+		}
+
+		if v > calnum{
+			idx := 0
+			for v > calnum{
+				idx = sm.FindFirstGid(idx, i)
+				
+				currentConfig.Shards[idx] = -1
+				storeEmpty = append(storeEmpty,idx)
+
+				idx++
+				v--
+			}
+		}
+	}
 
 	storeEmptyIdx := 0
 	for i,v := range count{
+
+		if storeEmptyIdx >= len(storeEmpty){
+			break
+		}
+
 		calnum := 0
 
 		if i == maxGid{
@@ -437,13 +430,38 @@ func (sm * ShardMaster) RemoveGids(GIDs *[]int){
 			calnum = each
 		}
 
-		for v < calnum{
+		if v == calnum{
+			continue
+		}
+
+		
+		for storeEmptyIdx < len(storeEmpty) && v < calnum{
 			currentConfig.Shards[storeEmpty[storeEmptyIdx]] = i
 			storeEmptyIdx++
 			v++
 		}
+
+		
 		
 	}
+
+	DPrintf("NShards:%d, num:%d", NShards, num)
+	DPrintf("After Balance:%v", currentConfig.Shards)
+
+}
+
+func (sm * ShardMaster) RemoveGids(GIDs *[]int){
+	
+	currentConfig := &sm.configs[sm.configIdx]
+
+	//DPrintf("In RemoveGids:%v", currentConfig.Shards)
+
+	//remove gids from Groups
+	for _,v := range (*GIDs){
+		delete(currentConfig.Groups, v)
+	}
+
+	sm.Balance()
 
 
 	DPrintf("In RemoveGids:%v", currentConfig.Shards)
