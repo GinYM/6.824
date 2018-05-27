@@ -1,18 +1,35 @@
 package shardkv
 
 
-// import "shardmaster"
+import "shardmaster"
 import "labrpc"
 import "raft"
 import "sync"
 import "labgob"
+import "bytes"
+import "log"
+import "time"
 
+
+const Debug = 0
+
+func DPrintf(format string, a ...interface{}) (n int, err error) {
+	if Debug > 0 {
+		log.Printf(format, a...)
+	}
+	return
+}
 
 
 type Op struct {
 	// Your definitions here.
 	// Field names must start with capital letters,
 	// otherwise RPC will break.
+	Operation string //"Put" or "Append" or "Get"
+	Key string
+	Value string
+	Id int
+	ClientId int64
 }
 
 type ShardKV struct {
@@ -26,15 +43,173 @@ type ShardKV struct {
 	maxraftstate int // snapshot if log grows this big
 
 	// Your definitions here.
+	configs shardmaster.Config
+	store map[string]string   // store key value
+	latestId map[int64]int    // id for each client
+	commands map[int]Op       // operation
+	commits map[int]chan bool
+}
+
+func (kv *ShardKV) getLastIncluded() int{
+	smallest := -1
+	for _,value := range kv.latestId{
+		if smallest == -1{
+			smallest = value
+		}else{
+			if value < smallest{
+				smallest = value
+			}
+		}
+	}
+	return smallest 
+}
+
+func (kv *ShardKV) generateSHData() []byte{
+	w := new(bytes.Buffer)
+	e := labgob.NewEncoder(w)
+	e.Encode(kv.store)
+	e.Encode(kv.latestId)
+	
+	data := w.Bytes()
+	return data
+	
+}
+
+func (kv *ShardKV) readSnapshot(data []byte){
+	r := bytes.NewBuffer(data)
+	d := labgob.NewDecoder(r)
+
+	var store map[string]string 
+	var latestId map[int64]int 
+
+	if d.Decode(&store) != nil ||
+		d.Decode(&latestId) != nil{
+			DPrintf("Error!")
+			return
+	} else{
+		kv.store = store
+		kv.latestId = latestId
+	}
+}
+
+
+func (kv *ShardKV) SendSnapshot(index int){
+
+	kv.mu.Lock()
+	//defer kv.mu.Unlock()
+
+	if kv.maxraftstate != -1 && kv.rf.GetRaftStateSize() > kv.maxraftstate{
+		_, isLeader := kv.rf.GetState()
+		if isLeader == false{
+			kv.mu.Unlock()
+			return
+		}
+		data := kv.generateSHData()
+
+		//DPrintf("SendSnapshot")
+		DPrintf("In SendSnapshot: %v", kv.store)
+		kv.mu.Unlock()
+		kv.rf.SendInstallSnapshotAll(index, data)
+	}else{
+		kv.mu.Unlock()
+	}
+}
+
+func (kv *ShardKV) exist(commandId int, serverId int64) bool{
+	if kv.latestId[serverId] >= commandId{
+		return true
+	}else{
+		kv.latestId[serverId] = commandId
+		return false
+	}
 }
 
 
 func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 	// Your code here.
+	op := Op{Operation:"Get", Key:args.Key, Value:"", Id:args.CommandId, ClientId:args.ClientId}
+	index, _, isLeader := kv.rf.Start(op)
+	reply.WrongLeader = !isLeader
+	if isLeader == false{
+    	reply.Err = ErrWrongLeader
+    	reply.Value = ""
+    	DPrintf("Not leader!")
+    	return
+    }
+
+    kv.mu.Lock()
+
+    ch,ok := kv.commits[index]
+    if !ok{
+    	kv.commits[index] = make(chan bool,1)
+    	ch = kv.commits[index]
+    }
+
+    kv.mu.Unlock()
+
+	select{
+	case <-ch:  // uid := <-kv.commitGet:
+		kv.mu.Lock()
+		value, ok := kv.store[args.Key]
+		kv.mu.Unlock()
+    	if ok{
+    		reply.Value = value
+    		reply.Err = OK
+    		DPrintf("Get value:%v", reply.Value)
+    	}else{
+    		DPrintf("Key error! No value for key: %v", args.Key)
+    		reply.Value = ""
+    		reply.Err = ErrNoKey
+    	}
+    	//kv.mu.Unlock()
+    case <-time.After(time.Millisecond*1000):
+    	DPrintf("Timeout!")
+    	reply.Value = ""
+    	reply.Err = ErrTimeOut
+	}
 }
 
 func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	// Your code here.
+	op := Op{Operation:args.Op, Key:args.Key, Value:args.Value, Id:(args.CommandId), ClientId:args.ClientId}
+	index, _, isLeader := kv.rf.Start(op)
+
+
+
+	reply.WrongLeader = !isLeader
+	if isLeader == false {
+		reply.Err = ErrWrongLeader
+		return
+	}
+
+	kv.mu.Lock()
+
+	ch,ok := kv.commits[index]
+    if !ok{
+    	kv.commits[index] = make(chan bool,1)
+    	ch = kv.commits[index]
+    }
+
+	//DPrintf("Waiting me: %v", kv.me)
+	DPrintf("Put op:%v", op)
+
+	kv.mu.Unlock()
+
+	select{
+	case <-ch:
+		kv.mu.Lock()
+		if kv.commands[index] == op{
+			reply.Err = OK
+		}else{
+			reply.Err = ErrWrongLeader
+			reply.WrongLeader = true
+		}
+		kv.mu.Unlock()
+		
+    case <-time.After(time.Millisecond*1000):
+    	DPrintf("PutAppendReply ErrTimeOut")
+    	reply.Err = ErrTimeOut
+	}
 }
 
 //
@@ -46,6 +221,60 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 func (kv *ShardKV) Kill() {
 	kv.rf.Kill()
 	// Your code here, if desired.
+}
+
+func (kv *ShardKV) Apply(){
+	for true{
+		select{
+		//case <- kv.isKilled:
+		//	break
+		case msg := <- kv.applyCh:
+			if msg.CommandValid == true{
+				DPrintf("Apply: %v, me:%v", msg, kv.me)
+				command := msg.Command.(Op)
+				kv.mu.Lock()
+				DPrintf("kv.latestId[%v]: %v", command.ClientId, kv.latestId[command.ClientId])
+
+				kv.commands[msg.CommandIndex] = command
+				if kv.exist(command.Id, command.ClientId) == false{
+					switch command.Operation{
+					case "Put":
+						kv.store[command.Key] = command.Value
+					case "Append":
+						if _,ok := kv.store[command.Key];ok == false{
+							kv.store[command.Key] = command.Value
+						}else{
+							kv.store[command.Key] = kv.store[command.Key] + command.Value
+						}
+					}
+				}
+				ch, ok := kv.commits[msg.CommandIndex]
+				_, isLeader := kv.rf.GetState()
+
+				commitMsgCh := kv.commits[msg.CommandIndex]
+
+				kv.mu.Unlock()
+				if ok{
+					select{
+					case <- commitMsgCh:
+					default:
+					}
+					ch <- true
+				}
+				if isLeader{
+					kv.SendSnapshot(msg.CommandIndex)
+				}
+			}else{
+				kv.mu.Lock()
+				DPrintf("Receive Snapshot")
+				kv.readSnapshot(msg.SnapshotData)
+				kv.mu.Unlock()
+				//DPrintf("Command: %v", kv.store)
+			}
+			
+			//kv.commits[msg.CommandIndex] <- true
+		}
+	}
 }
 
 
@@ -96,6 +325,13 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 
 	kv.applyCh = make(chan raft.ApplyMsg)
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
+
+	kv.store = make(map[string]string)
+	kv.latestId = make(map[int64]int)
+	kv.commands = make(map[int]Op)
+	kv.commits = make(map[int]chan bool)
+
+	go kv.Apply()
 
 
 	return kv
