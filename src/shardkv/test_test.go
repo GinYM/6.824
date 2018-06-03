@@ -94,7 +94,9 @@ func TestJoinLeave(t *testing.T) {
 
 	ck := cfg.makeClient()
 
+	DPrintf("Before Join 0")
 	cfg.join(0)
+	DPrintf("After Join 1")
 
 	n := 10
 	ka := make([]string, n)
@@ -104,11 +106,16 @@ func TestJoinLeave(t *testing.T) {
 		va[i] = randstring(5)
 		ck.Put(ka[i], va[i])
 	}
+
+	DPrintf("Before Check")
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 	}
+	DPrintf("After Check")
 
+	DPrintf("Before join 1")
 	cfg.join(1)
+	DPrintf("After join 1")
 
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
@@ -117,7 +124,11 @@ func TestJoinLeave(t *testing.T) {
 		va[i] += x
 	}
 
+	DPrintf("Before Leave")
+
 	cfg.leave(0)
+
+	DPrintf("After Leave")
 
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])

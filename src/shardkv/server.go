@@ -9,9 +9,16 @@ import "labgob"
 import "bytes"
 import "log"
 import "time"
+import "sort"
 
 
-const Debug = 0
+const Debug = 1
+
+//sort for []string
+type StringList []string
+func (s StringList) Len()int {return len(s)}
+func (s StringList) Swap(i, j int) {s[i],s[j] = s[j],s[i]}
+func (s StringList) Less(i, j int) bool {return s[i]<=s[j]}
 
 func DPrintf(format string, a ...interface{}) (n int, err error) {
 	if Debug > 0 {
@@ -44,10 +51,15 @@ type ShardKV struct {
 
 	// Your definitions here.
 	configs shardmaster.Config
-	store map[string]string   // store key value
+	database map[int]map[string]string // configNum to database
+	//store map[string]string   // store key value
 	latestId map[int64]int    // id for each client
 	commands map[int]Op       // operation
 	commits map[int]chan bool
+	mck *shardmaster.Clerk // shardmaster clerk
+	configNum int // current configNum
+	isKilled chan bool
+	isKilledSig bool
 }
 
 func (kv *ShardKV) getLastIncluded() int{
@@ -67,8 +79,11 @@ func (kv *ShardKV) getLastIncluded() int{
 func (kv *ShardKV) generateSHData() []byte{
 	w := new(bytes.Buffer)
 	e := labgob.NewEncoder(w)
-	e.Encode(kv.store)
+	e.Encode(kv.database)
 	e.Encode(kv.latestId)
+	e.Encode(kv.configs)
+	e.Encode(kv.configNum)
+	
 	
 	data := w.Bytes()
 	return data
@@ -79,17 +94,26 @@ func (kv *ShardKV) readSnapshot(data []byte){
 	r := bytes.NewBuffer(data)
 	d := labgob.NewDecoder(r)
 
-	var store map[string]string 
+	var database map[int]map[string]string
+ 
 	var latestId map[int64]int 
+	var configs shardmaster.Config
+	var configNum int
 
-	if d.Decode(&store) != nil ||
-		d.Decode(&latestId) != nil{
+
+	if d.Decode(&database) != nil ||
+		d.Decode(&latestId) != nil ||
+		d.Decode(&configs) != nil ||
+		d.Decode(&configNum) != nil{
 			DPrintf("Error!")
 			return
 	} else{
-		kv.store = store
+		kv.database = database
 		kv.latestId = latestId
+		kv.configs = configs
+		kv.configNum = configNum
 	}
+
 }
 
 
@@ -107,7 +131,7 @@ func (kv *ShardKV) SendSnapshot(index int){
 		data := kv.generateSHData()
 
 		//DPrintf("SendSnapshot")
-		DPrintf("In SendSnapshot: %v", kv.store)
+		//DPrintf("In SendSnapshot: %v", kv.store)
 		kv.mu.Unlock()
 		kv.rf.SendInstallSnapshotAll(index, data)
 	}else{
@@ -124,9 +148,32 @@ func (kv *ShardKV) exist(commandId int, serverId int64) bool{
 	}
 }
 
+func (kv *ShardKV) CheckGroup() bool{
+	if _,ok := kv.database[kv.configNum];ok == false{
+		return false
+	}
+	for _,gid := range kv.configs.Shards{
+		if gid == kv.gid{
+			return true
+		}
+	}
+	return false
+}
 
 func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 	// Your code here.
+	if !kv.CheckGroup(){
+		reply.Value = ""
+		reply.WrongLeader = true
+		reply.Err = ErrWrongGroup
+		return
+	}
+
+
+	//kv.mu.Lock()
+	//DPrintf("kv.database:%v", kv.database)
+	//kv.mu.Unlock()
+
 	op := Op{Operation:"Get", Key:args.Key, Value:"", Id:args.CommandId, ClientId:args.ClientId}
 	index, _, isLeader := kv.rf.Start(op)
 	reply.WrongLeader = !isLeader
@@ -150,9 +197,10 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 	select{
 	case <-ch:  // uid := <-kv.commitGet:
 		kv.mu.Lock()
-		value, ok := kv.store[args.Key]
+		value, ok := kv.database[kv.configNum][args.Key]
 		kv.mu.Unlock()
     	if ok{
+			DPrintf("kv.me:%v, In get database:%v", kv.me, kv.database)
     		reply.Value = value
     		reply.Err = OK
     		DPrintf("Get value:%v", reply.Value)
@@ -171,6 +219,13 @@ func (kv *ShardKV) Get(args *GetArgs, reply *GetReply) {
 
 func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	// Your code here.
+	if !kv.CheckGroup(){
+		//reply.Value = ""
+		reply.WrongLeader = true
+		reply.Err = ErrWrongGroup
+		return 
+	}
+
 	op := Op{Operation:args.Op, Key:args.Key, Value:args.Value, Id:(args.CommandId), ClientId:args.ClientId}
 	index, _, isLeader := kv.rf.Start(op)
 
@@ -212,6 +267,195 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 	}
 }
 
+func (kv *ShardKV) GetLatestDB() map[string]string {
+	return kv.database[kv.configNum]
+}
+
+func (kv *ShardKV) GetShards(args *GetShardsArgs, reply *GetShardsReply) {
+	_, isLeader := kv.rf.GetState()
+	kv.mu.Lock()
+	
+	reply.WrongLeader = !isLeader
+	gid := kv.gid
+	configNum := kv.configNum
+	getDB,ok := kv.database[args.ConfigNum]
+	DPrintf("kv.me:%v Before GetShards, args.ConfigNum:%v, db:%v, kv.config:%v", kv.me, args.ConfigNum, kv.database, kv.configs)
+	kv.mu.Unlock()
+
+	DPrintf("kv.me:%v After GetShards, args.ConfigNum:%v", kv.me,getDB)
+
+	if isLeader == false{
+		reply.Err = ErrWrongLeader
+		return
+	}
+
+	
+
+	if gid != args.Gid || configNum < args.ConfigNum{
+		reply.Err = ErrWrongGroup
+		return
+	}
+
+	
+	if ok == false{
+		reply.Err = ErrWrongGroup
+		return
+	}else{
+		DPrintf("in GetShards, database:%v", getDB)
+		reply.Store = make(map[string]string)
+		for k,v := range getDB{
+			reply.Store[k] = v
+		}
+		reply.Err = OK
+	}
+}
+
+func IsEqualGroups(s1 []string, s2 []string) bool{
+	sort.Sort(StringList(s1))
+	sort.Sort(StringList(s2))
+	if len(s1) != len(s2){
+		return false
+	}
+	for idx,s := range s1{
+		if s != s2[idx]{
+			return false
+		}
+	}
+	return true
+}
+
+func (kv *ShardKV) Reconfigure(newConfig *shardmaster.Config) bool{
+	kv.mu.Lock()
+	curConfig := kv.configs
+	kv.mu.Unlock()
+
+	if _,ok := kv.database[newConfig.Num]; ok == true{
+		return true
+	}
+
+	//isFindGid := false
+
+	DPrintf("Check gid kv.gid:%v, kv.me:%v", kv.gid, kv.me)
+
+	alldb := map[string]string{}
+
+	for i:=0; i<shardmaster.NShards; i++{
+		//check join same gid
+		//isEqual := true
+
+		//if newConfig.Shards[i] == kv.gid && curConfig.Shards[i] != -1{
+		//	isFindGid = true
+		//}
+
+		//if curConfig.Shards[i] == kv.gid && newConfig.Shards[i] == kv.gid{
+			
+		//	s1 := curConfig.Groups[kv.gid]
+		//	s2 := newConfig.Groups[kv.gid]
+		//	isEqual = IsEqualGroups(s1,s2)
+		//}
+
+		if (newConfig.Shards[i] == kv.gid){
+			for _,server := range curConfig.Groups[curConfig.Shards[i]]{
+				server_end := kv.make_end(server)
+				args := GetShardsArgs{Gid:curConfig.Shards[i], ConfigNum:newConfig.Num-1}
+				reply := GetShardsReply{}
+				reply.Store = make(map[string]string)
+				DPrintf("kv.me:%v, before GetShards:%v", kv.me,  kv.database)
+				server_end.Call("ShardKV.GetShards", &args, &reply)
+				if reply.Err == OK{
+					DPrintf("Here!!! find it!!!")
+					//kv.mu.Lock()
+					//kv.database[newConfig.Num] = reply.Store
+					//kv.configNum = newConfig.Num
+					//kv.configs = *newConfig
+
+					for k,v := range reply.Store{
+						alldb[k] = v
+					}
+
+					//kv.mu.Unlock()
+					//return true
+				}
+			}
+		}
+
+		
+		/*
+		if (newConfig.Shards[i] == kv.gid && curConfig.Shards[i] != kv.gid && curConfig.Shards[i] != -1) || (isEqual == false){
+			for _,server := range curConfig.Groups[curConfig.Shards[i]]{
+				server_end := kv.make_end(server)
+				args := GetShardsArgs{Gid:curConfig.Shards[i], ConfigNum:newConfig.Num-1}
+				reply := GetShardsReply{}
+				reply.Store = make(map[string]string)
+				DPrintf("kv.me:%v, before GetShards:%v", kv.me,  kv.database)
+				server_end.Call("ShardKV.GetShards", &args, &reply)
+				if reply.Err == OK{
+					DPrintf("Here!!! find it!!!")
+					kv.mu.Lock()
+					kv.database[newConfig.Num] = reply.Store
+					kv.configNum = newConfig.Num
+					kv.configs = *newConfig
+					kv.mu.Unlock()
+					return true
+				}
+			}
+		}else if (newConfig.Shards[i] == kv.gid && curConfig.Shards[i] == kv.gid){
+			kv.configNum = newConfig.Num
+			kv.configs = *newConfig
+			if _,ok := kv.database[newConfig.Num]; ok == false{
+				kv.database[newConfig.Num] = make(map[string]string)
+			}
+			for k,v := range kv.database[newConfig.Num-1]{
+				kv.database[newConfig.Num][k] = v
+			}
+			return true
+		}
+		*/
+
+		
+	}
+
+	kv.mu.Lock()
+	kv.database[newConfig.Num] = alldb
+	kv.configNum = newConfig.Num
+	kv.configs = *newConfig
+	kv.mu.Unlock()
+
+
+	return true
+}
+
+func (kv *ShardKV) CheckConfigure(){
+	for true {
+		if kv.isKilledSig{
+			return
+		}
+		
+		newConfig := kv.mck.Query(-1)
+		kv.mu.Lock()
+		DPrintf("kv.me:%v, newConfig: %v, kv.configs.Num:%v, newConfig.Num:%v", kv.me, newConfig, kv.configs.Num, newConfig.Num)
+		
+		if kv.configs.Num < newConfig.Num{
+			DPrintf("In CheckConfigure:%v", kv.configNum)
+			kv.mu.Unlock()
+			argConfig := kv.mck.Query(kv.configs.Num+1)
+			DPrintf("kv.me:%v, argConfig:%v", kv.me, argConfig)
+			
+			kv.Reconfigure(&argConfig)
+			//if ret == true{
+			//	_,ok := kv.database[kv.configNum]
+			//	if ok == false{
+			//		kv.database[kv.configNum] = make(map[string]string)
+			//	}
+			//}
+		}else{
+			kv.mu.Unlock()
+		}
+
+		time.Sleep(time.Millisecond*100)
+	}
+}
+
 //
 // the tester calls Kill() when a ShardKV instance won't
 // be needed again. you are not required to do anything
@@ -221,16 +465,19 @@ func (kv *ShardKV) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
 func (kv *ShardKV) Kill() {
 	kv.rf.Kill()
 	// Your code here, if desired.
+	close(kv.isKilled)
+	//kv.isKilled <- true
+	kv.isKilledSig = true
 }
 
 func (kv *ShardKV) Apply(){
 	for true{
 		select{
-		//case <- kv.isKilled:
-		//	break
+		case <- kv.isKilled:
+			return
 		case msg := <- kv.applyCh:
 			if msg.CommandValid == true{
-				DPrintf("Apply: %v, me:%v", msg, kv.me)
+				DPrintf("Apply: %v, me:%v, configNum:%v", msg, kv.me, kv.configNum)
 				command := msg.Command.(Op)
 				kv.mu.Lock()
 				DPrintf("kv.latestId[%v]: %v", command.ClientId, kv.latestId[command.ClientId])
@@ -239,24 +486,34 @@ func (kv *ShardKV) Apply(){
 				if kv.exist(command.Id, command.ClientId) == false{
 					switch command.Operation{
 					case "Put":
-						kv.store[command.Key] = command.Value
+						//_,ok := kv.database[kv.configNum]
+						//if ok == false{
+						//	kv.database[kv.configNum] = make(map[string]string)In CheckConfigure:
+						//}
+						kv.database[kv.configNum][command.Key] = command.Value
+						//kv.store[command.Key] = command.Value
 					case "Append":
-						if _,ok := kv.store[command.Key];ok == false{
-							kv.store[command.Key] = command.Value
+						if _,ok := kv.GetLatestDB()[command.Key];ok == false{
+							kv.database[kv.configNum][command.Key] = command.Value
+							//kv.store[command.Key] = command.Value
 						}else{
-							kv.store[command.Key] = kv.store[command.Key] + command.Value
+							kv.database[kv.configNum][command.Key]  =  kv.database[kv.configNum][command.Key] + command.Value
+							//kv.store[command.Key] = kv.store[command.Key] + command.Value
 						}
 					}
 				}
 				ch, ok := kv.commits[msg.CommandIndex]
+				kv.mu.Unlock()
 				_, isLeader := kv.rf.GetState()
 
-				commitMsgCh := kv.commits[msg.CommandIndex]
+				//commitMsgCh := kv.commits[msg.CommandIndex]
 
-				kv.mu.Unlock()
+				DPrintf("After apply, kv.me:%v db:%v", kv.me, kv.database)
+
+				
 				if ok{
 					select{
-					case <- commitMsgCh:
+					case <- ch:
 					default:
 					}
 					ch <- true
@@ -326,12 +583,22 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister,
 	kv.applyCh = make(chan raft.ApplyMsg)
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
 
-	kv.store = make(map[string]string)
+	kv.database = make(map[int]map[string]string)
+	kv.database[0] = make(map[string]string)
 	kv.latestId = make(map[int64]int)
 	kv.commands = make(map[int]Op)
 	kv.commits = make(map[int]chan bool)
+	kv.mck = shardmaster.MakeClerk(masters)
+	kv.configNum = 0
+	kv.configs = shardmaster.Config{}
+	for i:=0;i<shardmaster.NShards;i++{
+		kv.configs.Shards[i] = -1
+	}
+	kv.isKilled = make(chan bool)
+	kv.isKilledSig = false
 
 	go kv.Apply()
+	go kv.CheckConfigure()
 
 
 	return kv

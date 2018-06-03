@@ -49,3 +49,19 @@ type GetReply struct {
 	Err         Err
 	Value       string
 }
+
+
+type GetShardsArgs struct {
+	Gid int
+	ConfigNum int
+	//CommandId int
+	//ClientId int64
+}
+
+
+type GetShardsReply struct {
+	WrongLeader bool
+	Err         Err
+	Store map[string]string
+	//ConfigNum int
+}
