@@ -87,6 +87,7 @@ func (ck *Clerk) Get(key string) string {
 			for si := 0; si < len(servers); si++ {
 				srv := ck.make_end(servers[si])
 				var reply GetReply
+				args.ConfigNum = ck.config.Num
 				ok := srv.Call("ShardKV.Get", &args, &reply)
 				if ok && reply.WrongLeader == false && (reply.Err == OK || reply.Err == ErrNoKey) {
 					return reply.Value
@@ -120,17 +121,25 @@ func (ck *Clerk) PutAppend(key string, value string, op string) {
 	args.CommandId = ck.commandId
 
 	for {
+		DPrintf("Sart a new put")
 		shard := key2shard(key)
 		gid := ck.config.Shards[shard]
 		if servers, ok := ck.config.Groups[gid]; ok {
 			for si := 0; si < len(servers); si++ {
 				srv := ck.make_end(servers[si])
 				var reply PutAppendReply
+				args.ConfigNum = ck.config.Num
+				DPrintf("before put")
 				ok := srv.Call("ShardKV.PutAppend", &args, &reply)
+				DPrintf("after put!")
 				if ok && reply.WrongLeader == false && reply.Err == OK {
 					return
 				}
+				if ok && reply.WrongLeader{
+					continue
+				}
 				if ok && reply.Err == ErrWrongGroup {
+					DPrintf("In client, wrong group")
 					break
 				}
 			}

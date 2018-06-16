@@ -82,3 +82,4 @@ type QueryReply struct {
 	Err         Err
 	Config      Config
 }
+

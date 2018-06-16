@@ -7,6 +7,7 @@ import "sync"
 import "labgob"
 import "time"
 import "log"
+import "sort"
 
 const Debug = 0
 
@@ -26,7 +27,7 @@ type PairList []Pair
 
 func(p PairList) Len() int {return len(p)}
 func(p PairList) Swap(i, j int) {p[i],p[j] = p[j],p[i]}
-func(p PairList) Less(i, j int) bool {return p[i].value < p[j].value}
+func(p PairList) Less(i, j int) bool {return p[i].value > p[j].value}
 
 
 type ShardMaster struct {
@@ -41,6 +42,7 @@ type ShardMaster struct {
 	commands map[int]Op       // operation
 	commits map[int]chan bool
 	configIdx int
+	isKilled chan bool
 }
 
 
@@ -67,6 +69,7 @@ func (sm *ShardMaster) exist(commandId int, serverId int64) bool{
 
 func (sm *ShardMaster) Join(args *JoinArgs, reply *JoinReply) {
 	// Your code here.
+	DPrintf("Start Join")
 	op := Op{Operation:"Join", Servers:args.Servers, CommandId:args.CommandId, ClientId:args.ClientId}
 	index, _, isLeader := sm.rf.Start(op)
 	reply.WrongLeader = !isLeader
@@ -90,14 +93,15 @@ func (sm *ShardMaster) Join(args *JoinArgs, reply *JoinReply) {
 		DPrintf("OK get join")
 		reply.Err = OK
 
-    case <-time.After(time.Millisecond*1000):
+	case <-time.After(time.Millisecond*1000):
+		DPrintf("In join, TimeOut")
     	reply.Err = ErrTimeOut
 	}
-
 }
 
 func (sm *ShardMaster) Leave(args *LeaveArgs, reply *LeaveReply) {
 	// Your code here.
+	DPrintf("Start Leave")
 	op := Op{Operation:"Leave", GIDs: args.GIDs, CommandId:args.CommandId, ClientId:args.ClientId}
 	index, _, isLeader := sm.rf.Start(op)
 	reply.WrongLeader = !isLeader
@@ -173,8 +177,11 @@ func (sm *ShardMaster) Query(args *QueryArgs, reply *QueryReply) {
     sm.mu.Unlock()
 
 	select{
+	case <- sm.isKilled:
+		return
 	case <-ch:  // uid := <-kv.commitGet:
 		sm.mu.Lock()
+		DPrintf("in query, config:%v", sm.configs)
 		if args.Num == -1 || args.Num >= len(sm.configs){
 			if len(sm.configs) == 0{
 				reply.Err = ErrNoKey
@@ -209,6 +216,9 @@ func (sm *ShardMaster) Query(args *QueryArgs, reply *QueryReply) {
 func (sm *ShardMaster) Kill() {
 	sm.rf.Kill()
 	// Your code here, if desired.
+	DPrintf("Before isKilled")
+	close(sm.isKilled)
+	//sm.isKilled <- true
 }
 
 // needed by shardkv tester
@@ -338,9 +348,20 @@ func (sm * ShardMaster) Balance(){
 	currentConfig := sm.GetCurrentConfigs()
 
 	count := map[int]int{}
-	maxGid := -1
-	maxCount := -1
+	realCount := map[int]int{}
+
+	sortCount := PairList{}
+
+	//maxGid := -1
+	//maxCount := -1
 	storeEmpty := []int{}
+
+	num := len(currentConfig.Groups)
+	if num == 0{
+		return
+	}
+	each := NShards/num
+	left := NShards%num
 
 	for i,gid := range currentConfig.Shards{
 		_,ok := currentConfig.Groups[gid]
@@ -354,10 +375,10 @@ func (sm * ShardMaster) Balance(){
 			}else{
 				count[gid] = 1
 			}
-			if count[gid] > maxCount{
-				maxCount = count[gid]
-				maxGid = gid
-			}
+			//if count[gid] > maxCount{
+			//	maxCount = count[gid]
+			//	maxGid = gid
+			//}
 		}
 	}
 
@@ -368,38 +389,48 @@ func (sm * ShardMaster) Balance(){
 		}
 	}
 
-	num := len(currentConfig.Groups)
-	if num == 0{
-		return
-	}
-	each := NShards/num
-	topnum := NShards/num
-	if NShards%num != 0{
-		topnum++
-	}
 
-	if NShards < num{
-		topnum = 0
+	for gid,c := range count{
+		sortCount = append(sortCount, Pair{key:gid, value:c})
 	}
+	sort.Sort(PairList(sortCount))
+	for idx,p := range sortCount{
+		if idx < left{
+			realCount[p.key] = each+1
+		}else{
+			realCount[p.key] = each
+		}
+	}
+	
+	//topnum := NShards/num
+	//if NShards%num != 0{
+	//	topnum++
+	//}
 
-	if each == 0{
-		each = 1
-	}
-	if topnum == 0{
-		topnum = 1
-	}
+	//if NShards < num{
+	//	topnum = 0
+	//}
+
+	//if each == 0{
+	//	each = 1
+	//}
+	//if topnum == 0{
+	//	topnum = 1
+	//}
 
 	// remove excessed gids
 	for i,v := range count{
-		calnum := 0
-		if maxGid == -1{
-			maxGid = i
-		}
-		if i == maxGid{
-			calnum = topnum
-		}else{
-			calnum = each
-		}
+		//calnum := 0
+		//if maxGid == -1{
+		//	maxGid = i
+		//}
+		//if i == maxGid{
+		//	calnum = topnum
+		//}else{
+		//	calnum = each
+		//}
+
+		calnum := realCount[i]
 
 		if v > calnum{
 			idx := 0
@@ -422,13 +453,13 @@ func (sm * ShardMaster) Balance(){
 			break
 		}
 
-		calnum := 0
+		calnum := realCount[i]
 
-		if i == maxGid{
-			calnum = topnum
-		}else{
-			calnum = each
-		}
+		//if i == maxGid{
+		//	calnum = topnum
+		//}else{
+		//	calnum = each
+		//}
 
 		if v == calnum{
 			continue
@@ -474,8 +505,9 @@ func (sm * ShardMaster) RemoveGids(GIDs *[]int){
 func (sm *ShardMaster) Apply(){
 	for true{
 		select{
-		//case <- kv.isKilled:
-		//	break
+		case <- sm.isKilled:
+			DPrintf("kill all")
+			return
 		case msg := <- sm.applyCh:
 			if msg.CommandValid == true{
 				//DPrintf("Apply: %v, me:%v", msg, sm.me)
@@ -484,17 +516,22 @@ func (sm *ShardMaster) Apply(){
 				//DPrintf("kv.latestId[%v]: %v", command.ClientId, sm.latestId[command.ClientId])
 
 				sm.commands[msg.CommandIndex] = command
+				DPrintf("Get msg:%v", msg)
 				if sm.exist(command.CommandId, command.ClientId) == false{
 					switch command.Operation{
 					case "Join":
+						DPrintf("Get join in Apply")
 						servers := command.Servers
 						sm.NewConfig()
 						sm.CombineServers(&servers)
+						DPrintf("After combine servers")
 
 					case "Leave":
 						GIDs := command.GIDs
+						DPrintf("Before leave removeGids")
 						sm.NewConfig()
 						sm.RemoveGids(&GIDs)
+						DPrintf("After leave removegids")
 
 					case "Move":
 						sm.NewConfig()
@@ -506,26 +543,28 @@ func (sm *ShardMaster) Apply(){
 				ch, ok := sm.commits[msg.CommandIndex]
 				//_, isLeader := sm.rf.GetState()
 
-				commitMsgCh := sm.commits[msg.CommandIndex]
+				//commitMsgCh := sm.commits[msg.CommandIndex]
 
 				sm.mu.Unlock()
 				if ok{
 					select{
-					case <- commitMsgCh:
+					case <- ch:
 					default:
 					}
+					DPrintf("Apply msg:%v", msg)
 					ch <- true
 				}
 				//if isLeader{
 				//	sm.SendSnapshot(msg.CommandIndex)
 				//}
-			}else{
-				sm.mu.Lock()
+			}
+			//else{
+				//sm.mu.Lock()
 				//DPrintf("Receive Snapshot")
 				//sm.readSnapshot(msg.SnapshotData)
-				sm.mu.Unlock()
+				//sm.mu.Unlock()
 				//DPrintf("Command: %v", kv.store)
-			}
+			//}
 
 			}
 			
@@ -559,6 +598,7 @@ func StartServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persister)
 	sm.commands = make(map[int]Op)
 	sm.commits = make(map[int]chan bool)
 	sm.configIdx = 0
+	sm.isKilled = make(chan bool)
 	go sm.Apply()
 
 	return sm

@@ -45,11 +45,15 @@ func TestStaticShards(t *testing.T) {
 		check(t, ck, ka[i], va[i])
 	}
 
+	DPrintf("After Check1")
+
 	// make sure that the data really is sharded by
 	// shutting down one shard and checking that some
 	// Get()s don't succeed.
 	cfg.ShutdownGroup(1)
 	cfg.checklogs() // forbid snapshots
+
+	DPrintf("After check2")
 
 	ch := make(chan bool)
 	for xi := 0; xi < n; xi++ {
@@ -59,6 +63,8 @@ func TestStaticShards(t *testing.T) {
 			check(t, ck1, ka[i], va[i])
 		}(xi)
 	}
+
+	DPrintf("After check3")
 
 	// wait a bit, only about half the Gets should succeed.
 	ndone := 0
@@ -73,15 +79,21 @@ func TestStaticShards(t *testing.T) {
 		}
 	}
 
+	DPrintf("After check4")
+
 	if ndone != 5 {
 		t.Fatalf("expected 5 completions with one shard dead; got %v\n", ndone)
 	}
+
+	DPrintf("ndone:%v", ndone)
 
 	// bring the crashed shard/group back to life.
 	cfg.StartGroup(1)
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 	}
+
+	DPrintf("After check5")
 
 	fmt.Printf("  ... Passed\n")
 }
@@ -176,6 +188,8 @@ func TestSnapshot(t *testing.T) {
 	cfg.join(2)
 	cfg.leave(0)
 
+	DPrintf("Check 1")
+
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 		x := randstring(20)
@@ -186,6 +200,8 @@ func TestSnapshot(t *testing.T) {
 	cfg.leave(1)
 	cfg.join(0)
 
+	DPrintf("Check 2")
+
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 		x := randstring(20)
@@ -195,9 +211,13 @@ func TestSnapshot(t *testing.T) {
 
 	time.Sleep(1 * time.Second)
 
+	DPrintf("Check 3")
+
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 	}
+
+	DPrintf("Check 4")
 
 	time.Sleep(1 * time.Second)
 
@@ -211,9 +231,13 @@ func TestSnapshot(t *testing.T) {
 	cfg.StartGroup(1)
 	cfg.StartGroup(2)
 
+	DPrintf("Check 5")
+
 	for i := 0; i < n; i++ {
 		check(t, ck, ka[i], va[i])
 	}
+
+	DPrintf("Check 6")
 
 	fmt.Printf("  ... Passed\n")
 }

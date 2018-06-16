@@ -108,6 +108,7 @@ type Raft struct {
 	//duration time.Duration //duration for timer
 	applyCh chan ApplyMsg
 	isKilled bool // kill the raft
+	isKilledChan chan bool
 
 	//channel
 	heartbeatCh chan int
@@ -792,6 +793,7 @@ func (rf *Raft) Kill() {
 	rf.mu.Lock()
 	rf.isKilled = true
 	rf.mu.Unlock()
+	close(rf.isKilledChan)
 }
 
 //send request vote to all server
@@ -1119,6 +1121,9 @@ func (rf *Raft) asFollower(){
 func (rf *Raft) applyMsg(){
 	for true{
 		select{
+		case <- rf.isKilledChan:
+			return
+
 		case  <-rf.commitCh:
 			rf.mu.Lock()
 			for i:=rf.lastApplied+1;i<=min(rf.commitIndex, rf.log[0].Index + len(rf.log)-1);i++{
@@ -1212,6 +1217,8 @@ func Make(peers []*labrpc.ClientEnd, me int,
 
 	rf.snapshotCh = make(chan bool)
 
+	rf.isKilledChan = make(chan bool)
+
 	go rf.applyMsg()
 
 	rf.readPersist(persister.ReadRaftState())
@@ -1220,19 +1227,23 @@ func Make(peers []*labrpc.ClientEnd, me int,
 
 	go func (rf * Raft) {
 		for true {
-			//DPrintf("Here?")
-			//<-rf.timer.C
-			rf.mu.Lock()
-			rf_state:=rf.state
-			rf.mu.Unlock()
-			switch rf_state{
-			case Follower:
-				rf.asFollower()
-			case Candidate:
-				rf.asCandidate()
-			case Leader:
-				rf.asLeader()
+			select{
+			case <- rf.isKilledChan:
+				return
+			default:
+				rf.mu.Lock()
+				rf_state:=rf.state
+				rf.mu.Unlock()
+				switch rf_state{
+				case Follower:
+					rf.asFollower()
+				case Candidate:
+					rf.asCandidate()
+				case Leader:
+					rf.asLeader()
+				}
 			}
+			
 		}
 	}(rf)
 

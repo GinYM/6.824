@@ -15,6 +15,7 @@ const (
 	ErrWrongGroup = "ErrWrongGroup"
 	ErrWrongLeader = "ErrWrongLeader"
 	ErrTimeOut = "ErrTimeOut"
+	ErrMigration = "ErrMigration"
 )
 
 type Err string
@@ -30,6 +31,7 @@ type PutAppendArgs struct {
 	// otherwise RPC will break.
 	CommandId int
 	ClientId int64
+	ConfigNum int
 }
 
 type PutAppendReply struct {
@@ -42,6 +44,7 @@ type GetArgs struct {
 	// You'll have to add definitions here.
 	CommandId int
 	ClientId int64
+	ConfigNum int
 }
 
 type GetReply struct {
@@ -54,6 +57,7 @@ type GetReply struct {
 type GetShardsArgs struct {
 	Gid int
 	ConfigNum int
+	Shard int
 	//CommandId int
 	//ClientId int64
 }
@@ -64,4 +68,16 @@ type GetShardsReply struct {
 	Err         Err
 	Store map[string]string
 	//ConfigNum int
+}
+
+type BroadcastArgs struct {
+	Num int // desired config number
+	Gid int
+
+}
+
+type BroadcastReply struct {
+	WrongLeader bool
+	Err         Err
+	//Config      Config
 }

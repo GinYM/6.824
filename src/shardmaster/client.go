@@ -50,9 +50,14 @@ func (ck *Clerk) Query(num int) Config {
 		for _, srv := range ck.servers {
 			var reply QueryReply
 			ok := srv.Call("ShardMaster.Query", args, &reply)
+			if reply.Err == ErrTimeOut{
+				time.Sleep(100 * time.Millisecond)
+				continue
+			}
 			if ok && reply.WrongLeader == false {
 				return reply.Config
 			}
+			
 		}
 		time.Sleep(100 * time.Millisecond)
 	}
