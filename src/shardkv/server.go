@@ -439,6 +439,8 @@ func IsEqualGroups(s1 []string, s2 []string) bool{
 }
 
 func (kv *ShardKV) FetchData(newConfig *shardmaster.Config) bool{
+	DPrintf("In fetch data, kv.me:%v, kv.gid:%v, kv.cacheData:%v", kv.me, kv.gid, kv.cacheData)
+	
 	kv.mu.Lock()
 	curConfig := kv.configs
 	gid := kv.gid
@@ -452,6 +454,8 @@ func (kv *ShardKV) FetchData(newConfig *shardmaster.Config) bool{
 			isFindGid = true
 		}
 	}
+	
+
 	kv.mu.Unlock()
 
 	//if isFindGid == false{
@@ -578,8 +582,9 @@ func (kv *ShardKV) FetchData(newConfig *shardmaster.Config) bool{
 
 func (kv *ShardKV) CheckRecord(newConfig *shardmaster.Config) bool{
 	for gid,_ := range newConfig.Groups{
-		// check here??
-		if kv.record[gid] != newConfig.Num{
+		// check here?? add 1
+		if kv.record[gid] != kv.configNum +1 && kv.record[gid] != kv.configNum + 2{
+		//if kv.record[gid] != newConfig.Num && kv.record[gid]+1 != newConfig.Num{
 			DPrintf("Gid:%v, In checkrecord kv.record:%v, newConfig:%v",kv.gid, kv.record, newConfig)
 			return false
 		}
@@ -597,6 +602,8 @@ func (kv *ShardKV) UpdateDatabase(newConfig *shardmaster.Config)bool{
 	isFindGid := false
 	allConfig := shardmaster.Config{}
 	allConfig.Groups = map[int][]string{}
+	
+	//set to new 
 	allConfig.Num = newConfig.Num
 	for k,v := range newConfig.Groups{
 		allConfig.Groups[k] = v
@@ -604,12 +611,15 @@ func (kv *ShardKV) UpdateDatabase(newConfig *shardmaster.Config)bool{
 			isFindGid = true
 		}
 	}
+	kv.mu.Lock()
+	
 	for k,v := range kv.configs.Groups{
 		allConfig.Groups[k] = v
 		if k == kv.gid{
 			isFindGid = true
 		}
 	}
+	kv.mu.Unlock()
 
 	if isFindGid == true{
 		if kv.CheckRecord(&allConfig) == false{
@@ -669,9 +679,12 @@ func (kv *ShardKV) BroadcastAll(newConfig *shardmaster.Config) bool{
 	isFindFinal := true
 	isFindGid := false
 	allConfigGroups := map[int][]string{}
+	// Pay atterntion!!!! just current Groups
+	kv.mu.Lock()
 	for k,v := range kv.configs.Groups{
 		allConfigGroups[k] = v
 	}
+	kv.mu.Unlock()
 	for k,v  := range newConfig.Groups{
 		allConfigGroups[k] = v
 	}
@@ -769,7 +782,9 @@ func (kv *ShardKV) CheckConfigure(){
 		default:
 			DPrintf("gid:%v, in kv.me:%v, db:%v, currentCOnfig:%v, kv.isMigration:%v", kv.gid, kv.me, kv.database, kv.configs, kv.isMigration)
 			_, isLeader := kv.rf.GetState()
+			DPrintf("After get leader, isLeader:%v, kv.me:%v, kv.gid:%v", isLeader, kv.me, kv.gid)
 			newConfig := kv.mck.Query(-1)
+			DPrintf("After query, kv.gid:%v, kv.me:%v", kv.gid, kv.me)
 			//kv.mu.Lock()
 			//if kv.configs.Num < newConfig.Num{
 			//	kv.isMigration = true
@@ -778,6 +793,7 @@ func (kv *ShardKV) CheckConfigure(){
 			//}
 			//kv.mu.Unlock()
 			if isLeader == false{
+				DPrintf("isLeader is false, kv.gid:%v, kv.me:%v", kv.gid, kv.me)
 				time.Sleep(time.Millisecond*100)
 				continue
 			} 
@@ -791,7 +807,7 @@ func (kv *ShardKV) CheckConfigure(){
 				//kv.isMigration = true
 				kv.mu.Unlock()
 				argConfig := kv.mck.Query(kv.configs.Num+1)
-				DPrintf("kv.me:%v, argConfig:%v", kv.me, argConfig)
+				DPrintf("After query kv.me:%v, argConfig:%v, kv.gid:%v", kv.me, argConfig, kv.gid)
 				
 				ok = kv.FetchData(&argConfig)
 				
@@ -895,6 +911,9 @@ func (kv *ShardKV) HandleMsg(msg raft.ApplyMsg) bool{
 			DPrintf("kv.gid:%v, kv.me:%v, database:%v", kv.gid, kv.me, kv.database)
 			return true
 		}else{
+			if kv.exist(command.Id, command.ClientId){
+				return true
+			}
 			return false
 		}
 	case "Get":

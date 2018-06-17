@@ -9,7 +9,7 @@ import "time"
 import "log"
 import "sort"
 
-const Debug = 0
+const Debug = 1
 
 func DPrintf(format string, a ...interface{}) (n int, err error) {
 	if Debug > 0 {
@@ -547,12 +547,13 @@ func (sm *ShardMaster) Apply(){
 
 				sm.mu.Unlock()
 				if ok{
-					select{
-					case <- ch:
-					default:
-					}
+					//select{
+					//case <- ch:
+					//default:
+					//}
 					DPrintf("Apply msg:%v", msg)
 					ch <- true
+					delete(sm.commits, msg.CommandIndex)
 				}
 				//if isLeader{
 				//	sm.SendSnapshot(msg.CommandIndex)

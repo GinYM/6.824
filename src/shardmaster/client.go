@@ -51,11 +51,15 @@ func (ck *Clerk) Query(num int) Config {
 			var reply QueryReply
 			ok := srv.Call("ShardMaster.Query", args, &reply)
 			if reply.Err == ErrTimeOut{
+				DPrintf("Query timeout")
 				time.Sleep(100 * time.Millisecond)
 				continue
 			}
 			if ok && reply.WrongLeader == false {
+				DPrintf("Here, receive true")
 				return reply.Config
+			}else{
+				DPrintf("After query, ok:%v, reply:%v, ", ok, reply)
 			}
 			
 		}
